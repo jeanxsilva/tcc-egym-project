@@ -1,0 +1,3 @@
+Scaffold-DbContext "server=localhost;port=3306;database=egym_db;user=root;password=;ConvertZeroDateTime=True;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -f -Context EGymDbContext
+
+Scaffold-DbContext "server=localhost;port=3306;database=egym_db;user=root;password=;ConvertZeroDateTime=True;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -Tables <table1, table2> -f -UseDatabaseNames -Context EGymDbContext

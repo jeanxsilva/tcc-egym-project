@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-header d-flex">
+    </div>
+    <div class="card-body" *ngIf="isLoaded">
+        <p-toast></p-toast>
+        <div class="card">
+
+            <p-table #dt [value]="rows" [rows]="paginationInfo.Size" [lazy]="true" [totalRecords]="paginationInfo.TotalElements"
+                [loading]="isLoading" [paginator]="true" [globalFilterFields]="[]" [rowHover]="true" dataKey="id"
+                currentPageReportTemplate="Mostrando {first} de {last} dos {totalRecords} dados gravados"
+                [showCurrentPageReport]="true" (onLazyLoad)="onLazyLoad($event)">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="{{column.PropertyName}}" *ngFor="let column of columns">
+                            {{column.LabelDescription}}<p-sortIcon field="{{column.PropertyName}}"></p-sortIcon>
+                        </th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let column of columns">
+                            <p-columnFilter type="{{convertDataType(column.DataType)}}" field="{{column.PropertyName}}">
+                            </p-columnFilter>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-value>
+                    <tr>
+                        <td *ngFor="let column of columns">{{getContentOfColumn(column, value)}}</td>
+                        <td style="max-width: 150px">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                                (click)="editProduct(value)"></button>
+                        </td>
+                        <td style="max-width: 150px">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                (click)="deleteProduct(value)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
