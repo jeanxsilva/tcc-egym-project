@@ -1,12 +1,14 @@
-<div class="card">
-    <div class="card-header d-flex">
+<div class="card shadow">
+    <div class="card-header border-0">
+        <h3 class="mb-0">Tabela</h3>
     </div>
-    <div class="card-body" *ngIf="isLoaded">
+    <div class="table-responsive card-body p-0" *ngIf="isLoaded">
         <p-toast></p-toast>
         <div class="card">
 
-            <p-table #dt [value]="rows" [rows]="paginationInfo.Size" [lazy]="true" [totalRecords]="paginationInfo.TotalElements"
-                [loading]="isLoading" [paginator]="true" [globalFilterFields]="[]" [rowHover]="true" dataKey="id"
+            <p-table #dt [value]="rows" [rows]="paginationInfo.Size" [lazy]="true"
+                [totalRecords]="paginationInfo.TotalElements" [loading]="isLoading" [paginator]="true"
+                [globalFilterFields]="[]" [rowHover]="true" dataKey="id"
                 currentPageReportTemplate="Mostrando {first} de {last} dos {totalRecords} dados gravados"
                 [showCurrentPageReport]="true" (onLazyLoad)="onLazyLoad($event)">
 

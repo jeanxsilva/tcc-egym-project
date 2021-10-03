@@ -11,7 +11,8 @@ import { RegisterComponent } from 'src/app/pages/authentication/register/registe
   imports: [
     CommonModule,
     RouterModule.forChild(AuthLayoutRoutes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     // NgbModule
   ],
   declarations: [

@@ -1,79 +1,72 @@
-<div class="header bg-gradient-danger py-7 py-lg-8">
-  <div class="container">
-    <div class="header-body text-center mb-7">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-6">
-          <h1 class="text-white">Bem-vindo!</h1>
-          <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+<div class="col-12">
+  <div class="row" style="height:100%">
+    <div class="col-5 bg-secondary">
+      <div class="row align-items-center" style="min-height: 100vh;">
+
+        <div class="col-12 d-flex justify-content-center">
+          <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']">
+            <img src="assets/img/brand/logo-egym.png" width="300" />
+          </a>
+        </div>
+        <!-- Page content -->
+        <div class="col-12 d-flex justify-content-center">
+          <div class="col-8 card bg-secondary border-0">
+            <div class="card-body">
+              <div class="text-center text-muted mb-4">
+                <small>Faça login com suas credenciais</small>
+              </div>
+              <form role="form" [formGroup]="formLogin">
+                <div class="form-group mb-3"
+                  [ngClass]="{'has-danger': formLogin.touched && formLogin.get('username').invalid, 'has-success':formLogin.touched && formLogin.get('username').valid}">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Email" type="email" formControlName="username"
+                      [ngClass]="{'is-invalid': formLogin.touched && formLogin.get('username').invalid, 'is-valid':formLogin.touched && formLogin.get('username').valid}">
+                  </div>
+                </div>
+                <div class="form-group"
+                  [ngClass]="{'has-danger': formLogin.touched && formLogin.get('password').invalid, 'has-success':formLogin.touched && formLogin.get('password').valid}">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Senha" type="password" formControlName="password"
+                      [ngClass]="{'is-invalid': formLogin.touched && formLogin.get('password').invalid, 'is-valid':formLogin.touched && formLogin.get('password').valid}">
+                  </div>
+                </div>
+                <div class="custom-control custom-control-alternative custom-checkbox">
+                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <label class="custom-control-label" for=" customCheckLogin">
+                    <span class="text-muted">Guardar suas credenciais</span>
+                  </label>
+                </div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-primary my-4 btn-block" (click)="authenticate()">Entrar</button>
+                </div>
+              </form>
+
+              <div class="col-12 text-center">
+                <a href="javascript:void(0)" class="text-light"><small>Esqueceu sua senha?</small></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="text-center mb-3 p-2">
+            <span class="alert alert-danger p-2" *ngIf="message">{{message}}</span>
+          </div>
+
         </div>
       </div>
     </div>
-  </div>
-  <div class="separator separator-bottom separator-skew zindex-100">
-    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-    </svg>
-  </div>
-</div>
-<!-- Page content -->
-<div class="container mt--8 pb-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-5 col-md-7">
-      <div class="card bg-secondary shadow border-0">
-        <!-- <div class="card-header bg-transparent pb-5">
-          <div class="text-muted text-center mt-2 mb-3"><small>F</small></div>
-          <div class="btn-wrapper text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
-              <span class="btn-inner--text">Github</span>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div>
-        </div> -->
-        <div class="card-body px-lg-5 py-lg-5">
-          <div class="text-center text-muted mb-4">
-            <small>Faça login com suas credenciais</small>
-          </div>
-          <form role="form">
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                </div>
-                <input class="form-control" placeholder="Email" type="email">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                </div>
-                <input class="form-control" placeholder="Senha" type="password">
-              </div>
-            </div>
-            <div class="custom-control custom-control-alternative custom-checkbox">
-              <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-              <label class="custom-control-label" for=" customCheckLogin">
-                <span class="text-muted">Guardar suas credenciais</span>
-              </label>
-            </div>
-            <div class="text-center">
-              <button type="button" class="btn btn-primary my-4">Entrar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <a href="javascript:void(0)" class="text-light"><small>Esqueceu sua senha?</small></a>
-        </div>
-        <!-- <div class="col-6 text-right">
-          <a href="javascript:void(0)" class="text-light"><small>Create new account</small></a>
-        </div> -->
-      </div>
+    <div class="col-7 bg-image d-flex justify-content-center align-items-center">
+      <div class="col-lg-5 col-md-6">
+        <!-- <h1 class="text-white">Bem-vindo!</h1>
+        <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for
+          free.</p>
+      </div> -->
     </div>
   </div>
 </div>

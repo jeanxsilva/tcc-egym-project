@@ -8,13 +8,14 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace eGYM.Services
+namespace eGYM
 {
-    public class UserProfileService : ServiceBase<UserProfile, UserProfileRepository>
+    public partial class UserProfileService
     {
         private readonly UserRepository userRepository;
         private readonly SecurityHash securityHash;
-        public UserProfileService(UserProfileRepository repository, UserRepository userRepository)
+
+        public UserProfileService(UserProfileRepository repository, UserRepository userRepository): this(repository)
         {
             this.Repository = repository;
             this.userRepository = userRepository;

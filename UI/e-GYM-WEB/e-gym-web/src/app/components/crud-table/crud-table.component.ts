@@ -33,9 +33,10 @@ export class CrudTableComponent implements OnInit {
 
   constructor(private apiService: ApiService) {
     this.paginationInfo.Size = 5;
+    this.paginationInfo.TotalElements = 0;
     this.columns = [];
 
-    this.apiService.GetFromApi(this.entity, "GetDataColumns").subscribe((result: DataColumn[]) => {
+    this.apiService.GetFromAPI(this.entity, "GetDataColumns").subscribe((result: DataColumn[]) => {
       this.columns = result;
       this.getData();
 
@@ -47,7 +48,6 @@ export class CrudTableComponent implements OnInit {
   }
 
   public getData(query?: Query) {
-    console.log(query);
     if (!query) {
       let queryBuilder: QueryBuilder = new QueryBuilder(`list${this.entity}`)
       queryBuilder = this.getColumnsToFetch(queryBuilder);

@@ -33,19 +33,20 @@ namespace eGYM.Controllers
         {
             dynamic returnBag = new ExpandoObject();
             returnBag.HasError = false;
-            //Userprofile userProfile = await this.userProfileService.AuthenticateAsync(userLogin);
+            UserProfile userProfile = await this.userProfileService.AuthenticateAsync(userLogin);
 
-            //if (userProfile != null)
-            //{
-            //    string token = ServiceToken.GenerateToken(userProfile);
+            if (userProfile != null)
+            {
+                string token = ServiceToken.GenerateToken(userProfile);
 
-            //    returnBag.Token = token;
-            //}
-            //else
-            //{
-            //    returnBag.HasError = true;
-            //    returnBag.Message = "As credenciais fornecidas estão incorretas.";
-            //}
+                returnBag.Token = token;
+                returnBag.UserProfile = userProfile;
+            }
+            else
+            {
+                returnBag.HasError = true;
+                returnBag.Message = "As credenciais fornecidas estão incorretas.";
+            }
 
             return returnBag;
         }

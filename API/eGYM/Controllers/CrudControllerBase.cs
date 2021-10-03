@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace eGYM.Controllers
+namespace eGYM
 {
     public abstract class CrudControllerBase<TEntity, TService, TRepository> where TEntity : class, IEntityBase,
         new() where TRepository : IRepositoryBase<TEntity>,
@@ -146,7 +146,7 @@ namespace eGYM.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual List<DataColumn> GetDataColumns()
+        protected virtual List<DataColumn> GetColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
             dataColumns.Add(new DataColumn("", DataTypes.String, ""));
