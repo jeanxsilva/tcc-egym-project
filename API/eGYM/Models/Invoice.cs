@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class Invoice : IEntityBase 
+    public partial class Invoice : IEntityBase
     {
         public Invoice()
         {

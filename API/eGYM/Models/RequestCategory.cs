@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class RequestCategory : IEntityBase 
+    public partial class RequestCategory : IEntityBase
     {
         public RequestCategory()
         {

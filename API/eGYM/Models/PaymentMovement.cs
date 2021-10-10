@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class PaymentMovement : IEntityBase 
+    public partial class PaymentMovement : IEntityBase
     {
         public int Id { get; set; }
         public DateTime RegisterDateTime { get; set; }

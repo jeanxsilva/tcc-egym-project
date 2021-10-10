@@ -25,9 +25,8 @@ namespace eGYM.Core
 
             foreach (byte caracter in encryptedPassword)
             {
-                stringBuilder.Append(caracter.ToString());
+                stringBuilder.Append(caracter.ToString("X2"));
             }
-
             return stringBuilder.ToString();
         }
 
@@ -38,7 +37,8 @@ namespace eGYM.Core
                 throw new NullReferenceException("The password must be setted");
             }
 
-            return password.Equals(this.CryptoPassword(passwordToCompair));
+            string comparable = this.CryptoPassword(passwordToCompair);
+            return password.Equals(comparable);
         }
     }
 }

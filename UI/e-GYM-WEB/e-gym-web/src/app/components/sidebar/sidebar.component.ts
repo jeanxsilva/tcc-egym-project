@@ -1,19 +1,6 @@
+import { ApiService } from './../../services/api-service/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
-}
-export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
-    { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
-    { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
-    { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
-    { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }
-];
 
 @Component({
   selector: 'app-sidebar',
@@ -25,12 +12,54 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-    this.router.events.subscribe((event) => {
-      this.isCollapsed = true;
-   });
+    this.apiService.GetFromAPI("UserLevelAccess", "GetLevelAccess").subscribe((result: any[]) => {
+      this.menuItems = this.mountSidebar(result);
+    });
   }
+
+  mountSidebar(data: any[]) {
+    let menu: MenuItem[] = [];
+
+    data.forEach((item) => {
+      let menuItem: MenuItem = {
+        Description: item.Description,
+        Path: item.Path,
+        Icon: item.IconKey,
+        Children: [],
+        Collapsed: false
+      };
+
+      if (item.HasChild) {
+        let children = data.filter((o) => o.ParentId === item.Id);
+        menuItem.Children = this.mountSidebar(children);
+
+        children.forEach((child) => {
+          data.forEach((itemData, index) => {
+
+            if (itemData.Id === child.Id) {
+              data.splice(index, 1);
+            }
+          })
+        })
+      }
+
+      menu.push(menuItem);
+    });
+
+    return menu;
+  }
+}
+
+export class MenuItem {
+  constructor() {
+  }
+
+  public Description: string;
+  public Icon: string;
+  public Path: string;
+  public Children: MenuItem[] = [];
+  public Collapsed: boolean = false;
 }

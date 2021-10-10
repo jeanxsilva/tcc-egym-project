@@ -21,7 +21,6 @@ namespace eGYM.Models
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CompanyUnit> CompanyUnits { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<Equipmentunit> Equipmentunits { get; set; }
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<ExerciseCategory> ExerciseCategories { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
@@ -91,8 +90,6 @@ namespace eGYM.Models
                 entity.Property(e => e.StudentId).HasColumnType("int(11)");
 
                 entity.Property(e => e.EndDateTime).HasColumnType("datetime");
-
-                entity.Property(e => e.IsTraining).HasColumnType("tinyint(4)");
 
                 entity.Property(e => e.ModalityClassId).HasColumnType("int(11)");
 
@@ -181,7 +178,6 @@ namespace eGYM.Models
                     .WithMany(p => p.CompanyUnits)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.UserContactId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_CompanyUnit_User1");
             });
 
@@ -220,37 +216,6 @@ namespace eGYM.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Employee_User1");
-            });
-
-            modelBuilder.Entity<Equipmentunit>(entity =>
-            {
-                entity.ToTable("equipmentunits");
-
-                entity.HasIndex(e => e.CompanyUnitId, "fk_EquipmentUnits_CompanyUnit1_idx");
-
-                entity.HasIndex(e => e.SupplierUnitId, "fk_EquipmentUnits_CompanyUnit2_idx");
-
-                entity.HasIndex(e => e.LastRevisionId, "fk_EquipmentUnits_Revisions1_idx");
-
-                entity.Property(e => e.Id).HasColumnType("int(11)");
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(45);
-
-                entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
-
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(45);
-
-                entity.Property(e => e.LastRevisionId).HasColumnType("int(11)");
-
-                entity.Property(e => e.RegisterDateTime).HasColumnType("datetime");
-
-                entity.Property(e => e.SupplierCode).HasMaxLength(45);
-
-                entity.Property(e => e.SupplierUnitId).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Exercise>(entity =>
@@ -535,8 +500,6 @@ namespace eGYM.Models
 
                 entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
 
-                entity.Property(e => e.IsValid).HasColumnType("tinyint(4)");
-
                 entity.Property(e => e.PaidByUserId).HasColumnType("int(11)");
 
                 entity.Property(e => e.PaymentDateTime).HasColumnType("datetime");
@@ -600,8 +563,6 @@ namespace eGYM.Models
                 entity.Property(e => e.PaymentReversalStatusId).HasColumnType("int(11)");
 
                 entity.Property(e => e.RegisteredByEmployeeId).HasColumnType("int(11)");
-
-                entity.Property(e => e.IsCurrent).HasColumnType("tinyint(4)");
 
                 entity.Property(e => e.RegisterDateTime).HasColumnType("datetime");
 
@@ -807,10 +768,6 @@ namespace eGYM.Models
 
             modelBuilder.Entity<RegistrationModalityClass>(entity =>
             {
-                entity.HasKey(e => new { e.Id, e.StudentId, e.ModalityClassId })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
-
                 entity.ToTable("registration_modality_class");
 
                 entity.HasIndex(e => e.Id, "Id_UNIQUE")
@@ -818,23 +775,21 @@ namespace eGYM.Models
 
                 entity.HasIndex(e => e.ModalityClassId, "fk_Matricula_has_ModalityClass_ModalityClass1_idx");
 
-                entity.HasIndex(e => e.StudentId, "fk_RegistrationModalityClass_Student1_idx");
+                entity.HasIndex(e => e.StudentRegistrationId, "fk_RegistrationModalityClass_Student1_idx");
 
                 entity.HasIndex(e => e.ModalityPaymentTypeId, "fk_registrationmodalityclass_modalitypaymenttype1_idx");
 
-                entity.Property(e => e.Id)
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.StudentId).HasColumnType("int(11)");
-
-                entity.Property(e => e.ModalityClassId).HasColumnType("int(11)");
+                entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.DueDay).HasColumnType("int(11)");
+
+                entity.Property(e => e.ModalityClassId).HasColumnType("int(11)");
 
                 entity.Property(e => e.ModalityPaymentTypeId).HasColumnType("int(11)");
 
                 entity.Property(e => e.RegisterDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.StudentRegistrationId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.ModalityClass)
                     .WithMany(p => p.RegistrationModalityClasses)
@@ -849,10 +804,10 @@ namespace eGYM.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_registrationmodalityclass_modalitypaymenttype1");
 
-                entity.HasOne(d => d.Student)
+                entity.HasOne(d => d.StudentRegistration)
                     .WithMany(p => p.RegistrationModalityClasses)
                     .HasPrincipalKey(p => p.Id)
-                    .HasForeignKey(d => d.StudentId)
+                    .HasForeignKey(d => d.StudentRegistrationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_RegistrationModalityClass_Student1");
             });
@@ -1005,9 +960,7 @@ namespace eGYM.Models
 
                 entity.Property(e => e.ActualTrainingPlanId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(20);
+                entity.Property(e => e.Code).HasMaxLength(20);
 
                 entity.Property(e => e.RegisterDateTime).HasColumnType("datetime");
 
@@ -1083,7 +1036,6 @@ namespace eGYM.Models
 
                 entity.HasOne(d => d.ReferToChangeModalityClass)
                     .WithMany(p => p.StudentRequests)
-                    .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.ReferToChangeModalityClassId)
                     .HasConstraintName("fk_studentrequests_registrationmodalityclass1");
 
@@ -1141,10 +1093,12 @@ namespace eGYM.Models
 
                 entity.ToTable("training_plan_exercises");
 
+                entity.HasIndex(e => e.Id, "Id_UNIQUE")
+                    .IsUnique();
+
                 entity.HasIndex(e => e.ExerciseId, "fk_Exercise_has_TrainingPlan_Exercise1_idx");
 
-                entity.HasIndex(e => e.TrainingPlanId, "fk_Exercise_has_TrainingPlan_TrainingPlan1_idx")
-                    .IsUnique();
+                entity.HasIndex(e => e.TrainingPlanId, "fk_Exercise_has_TrainingPlan_TrainingPlan1_idx");
 
                 entity.HasIndex(e => e.CombinedExerciseId, "fk_TrainingPlanExercises_Exercise1_idx");
 
@@ -1159,8 +1113,6 @@ namespace eGYM.Models
                 entity.Property(e => e.ExerciseId).HasColumnType("int(11)");
 
                 entity.Property(e => e.CombinedExerciseId).HasColumnType("int(11)");
-
-                entity.Property(e => e.IsCombined).HasColumnType("tinyint(4)");
 
                 entity.Property(e => e.Order).HasColumnType("int(11)");
 
@@ -1182,8 +1134,8 @@ namespace eGYM.Models
                     .HasConstraintName("fk_Exercise_has_TrainingPlan_Exercise1");
 
                 entity.HasOne(d => d.TrainingPlan)
-                    .WithOne(p => p.TrainingPlanExercise)
-                    .HasForeignKey<TrainingPlanExercise>(d => d.TrainingPlanId)
+                    .WithMany(p => p.TrainingPlanExercises)
+                    .HasForeignKey(d => d.TrainingPlanId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Exercise_has_TrainingPlan_TrainingPlan1");
             });
@@ -1199,6 +1151,9 @@ namespace eGYM.Models
                 entity.HasIndex(e => e.Id, "Id_UNIQUE")
                     .IsUnique();
 
+                entity.HasIndex(e => e.RegisterCode, "RegisterCode_UNIQUE")
+                    .IsUnique();
+
                 entity.HasIndex(e => e.CompanyUnitId, "fk_User_CompanyUnit1_idx");
 
                 entity.Property(e => e.Id)
@@ -1207,17 +1162,31 @@ namespace eGYM.Models
 
                 entity.Property(e => e.RegisterCode).HasMaxLength(11);
 
-                entity.Property(e => e.Birthday).HasColumnType("datetime");
+                entity.Property(e => e.AddressCity).HasMaxLength(45);
+
+                entity.Property(e => e.AddressCode)
+                    .IsRequired()
+                    .HasMaxLength(8);
+
+                entity.Property(e => e.AddressNumber).HasColumnType("int(11)");
+
+                entity.Property(e => e.Birthday).HasColumnType("date");
 
                 entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.ContactPhone).HasMaxLength(10);
 
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(45);
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
@@ -1242,6 +1211,10 @@ namespace eGYM.Models
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.RoleCode)
+                    .IsRequired()
+                    .HasMaxLength(45);
             });
 
             modelBuilder.Entity<UserLevelAccess>(entity =>
@@ -1303,7 +1276,7 @@ namespace eGYM.Models
 
                 entity.Property(e => e.Role)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(45);
 
                 entity.Property(e => e.UserLevelId).HasColumnType("int(11)");
 
@@ -1316,28 +1289,22 @@ namespace eGYM.Models
 
             modelBuilder.Entity<UserProfile>(entity =>
             {
-                entity.HasKey(e => new { e.Id, e.UserId, e.UserLevelId, e.UserStateId })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0, 0 });
-
                 entity.ToTable("user_profile");
+
+                entity.HasIndex(e => e.Id, "Id_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Login, "Login_UNIQUE")
+                    .IsUnique();
 
                 entity.HasIndex(e => e.UserId, "fk_UserProfile_User1_idx")
                     .IsUnique();
 
-                entity.HasIndex(e => e.UserLevelId, "fk_UserProfile_UserLevel1_idx")
-                    .IsUnique();
+                entity.HasIndex(e => e.UserLevelId, "fk_UserProfile_UserLevel1_idx");
 
-                entity.HasIndex(e => e.UserStateId, "fk_UserProfile_UserState1_idx")
-                    .IsUnique();
+                entity.HasIndex(e => e.UserStateId, "fk_UserProfile_UserState1_idx");
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
-
-                entity.Property(e => e.UserId).HasColumnType("int(11)");
-
-                entity.Property(e => e.UserLevelId).HasColumnType("int(11)");
-
-                entity.Property(e => e.UserStateId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Login)
                     .IsRequired()
@@ -1347,6 +1314,12 @@ namespace eGYM.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UserLevelId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UserStateId).HasColumnType("int(11)");
+
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.UserProfile)
                     .HasPrincipalKey<User>(p => p.Id)
@@ -1355,14 +1328,14 @@ namespace eGYM.Models
                     .HasConstraintName("fk_UserProfile_User1");
 
                 entity.HasOne(d => d.UserLevel)
-                    .WithOne(p => p.UserProfile)
-                    .HasForeignKey<UserProfile>(d => d.UserLevelId)
+                    .WithMany(p => p.UserProfiles)
+                    .HasForeignKey(d => d.UserLevelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_UserProfile_UserLevel1");
 
                 entity.HasOne(d => d.UserState)
-                    .WithOne(p => p.UserProfile)
-                    .HasForeignKey<UserProfile>(d => d.UserStateId)
+                    .WithMany(p => p.UserProfiles)
+                    .HasForeignKey(d => d.UserStateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_UserProfile_UserState1");
             });

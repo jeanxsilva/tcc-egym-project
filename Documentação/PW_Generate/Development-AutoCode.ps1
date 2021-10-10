@@ -1,11 +1,11 @@
 Set-Location C:\Users\jeanx\Documents\Git\TCC-Projeto\e-GYM\API\eGYM\Models
 $list = Get-ChildItem -Name -File
     
-foreach($file in $list){
+# foreach($file in $list){
  
-    $entityName = $file.replace('.cs','');
-    (Get-Content ./$file).replace('public partial class '+ $entityName, 'public partial class ' + $entityName + ' : IEntityBase') | Set-Content ./$file
-}
+#     $entityName = $file.replace('.cs','');
+#     (Get-Content ./$file).replace('public partial class '+ $entityName, 'public partial class ' + $entityName + ' : IEntityBase') | Set-Content ./$file
+# }
 
 New-Item -Path ../ -Name "(AutoCode)" -ItemType "directory"
 New-Item -Path ../"(AutoCode)" -Name "GeneratedAutoCode.cs" -ItemType "file"
@@ -131,12 +131,13 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         #region GetDataColumns()
         
         [HttpGet]
+        [Authorize(Roles = "$($entityName).R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
             
-            dataColumns = this.GetDataColumns();
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }

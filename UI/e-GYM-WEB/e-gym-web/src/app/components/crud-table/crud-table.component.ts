@@ -29,22 +29,22 @@ export class CrudTableComponent implements OnInit {
   @Output() editEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() insertEvent: EventEmitter<any> = new EventEmitter<any>();
-  @Input() entity: string = "Shift";
+  @Input() entity: string;
+  @Input() title: string = "Tabela";
 
   constructor(private apiService: ApiService) {
     this.paginationInfo.Size = 5;
     this.paginationInfo.TotalElements = 0;
     this.columns = [];
+  }
 
+  ngOnInit(): void {
     this.apiService.GetFromAPI(this.entity, "GetDataColumns").subscribe((result: DataColumn[]) => {
       this.columns = result;
       this.getData();
 
       this.isLoaded = true;
     });
-  }
-
-  ngOnInit(): void {
   }
 
   public getData(query?: Query) {
@@ -61,27 +61,27 @@ export class CrudTableComponent implements OnInit {
       this.rows = result.items;
 
       this.paginationInfo.TotalElements = result.totalCount;
-
-      console.log(this.rows);
     });
   }
 
-  public getColumnsToFetch(queryBuilder: QueryBuilder): QueryBuilder{
+  public getColumnsToFetch(queryBuilder: QueryBuilder): QueryBuilder {
     this.columns.forEach((column) => {
       if (column.PropertyName.includes(".")) {
         let splittedColumn = column.PropertyName.split(".");
+        let entityBuilder = queryBuilder.AddEntity(splittedColumn[0]);
 
         splittedColumn.forEach((element, index) => {
-
-          if (index < splittedColumn.length) {
-            queryBuilder.AddEntity(element);
+          if (index < splittedColumn.length - 1) {
+            if(index != 0){
+              entityBuilder.AddEntity(element);
+            }
 
             return;
           }
 
-          queryBuilder.AddColumn(element);
+          entityBuilder.AddColumn(element);
         });
-        
+
         return;
       }
 
@@ -116,28 +116,20 @@ export class CrudTableComponent implements OnInit {
         }
       });
     }
-    
+
     this.getData(queryBuilder.GetQuery());
   }
 
-  openNew() {
-    console.log("Abriu");
+  insertEntity() {
     this.insertEvent.emit(true);
   }
 
-  editProduct(object: any) {
-    console.log(`Editar ${object}?`);
-    this.editEvent.emit(object);
+  editEntity(entity: any) {
+    this.editEvent.emit(entity);
   }
 
-  deleteProduct(object: any) {
-    console.log(`Deletar ${object}?`);
-    this.deleteEvent.emit(object);
-  }
-
-  saveProduct() {
-    console.log(`Salvo com sucesso`);
-    this.insertEvent.emit(true);
+  deleteEntity(entity: any) {
+    this.deleteEvent.emit(entity);
   }
 
   public onLoadTest(event) {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class User : IEntityBase 
+    public partial class User : IEntityBase
     {
         public User()
         {
@@ -23,12 +23,17 @@ namespace eGYM.Models
 
         public int Id { get; set; }
         public string RegisterCode { get; set; }
-        public string Description { get; set; }
-        public DateTime? Birthday { get; set; }
+        public string Name { get; set; }
+        public DateTime Birthday { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public int? CompanyUnitId { get; set; }
         public bool Genre { get; set; }
+        public string AddressCode { get; set; }
+        public string LastName { get; set; }
+        public string ContactPhone { get; set; }
+        public int? AddressNumber { get; set; }
+        public string AddressCity { get; set; }
 
         public virtual CompanyUnit CompanyUnit { get; set; }
         public virtual StudentRegistration StudentRegistration { get; set; }

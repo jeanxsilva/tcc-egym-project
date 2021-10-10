@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace eGYM
 {
-    public abstract class CrudControllerBase<TEntity, TService, TRepository> where TEntity : class, IEntityBase,
+    public abstract class CrudControllerBase<TEntity, TService, TRepository> : ControllerBase where TEntity : class, IEntityBase,
         new() where TRepository : IRepositoryBase<TEntity>,
         new() where TService : IServiceBase<TEntity, TRepository>
     {

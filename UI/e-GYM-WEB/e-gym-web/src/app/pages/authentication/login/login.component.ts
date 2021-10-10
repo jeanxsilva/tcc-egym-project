@@ -1,6 +1,7 @@
+import { AuthService } from './../../../services/auth-service.ts/auth-service.service';
 import { ApiService } from './../../../services/api-service/api.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,11 +9,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   public formLogin: FormGroup;
   public message: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
     this.formLogin = this.formBuilder.group({
@@ -21,23 +22,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-  }
-
   authenticate() {
     this.message = null;
     console.log(this.formLogin);
 
-    this.apiService.SendToAPI("Authentication","Authenticate", this.formLogin.value).subscribe((result: any)=>{
-      console.log(result);
-      
-      if(result.HasError){
-        this.message = result.Message;
-      }else{
-        //Salvar userprofile;
+    this.authService.AuthenticateUser(this.formLogin.value).subscribe((response: any) => {
+      if (response.isAuthenticated) {
         this.router.navigate(['dashboard']);
+      } else {
+        this.message = response.message;
       }
     });
   }
-
 }

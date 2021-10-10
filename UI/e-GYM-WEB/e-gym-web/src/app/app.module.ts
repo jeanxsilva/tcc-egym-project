@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -11,7 +11,13 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { InMemoryCache } from '@apollo/client/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
-import {HttpLink} from 'apollo-angular/http';
+import { HttpLink } from 'apollo-angular/http';
+import { StudentListComponent } from './pages/student/student-list/student-list.component';
+import { StudentFormComponent } from './pages/student/student-form/student-form.component';
+import { RemoveModalComponent } from './components/remove-modal/remove-modal.component';
+import { AbilityModule } from '@casl/angular';
+import { Ability, PureAbility } from '@casl/ability';
+import { UserPermissionService } from './services/user-permissions-service/user-permission.service';
 
 @NgModule({
   imports: [
@@ -21,12 +27,17 @@ import {HttpLink} from 'apollo-angular/http';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    AbilityModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    StudentListComponent,
+    StudentFormComponent,
+    RemoveModalComponent
   ],
   providers: [
     {
@@ -40,7 +51,11 @@ import {HttpLink} from 'apollo-angular/http';
         };
       },
       deps: [HttpLink],
-    },],
+    },
+    { provide: Ability, useValue: new Ability() },
+    { provide: PureAbility, useExisting: Ability },
+    UserPermissionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

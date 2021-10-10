@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class StudentRequest : IEntityBase 
+    public partial class StudentRequest : IEntityBase
     {
         public int Id { get; set; }
         public DateTime RegisterDateTime { get; set; }

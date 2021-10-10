@@ -15,7 +15,7 @@ namespace eGYM.Services
         public static string GenerateToken(UserProfile userProfile)
         {
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, userProfile.User.Description));
+            claims.Add(new Claim(ClaimTypes.Name, userProfile.User.Name));
 
             foreach (UserLevelRole userLevelRole in userProfile.UserLevel.UserLevelRoles)
             {

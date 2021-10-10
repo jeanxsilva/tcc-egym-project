@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class CompanyUnit : IEntityBase 
+    public partial class CompanyUnit : IEntityBase
     {
         public CompanyUnit()
         {
@@ -22,7 +22,7 @@ namespace eGYM.Models
         public string PostalCode { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int UserContactId { get; set; }
+        public int? UserContactId { get; set; }
 
         public virtual Company Company { get; set; }
         public virtual User UserContact { get; set; }

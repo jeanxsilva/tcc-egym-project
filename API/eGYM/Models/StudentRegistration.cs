@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class StudentRegistration : IEntityBase 
+    public partial class StudentRegistration : IEntityBase
     {
         public StudentRegistration()
         {

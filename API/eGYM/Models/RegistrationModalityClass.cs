@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class RegistrationModalityClass : IEntityBase 
+    public partial class RegistrationModalityClass : IEntityBase
     {
         public RegistrationModalityClass()
         {
@@ -13,7 +13,7 @@ namespace eGYM.Models
         }
 
         public int Id { get; set; }
-        public int StudentId { get; set; }
+        public int StudentRegistrationId { get; set; }
         public int ModalityClassId { get; set; }
         public DateTime RegisterDateTime { get; set; }
         public bool IsValid { get; set; }
@@ -22,7 +22,7 @@ namespace eGYM.Models
 
         public virtual ModalityClass ModalityClass { get; set; }
         public virtual ModalityPaymentType ModalityPaymentType { get; set; }
-        public virtual StudentRegistration Student { get; set; }
+        public virtual StudentRegistration StudentRegistration { get; set; }
         public virtual ICollection<StudentRequest> StudentRequests { get; set; }
     }
 }

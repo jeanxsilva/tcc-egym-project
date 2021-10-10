@@ -13,7 +13,7 @@ namespace eGYM
 {
 
     #region ClassCheckInOutService
-    
+
     public partial class ClassCheckInOutService : ServiceBase<ClassCheckInOut, ClassCheckInOutRepository>
     {
         public ClassCheckInOutService(ClassCheckInOutRepository repository)
@@ -45,9 +45,9 @@ namespace eGYM
     [ApiController]
     public partial class ClassCheckInOutController : CrudControllerBase<ClassCheckInOut, ClassCheckInOutService, ClassCheckInOutRepository>
     {
-    
+
         #region Service
-        
+
         protected override ClassCheckInOutService Service { get; set; }
 
         #endregion
@@ -62,7 +62,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "ClassCheckInOut.R")]
         [Route("List")]
@@ -110,14 +110,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "ClassCheckInOut.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -128,7 +129,7 @@ namespace eGYM
     #endregion
 
     #region CompanyService
-    
+
     public partial class CompanyService : ServiceBase<Company, CompanyRepository>
     {
         public CompanyService(CompanyRepository repository)
@@ -160,9 +161,9 @@ namespace eGYM
     [ApiController]
     public partial class CompanyController : CrudControllerBase<Company, CompanyService, CompanyRepository>
     {
-    
+
         #region Service
-        
+
         protected override CompanyService Service { get; set; }
 
         #endregion
@@ -177,7 +178,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Company.R")]
         [Route("List")]
@@ -225,14 +226,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Company.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -243,7 +245,7 @@ namespace eGYM
     #endregion
 
     #region CompanyUnitService
-    
+
     public partial class CompanyUnitService : ServiceBase<CompanyUnit, CompanyUnitRepository>
     {
         public CompanyUnitService(CompanyUnitRepository repository)
@@ -275,9 +277,9 @@ namespace eGYM
     [ApiController]
     public partial class CompanyUnitController : CrudControllerBase<CompanyUnit, CompanyUnitService, CompanyUnitRepository>
     {
-    
+
         #region Service
-        
+
         protected override CompanyUnitService Service { get; set; }
 
         #endregion
@@ -292,7 +294,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "CompanyUnit.R")]
         [Route("List")]
@@ -340,14 +342,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "CompanyUnit.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -358,7 +361,7 @@ namespace eGYM
     #endregion
 
     #region EmployeeService
-    
+
     public partial class EmployeeService : ServiceBase<Employee, EmployeeRepository>
     {
         public EmployeeService(EmployeeRepository repository)
@@ -390,9 +393,9 @@ namespace eGYM
     [ApiController]
     public partial class EmployeeController : CrudControllerBase<Employee, EmployeeService, EmployeeRepository>
     {
-    
+
         #region Service
-        
+
         protected override EmployeeService Service { get; set; }
 
         #endregion
@@ -407,7 +410,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Employee.R")]
         [Route("List")]
@@ -455,129 +458,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Employee.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
 
-            return dataColumns;
-        }
-
-        #endregion
-    }
-
-    #endregion
-
-    #region EquipmentunitService
-    
-    public partial class EquipmentunitService : ServiceBase<Equipmentunit, EquipmentunitRepository>
-    {
-        public EquipmentunitService(EquipmentunitRepository repository)
-        {
-            this.Repository = repository;
-        }
-    }
-
-    #endregion
-
-    #region EquipmentunitRepository
-
-    public partial class EquipmentunitRepository : RepositoryBase<Equipmentunit>
-    {
-        public EquipmentunitRepository(EGymDbContext dbContext) : base(dbContext)
-        {
-        }
-
-        public EquipmentunitRepository()
-        {
-        }
-    }
-
-    #endregion
-
-    #region EquipmentunitController
-
-    [Route("api/Equipmentunit")]
-    [ApiController]
-    public partial class EquipmentunitController : CrudControllerBase<Equipmentunit, EquipmentunitService, EquipmentunitRepository>
-    {
-    
-        #region Service
-        
-        protected override EquipmentunitService Service { get; set; }
-
-        #endregion
-
-        #region Constructor
-
-        public EquipmentunitController(EquipmentunitService service)
-        {
-            this.Service = service;
-        }
-
-        #endregion
-
-        #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
-        [HttpGet]
-        [Authorize(Roles = "Equipmentunit.R")]
-        [Route("List")]
-        public async Task<dynamic> List()
-        {
-            return await base.List(null);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Equipmentunit.R")]
-        [Route("GetById")]
-        public async Task<dynamic> GetById(int entityId)
-        {
-            return await base.List(entityId);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Equipmentunit.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Equipmentunit entity)
-        {
-            return await base.SaveAsync(entity);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Equipmentunit.D")]
-        [Route("Delete")]
-        public new dynamic Delete(Equipmentunit entity)
-        {
-            return base.Delete(entity);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Equipmentunit.U")]
-        [Route("Edit")]
-        public dynamic Edit(Equipmentunit entity)
-        {
-            return base.UpdateAsync(entity);
-        }
-
-        #endregion
-
-        #region Pre's and Post's routines
-
-        #endregion
-
-        #region GetDataColumns()
-        
-        [HttpGet]
-        [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
-        {
-            List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -588,7 +477,7 @@ namespace eGYM
     #endregion
 
     #region ExerciseService
-    
+
     public partial class ExerciseService : ServiceBase<Exercise, ExerciseRepository>
     {
         public ExerciseService(ExerciseRepository repository)
@@ -620,9 +509,9 @@ namespace eGYM
     [ApiController]
     public partial class ExerciseController : CrudControllerBase<Exercise, ExerciseService, ExerciseRepository>
     {
-    
+
         #region Service
-        
+
         protected override ExerciseService Service { get; set; }
 
         #endregion
@@ -637,7 +526,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Exercise.R")]
         [Route("List")]
@@ -685,14 +574,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Exercise.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -703,7 +593,7 @@ namespace eGYM
     #endregion
 
     #region ExerciseCategoryService
-    
+
     public partial class ExerciseCategoryService : ServiceBase<ExerciseCategory, ExerciseCategoryRepository>
     {
         public ExerciseCategoryService(ExerciseCategoryRepository repository)
@@ -735,9 +625,9 @@ namespace eGYM
     [ApiController]
     public partial class ExerciseCategoryController : CrudControllerBase<ExerciseCategory, ExerciseCategoryService, ExerciseCategoryRepository>
     {
-    
+
         #region Service
-        
+
         protected override ExerciseCategoryService Service { get; set; }
 
         #endregion
@@ -752,7 +642,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "ExerciseCategory.R")]
         [Route("List")]
@@ -800,14 +690,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "ExerciseCategory.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -818,7 +709,7 @@ namespace eGYM
     #endregion
 
     #region InvoiceService
-    
+
     public partial class InvoiceService : ServiceBase<Invoice, InvoiceRepository>
     {
         public InvoiceService(InvoiceRepository repository)
@@ -850,9 +741,9 @@ namespace eGYM
     [ApiController]
     public partial class InvoiceController : CrudControllerBase<Invoice, InvoiceService, InvoiceRepository>
     {
-    
+
         #region Service
-        
+
         protected override InvoiceService Service { get; set; }
 
         #endregion
@@ -867,7 +758,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Invoice.R")]
         [Route("List")]
@@ -915,14 +806,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Invoice.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -933,7 +825,7 @@ namespace eGYM
     #endregion
 
     #region InvoiceDetailService
-    
+
     public partial class InvoiceDetailService : ServiceBase<InvoiceDetail, InvoiceDetailRepository>
     {
         public InvoiceDetailService(InvoiceDetailRepository repository)
@@ -965,9 +857,9 @@ namespace eGYM
     [ApiController]
     public partial class InvoiceDetailController : CrudControllerBase<InvoiceDetail, InvoiceDetailService, InvoiceDetailRepository>
     {
-    
+
         #region Service
-        
+
         protected override InvoiceDetailService Service { get; set; }
 
         #endregion
@@ -982,7 +874,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "InvoiceDetail.R")]
         [Route("List")]
@@ -1030,14 +922,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "InvoiceDetail.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1048,7 +941,7 @@ namespace eGYM
     #endregion
 
     #region InvoiceStatusService
-    
+
     public partial class InvoiceStatusService : ServiceBase<InvoiceStatus, InvoiceStatusRepository>
     {
         public InvoiceStatusService(InvoiceStatusRepository repository)
@@ -1080,9 +973,9 @@ namespace eGYM
     [ApiController]
     public partial class InvoiceStatusController : CrudControllerBase<InvoiceStatus, InvoiceStatusService, InvoiceStatusRepository>
     {
-    
+
         #region Service
-        
+
         protected override InvoiceStatusService Service { get; set; }
 
         #endregion
@@ -1097,7 +990,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "InvoiceStatus.R")]
         [Route("List")]
@@ -1145,14 +1038,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "InvoiceStatus.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1163,7 +1057,7 @@ namespace eGYM
     #endregion
 
     #region LastNewsService
-    
+
     public partial class LastNewsService : ServiceBase<LastNews, LastNewsRepository>
     {
         public LastNewsService(LastNewsRepository repository)
@@ -1195,9 +1089,9 @@ namespace eGYM
     [ApiController]
     public partial class LastNewsController : CrudControllerBase<LastNews, LastNewsService, LastNewsRepository>
     {
-    
+
         #region Service
-        
+
         protected override LastNewsService Service { get; set; }
 
         #endregion
@@ -1212,7 +1106,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "LastNews.R")]
         [Route("List")]
@@ -1260,14 +1154,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "LastNews.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1278,7 +1173,7 @@ namespace eGYM
     #endregion
 
     #region ModalityService
-    
+
     public partial class ModalityService : ServiceBase<Modality, ModalityRepository>
     {
         public ModalityService(ModalityRepository repository)
@@ -1310,9 +1205,9 @@ namespace eGYM
     [ApiController]
     public partial class ModalityController : CrudControllerBase<Modality, ModalityService, ModalityRepository>
     {
-    
+
         #region Service
-        
+
         protected override ModalityService Service { get; set; }
 
         #endregion
@@ -1327,7 +1222,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Modality.R")]
         [Route("List")]
@@ -1375,14 +1270,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Modality.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1393,7 +1289,7 @@ namespace eGYM
     #endregion
 
     #region ModalityClassService
-    
+
     public partial class ModalityClassService : ServiceBase<ModalityClass, ModalityClassRepository>
     {
         public ModalityClassService(ModalityClassRepository repository)
@@ -1425,9 +1321,9 @@ namespace eGYM
     [ApiController]
     public partial class ModalityClassController : CrudControllerBase<ModalityClass, ModalityClassService, ModalityClassRepository>
     {
-    
+
         #region Service
-        
+
         protected override ModalityClassService Service { get; set; }
 
         #endregion
@@ -1442,7 +1338,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "ModalityClass.R")]
         [Route("List")]
@@ -1490,14 +1386,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "ModalityClass.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1508,7 +1405,7 @@ namespace eGYM
     #endregion
 
     #region ModalityPaymentTypeService
-    
+
     public partial class ModalityPaymentTypeService : ServiceBase<ModalityPaymentType, ModalityPaymentTypeRepository>
     {
         public ModalityPaymentTypeService(ModalityPaymentTypeRepository repository)
@@ -1540,9 +1437,9 @@ namespace eGYM
     [ApiController]
     public partial class ModalityPaymentTypeController : CrudControllerBase<ModalityPaymentType, ModalityPaymentTypeService, ModalityPaymentTypeRepository>
     {
-    
+
         #region Service
-        
+
         protected override ModalityPaymentTypeService Service { get; set; }
 
         #endregion
@@ -1557,7 +1454,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "ModalityPaymentType.R")]
         [Route("List")]
@@ -1605,14 +1502,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "ModalityPaymentType.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1623,7 +1521,7 @@ namespace eGYM
     #endregion
 
     #region PaymentService
-    
+
     public partial class PaymentService : ServiceBase<Payment, PaymentRepository>
     {
         public PaymentService(PaymentRepository repository)
@@ -1655,9 +1553,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentController : CrudControllerBase<Payment, PaymentService, PaymentRepository>
     {
-    
+
         #region Service
-        
+
         protected override PaymentService Service { get; set; }
 
         #endregion
@@ -1672,7 +1570,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Payment.R")]
         [Route("List")]
@@ -1720,14 +1618,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Payment.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1738,7 +1637,7 @@ namespace eGYM
     #endregion
 
     #region PaymentMovementService
-    
+
     public partial class PaymentMovementService : ServiceBase<PaymentMovement, PaymentMovementRepository>
     {
         public PaymentMovementService(PaymentMovementRepository repository)
@@ -1770,9 +1669,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentMovementController : CrudControllerBase<PaymentMovement, PaymentMovementService, PaymentMovementRepository>
     {
-    
+
         #region Service
-        
+
         protected override PaymentMovementService Service { get; set; }
 
         #endregion
@@ -1787,7 +1686,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "PaymentMovement.R")]
         [Route("List")]
@@ -1835,14 +1734,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "PaymentMovement.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1853,7 +1753,7 @@ namespace eGYM
     #endregion
 
     #region PaymentReversalService
-    
+
     public partial class PaymentReversalService : ServiceBase<PaymentReversal, PaymentReversalRepository>
     {
         public PaymentReversalService(PaymentReversalRepository repository)
@@ -1885,9 +1785,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentReversalController : CrudControllerBase<PaymentReversal, PaymentReversalService, PaymentReversalRepository>
     {
-    
+
         #region Service
-        
+
         protected override PaymentReversalService Service { get; set; }
 
         #endregion
@@ -1902,7 +1802,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "PaymentReversal.R")]
         [Route("List")]
@@ -1950,14 +1850,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "PaymentReversal.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -1968,7 +1869,7 @@ namespace eGYM
     #endregion
 
     #region PaymentReversalStatusService
-    
+
     public partial class PaymentReversalStatusService : ServiceBase<PaymentReversalStatus, PaymentReversalStatusRepository>
     {
         public PaymentReversalStatusService(PaymentReversalStatusRepository repository)
@@ -2000,9 +1901,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentReversalStatusController : CrudControllerBase<PaymentReversalStatus, PaymentReversalStatusService, PaymentReversalStatusRepository>
     {
-    
+
         #region Service
-        
+
         protected override PaymentReversalStatusService Service { get; set; }
 
         #endregion
@@ -2017,7 +1918,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "PaymentReversalStatus.R")]
         [Route("List")]
@@ -2065,14 +1966,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "PaymentReversalStatus.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2083,7 +1985,7 @@ namespace eGYM
     #endregion
 
     #region PaymentTypeService
-    
+
     public partial class PaymentTypeService : ServiceBase<PaymentType, PaymentTypeRepository>
     {
         public PaymentTypeService(PaymentTypeRepository repository)
@@ -2115,9 +2017,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentTypeController : CrudControllerBase<PaymentType, PaymentTypeService, PaymentTypeRepository>
     {
-    
+
         #region Service
-        
+
         protected override PaymentTypeService Service { get; set; }
 
         #endregion
@@ -2132,7 +2034,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "PaymentType.R")]
         [Route("List")]
@@ -2180,14 +2082,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "PaymentType.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2198,7 +2101,7 @@ namespace eGYM
     #endregion
 
     #region PhysicalAssesmentService
-    
+
     public partial class PhysicalAssesmentService : ServiceBase<PhysicalAssesment, PhysicalAssesmentRepository>
     {
         public PhysicalAssesmentService(PhysicalAssesmentRepository repository)
@@ -2230,9 +2133,9 @@ namespace eGYM
     [ApiController]
     public partial class PhysicalAssesmentController : CrudControllerBase<PhysicalAssesment, PhysicalAssesmentService, PhysicalAssesmentRepository>
     {
-    
+
         #region Service
-        
+
         protected override PhysicalAssesmentService Service { get; set; }
 
         #endregion
@@ -2247,7 +2150,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "PhysicalAssesment.R")]
         [Route("List")]
@@ -2295,14 +2198,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "PhysicalAssesment.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2313,7 +2217,7 @@ namespace eGYM
     #endregion
 
     #region PhysicalAssesmentScheduledService
-    
+
     public partial class PhysicalAssesmentScheduledService : ServiceBase<PhysicalAssesmentScheduled, PhysicalAssesmentScheduledRepository>
     {
         public PhysicalAssesmentScheduledService(PhysicalAssesmentScheduledRepository repository)
@@ -2345,9 +2249,9 @@ namespace eGYM
     [ApiController]
     public partial class PhysicalAssesmentScheduledController : CrudControllerBase<PhysicalAssesmentScheduled, PhysicalAssesmentScheduledService, PhysicalAssesmentScheduledRepository>
     {
-    
+
         #region Service
-        
+
         protected override PhysicalAssesmentScheduledService Service { get; set; }
 
         #endregion
@@ -2362,7 +2266,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "PhysicalAssesmentScheduled.R")]
         [Route("List")]
@@ -2410,14 +2314,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "PhysicalAssesmentScheduled.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2428,7 +2333,7 @@ namespace eGYM
     #endregion
 
     #region RegistrationModalityClassService
-    
+
     public partial class RegistrationModalityClassService : ServiceBase<RegistrationModalityClass, RegistrationModalityClassRepository>
     {
         public RegistrationModalityClassService(RegistrationModalityClassRepository repository)
@@ -2460,9 +2365,9 @@ namespace eGYM
     [ApiController]
     public partial class RegistrationModalityClassController : CrudControllerBase<RegistrationModalityClass, RegistrationModalityClassService, RegistrationModalityClassRepository>
     {
-    
+
         #region Service
-        
+
         protected override RegistrationModalityClassService Service { get; set; }
 
         #endregion
@@ -2477,7 +2382,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "RegistrationModalityClass.R")]
         [Route("List")]
@@ -2525,14 +2430,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "RegistrationModalityClass.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2543,7 +2449,7 @@ namespace eGYM
     #endregion
 
     #region RequestCategoryService
-    
+
     public partial class RequestCategoryService : ServiceBase<RequestCategory, RequestCategoryRepository>
     {
         public RequestCategoryService(RequestCategoryRepository repository)
@@ -2575,9 +2481,9 @@ namespace eGYM
     [ApiController]
     public partial class RequestCategoryController : CrudControllerBase<RequestCategory, RequestCategoryService, RequestCategoryRepository>
     {
-    
+
         #region Service
-        
+
         protected override RequestCategoryService Service { get; set; }
 
         #endregion
@@ -2592,7 +2498,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "RequestCategory.R")]
         [Route("List")]
@@ -2640,14 +2546,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "RequestCategory.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2658,7 +2565,7 @@ namespace eGYM
     #endregion
 
     #region RequestStatusService
-    
+
     public partial class RequestStatusService : ServiceBase<RequestStatus, RequestStatusRepository>
     {
         public RequestStatusService(RequestStatusRepository repository)
@@ -2690,9 +2597,9 @@ namespace eGYM
     [ApiController]
     public partial class RequestStatusController : CrudControllerBase<RequestStatus, RequestStatusService, RequestStatusRepository>
     {
-    
+
         #region Service
-        
+
         protected override RequestStatusService Service { get; set; }
 
         #endregion
@@ -2707,7 +2614,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "RequestStatus.R")]
         [Route("List")]
@@ -2755,14 +2662,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "RequestStatus.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -2773,7 +2681,7 @@ namespace eGYM
     #endregion
 
     #region ShiftService
-    
+
     public partial class ShiftService : ServiceBase<Shift, ShiftRepository>
     {
         public ShiftService(ShiftRepository repository)
@@ -2805,9 +2713,9 @@ namespace eGYM
     [ApiController]
     public partial class ShiftController : CrudControllerBase<Shift, ShiftService, ShiftRepository>
     {
-    
+
         #region Service
-        
+
         protected override ShiftService Service { get; set; }
 
         #endregion
@@ -2822,7 +2730,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "Shift.R")]
         [Route("List")]
@@ -2870,13 +2778,14 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "Shift.R")]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
+
             dataColumns = this.GetColumns();
 
             return dataColumns;
@@ -2888,7 +2797,7 @@ namespace eGYM
     #endregion
 
     #region ShiftBookService
-    
+
     public partial class ShiftBookService : ServiceBase<ShiftBook, ShiftBookRepository>
     {
         public ShiftBookService(ShiftBookRepository repository)
@@ -2920,9 +2829,9 @@ namespace eGYM
     [ApiController]
     public partial class ShiftBookController : CrudControllerBase<ShiftBook, ShiftBookService, ShiftBookRepository>
     {
-    
+
         #region Service
-        
+
         protected override ShiftBookService Service { get; set; }
 
         #endregion
@@ -2937,7 +2846,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "ShiftBook.R")]
         [Route("List")]
@@ -2985,14 +2894,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "ShiftBook.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3003,7 +2913,7 @@ namespace eGYM
     #endregion
 
     #region StudentCaracteristicService
-    
+
     public partial class StudentCaracteristicService : ServiceBase<StudentCaracteristic, StudentCaracteristicRepository>
     {
         public StudentCaracteristicService(StudentCaracteristicRepository repository)
@@ -3035,9 +2945,9 @@ namespace eGYM
     [ApiController]
     public partial class StudentCaracteristicController : CrudControllerBase<StudentCaracteristic, StudentCaracteristicService, StudentCaracteristicRepository>
     {
-    
+
         #region Service
-        
+
         protected override StudentCaracteristicService Service { get; set; }
 
         #endregion
@@ -3052,7 +2962,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "StudentCaracteristic.R")]
         [Route("List")]
@@ -3100,14 +3010,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "StudentCaracteristic.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3118,7 +3029,7 @@ namespace eGYM
     #endregion
 
     #region StudentRegistrationService
-    
+
     public partial class StudentRegistrationService : ServiceBase<StudentRegistration, StudentRegistrationRepository>
     {
         public StudentRegistrationService(StudentRegistrationRepository repository)
@@ -3150,9 +3061,9 @@ namespace eGYM
     [ApiController]
     public partial class StudentRegistrationController : CrudControllerBase<StudentRegistration, StudentRegistrationService, StudentRegistrationRepository>
     {
-    
+
         #region Service
-        
+
         protected override StudentRegistrationService Service { get; set; }
 
         #endregion
@@ -3167,7 +3078,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "StudentRegistration.R")]
         [Route("List")]
@@ -3215,14 +3126,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "StudentRegistration.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3233,7 +3145,7 @@ namespace eGYM
     #endregion
 
     #region StudentRequestService
-    
+
     public partial class StudentRequestService : ServiceBase<StudentRequest, StudentRequestRepository>
     {
         public StudentRequestService(StudentRequestRepository repository)
@@ -3265,9 +3177,9 @@ namespace eGYM
     [ApiController]
     public partial class StudentRequestController : CrudControllerBase<StudentRequest, StudentRequestService, StudentRequestRepository>
     {
-    
+
         #region Service
-        
+
         protected override StudentRequestService Service { get; set; }
 
         #endregion
@@ -3282,7 +3194,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "StudentRequest.R")]
         [Route("List")]
@@ -3330,14 +3242,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "StudentRequest.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3348,7 +3261,7 @@ namespace eGYM
     #endregion
 
     #region TrainingPlanService
-    
+
     public partial class TrainingPlanService : ServiceBase<TrainingPlan, TrainingPlanRepository>
     {
         public TrainingPlanService(TrainingPlanRepository repository)
@@ -3380,9 +3293,9 @@ namespace eGYM
     [ApiController]
     public partial class TrainingPlanController : CrudControllerBase<TrainingPlan, TrainingPlanService, TrainingPlanRepository>
     {
-    
+
         #region Service
-        
+
         protected override TrainingPlanService Service { get; set; }
 
         #endregion
@@ -3397,7 +3310,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "TrainingPlan.R")]
         [Route("List")]
@@ -3445,14 +3358,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "TrainingPlan.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3463,7 +3377,7 @@ namespace eGYM
     #endregion
 
     #region TrainingPlanExerciseService
-    
+
     public partial class TrainingPlanExerciseService : ServiceBase<TrainingPlanExercise, TrainingPlanExerciseRepository>
     {
         public TrainingPlanExerciseService(TrainingPlanExerciseRepository repository)
@@ -3495,9 +3409,9 @@ namespace eGYM
     [ApiController]
     public partial class TrainingPlanExerciseController : CrudControllerBase<TrainingPlanExercise, TrainingPlanExerciseService, TrainingPlanExerciseRepository>
     {
-    
+
         #region Service
-        
+
         protected override TrainingPlanExerciseService Service { get; set; }
 
         #endregion
@@ -3512,7 +3426,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "TrainingPlanExercise.R")]
         [Route("List")]
@@ -3560,14 +3474,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "TrainingPlanExercise.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3578,7 +3493,7 @@ namespace eGYM
     #endregion
 
     #region UserService
-    
+
     public partial class UserService : ServiceBase<User, UserRepository>
     {
         public UserService(UserRepository repository)
@@ -3610,9 +3525,9 @@ namespace eGYM
     [ApiController]
     public partial class UserController : CrudControllerBase<User, UserService, UserRepository>
     {
-    
+
         #region Service
-        
+
         protected override UserService Service { get; set; }
 
         #endregion
@@ -3627,7 +3542,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "User.R")]
         [Route("List")]
@@ -3675,14 +3590,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "User.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3693,7 +3609,7 @@ namespace eGYM
     #endregion
 
     #region UserLevelService
-    
+
     public partial class UserLevelService : ServiceBase<UserLevel, UserLevelRepository>
     {
         public UserLevelService(UserLevelRepository repository)
@@ -3725,9 +3641,9 @@ namespace eGYM
     [ApiController]
     public partial class UserLevelController : CrudControllerBase<UserLevel, UserLevelService, UserLevelRepository>
     {
-    
+
         #region Service
-        
+
         protected override UserLevelService Service { get; set; }
 
         #endregion
@@ -3742,7 +3658,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "UserLevel.R")]
         [Route("List")]
@@ -3790,14 +3706,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "UserLevel.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3808,7 +3725,7 @@ namespace eGYM
     #endregion
 
     #region UserLevelAccessService
-    
+
     public partial class UserLevelAccessService : ServiceBase<UserLevelAccess, UserLevelAccessRepository>
     {
         public UserLevelAccessService(UserLevelAccessRepository repository)
@@ -3840,9 +3757,9 @@ namespace eGYM
     [ApiController]
     public partial class UserLevelAccessController : CrudControllerBase<UserLevelAccess, UserLevelAccessService, UserLevelAccessRepository>
     {
-    
+
         #region Service
-        
+
         protected override UserLevelAccessService Service { get; set; }
 
         #endregion
@@ -3857,7 +3774,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "UserLevelAccess.R")]
         [Route("List")]
@@ -3905,14 +3822,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "UserLevelAccess.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -3923,7 +3841,7 @@ namespace eGYM
     #endregion
 
     #region UserLevelRoleService
-    
+
     public partial class UserLevelRoleService : ServiceBase<UserLevelRole, UserLevelRoleRepository>
     {
         public UserLevelRoleService(UserLevelRoleRepository repository)
@@ -3955,9 +3873,9 @@ namespace eGYM
     [ApiController]
     public partial class UserLevelRoleController : CrudControllerBase<UserLevelRole, UserLevelRoleService, UserLevelRoleRepository>
     {
-    
+
         #region Service
-        
+
         protected override UserLevelRoleService Service { get; set; }
 
         #endregion
@@ -3972,7 +3890,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "UserLevelRole.R")]
         [Route("List")]
@@ -4020,14 +3938,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "UserLevelRole.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -4038,7 +3957,7 @@ namespace eGYM
     #endregion
 
     #region UserProfileService
-    
+
     public partial class UserProfileService : ServiceBase<UserProfile, UserProfileRepository>
     {
         public UserProfileService(UserProfileRepository repository)
@@ -4070,9 +3989,9 @@ namespace eGYM
     [ApiController]
     public partial class UserProfileController : CrudControllerBase<UserProfile, UserProfileService, UserProfileRepository>
     {
-    
+
         #region Service
-        
+
         protected override UserProfileService Service { get; set; }
 
         #endregion
@@ -4087,7 +4006,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "UserProfile.R")]
         [Route("List")]
@@ -4135,14 +4054,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "UserProfile.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -4153,7 +4073,7 @@ namespace eGYM
     #endregion
 
     #region UserStateService
-    
+
     public partial class UserStateService : ServiceBase<UserState, UserStateRepository>
     {
         public UserStateService(UserStateRepository repository)
@@ -4185,9 +4105,9 @@ namespace eGYM
     [ApiController]
     public partial class UserStateController : CrudControllerBase<UserState, UserStateService, UserStateRepository>
     {
-    
+
         #region Service
-        
+
         protected override UserStateService Service { get; set; }
 
         #endregion
@@ -4202,7 +4122,7 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-            
+
         [HttpGet]
         [Authorize(Roles = "UserState.R")]
         [Route("List")]
@@ -4250,14 +4170,15 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-        
+
         [HttpGet]
+        [Authorize(Roles = "UserState.R")]
         [Route("GetDataColumns")]
-        public List<DataColumn> GetDataColumns()
+        public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            
-            dataColumns = this.GetDataColumns();
+
+            dataColumns = this.GetColumns();
 
             return dataColumns;
         }
@@ -4266,4 +4187,4 @@ namespace eGYM
     }
 
     #endregion
-}
+}  

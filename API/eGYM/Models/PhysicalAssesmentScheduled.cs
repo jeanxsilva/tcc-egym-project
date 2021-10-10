@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class PhysicalAssesmentScheduled : IEntityBase 
+    public partial class PhysicalAssesmentScheduled : IEntityBase
     {
         public PhysicalAssesmentScheduled()
         {

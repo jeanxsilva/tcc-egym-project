@@ -26,6 +26,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AbilityModule } from '@casl/angular';
 
 
 @NgModule({
@@ -51,12 +53,14 @@ import { MessageService } from 'primeng/api';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    AbilityModule
   ], 
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     CrudTableComponent,
+    UserProfileComponent,
   ],
   exports: [
     FooterComponent,

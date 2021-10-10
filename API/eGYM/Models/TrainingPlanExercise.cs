@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class TrainingPlanExercise : IEntityBase 
+    public partial class TrainingPlanExercise : IEntityBase
     {
         public int Id { get; set; }
         public int TrainingPlanId { get; set; }

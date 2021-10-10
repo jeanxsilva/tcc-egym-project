@@ -15,11 +15,11 @@ namespace eGYM
         private readonly UserRepository userRepository;
         private readonly SecurityHash securityHash;
 
-        public UserProfileService(UserProfileRepository repository, UserRepository userRepository): this(repository)
+        public UserProfileService(UserProfileRepository repository, UserRepository userRepository) : this(repository)
         {
             this.Repository = repository;
             this.userRepository = userRepository;
-            this.securityHash = new SecurityHash(SHA512.Create());
+            this.securityHash = new SecurityHash(SHA256.Create());
         }
 
         public async Task<UserProfile> AuthenticateAsync(UserLogin userLogin)
@@ -37,6 +37,25 @@ namespace eGYM
             }
 
             return null;
+        }
+
+        public UserProfile GetUserProfileByEmail(string email)
+        {
+            IQueryable<UserProfile> queryable = this.Repository.GetQuery();
+            UserProfile userProfile = queryable.FirstOrDefault(up => up.Login.Equals(email));
+
+            if (userProfile != null)
+            {
+                return userProfile;
+            }
+
+            return null;
+        }
+
+        public async Task<UserProfile> CreateUserProfileAsync(UserProfile userProfile)
+        {
+            userProfile.PasswordEncrypted = this.securityHash.CryptoPassword(userProfile.Password);
+            return await this.Repository.Create(userProfile);
         }
     }
 }

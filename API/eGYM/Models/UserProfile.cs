@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -9,6 +10,8 @@ namespace eGYM.Models
     {
         public int Id { get; set; }
         public string Login { get; set; }
+        [NotMapped]
+        public string Password { get; set; }
         public string PasswordEncrypted { get; set; }
         public int UserId { get; set; }
         public int UserLevelId { get; set; }

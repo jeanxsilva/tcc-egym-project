@@ -1,6 +1,13 @@
 <div class="card shadow">
     <div class="card-header border-0">
-        <h3 class="mb-0">Tabela</h3>
+        <div class="row align-items-center">
+            <div class="col-6">
+                <h3 class="mb-0">{{title}}</h3>
+            </div>
+            <div class="col-6 text-right">
+                <button class="btn btn-success" *ngIf="'read' | able: 'User'" (click)="insertEntity()">Inserir novo</button>
+            </div>
+        </div>
     </div>
     <div class="table-responsive card-body p-0" *ngIf="isLoaded">
         <p-toast></p-toast>
@@ -9,7 +16,7 @@
             <p-table #dt [value]="rows" [rows]="paginationInfo.Size" [lazy]="true"
                 [totalRecords]="paginationInfo.TotalElements" [loading]="isLoading" [paginator]="true"
                 [globalFilterFields]="[]" [rowHover]="true" dataKey="id"
-                currentPageReportTemplate="Mostrando {first} de {last} dos {totalRecords} dados gravados"
+                currentPageReportTemplate="Mostrando {last} dos {totalRecords} dados gravados"
                 [showCurrentPageReport]="true" (onLazyLoad)="onLazyLoad($event)">
 
                 <ng-template pTemplate="header">
@@ -17,31 +24,29 @@
                         <th pSortableColumn="{{column.PropertyName}}" *ngFor="let column of columns">
                             {{column.LabelDescription}}<p-sortIcon field="{{column.PropertyName}}"></p-sortIcon>
                         </th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
+                        <th *ngIf="'update' | able: entity">Editar</th>
+                        <th *ngIf="'delete' | able: entity">Excluir</th>
                     </tr>
                     <tr>
                         <th *ngFor="let column of columns">
                             <p-columnFilter type="{{convertDataType(column.DataType)}}" field="{{column.PropertyName}}">
                             </p-columnFilter>
                         </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
+                        <th *ngIf="'update' | able: entity"></th>
+                        <th *ngIf="'delete' | able: entity"></th>
                     </tr>
                 </ng-template>
 
                 <ng-template pTemplate="body" let-value>
                     <tr>
                         <td *ngFor="let column of columns">{{getContentOfColumn(column, value)}}</td>
-                        <td style="max-width: 150px">
+                        <td style="max-width: 150px" *ngIf="'update' | able: entity">
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
-                                (click)="editProduct(value)"></button>
+                                (click)="editEntity(value)"></button>
                         </td>
-                        <td style="max-width: 150px">
+                        <td style="max-width: 150px" *ngIf="'delete' | able: entity">
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                (click)="deleteProduct(value)"></button>
+                                (click)="deleteEntity(value)"></button>
                         </td>
                     </tr>
                 </ng-template>

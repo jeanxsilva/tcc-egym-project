@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth-service.ts/auth-service.service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -6,6 +7,7 @@ import { AuthLayoutRoutes } from './auth-layout.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/pages/authentication/login/login.component';
 import { RegisterComponent } from 'src/app/pages/authentication/register/register.component';
+import { UserPermissionService } from 'src/app/services/user-permissions-service/user-permission.service';
 
 @NgModule({
   imports: [
@@ -18,6 +20,10 @@ import { RegisterComponent } from 'src/app/pages/authentication/register/registe
   declarations: [
     LoginComponent,
     RegisterComponent
+  ],
+  providers:[
+    AuthService,
+    UserPermissionService
   ]
 })
 export class AuthLayoutModule { }

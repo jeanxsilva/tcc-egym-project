@@ -37,9 +37,12 @@ namespace eGYM.Controllers
 
             if (userProfile != null)
             {
+                userProfile.PasswordEncrypted = null;
+
                 string token = ServiceToken.GenerateToken(userProfile);
 
                 returnBag.Token = token;
+                returnBag.ExpiresIn = 2;
                 returnBag.UserProfile = userProfile;
             }
             else

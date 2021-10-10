@@ -5,11 +5,12 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class TrainingPlan : IEntityBase 
+    public partial class TrainingPlan : IEntityBase
     {
         public TrainingPlan()
         {
             StudentRegistrations = new HashSet<StudentRegistration>();
+            TrainingPlanExercises = new HashSet<TrainingPlanExercise>();
         }
 
         public int Id { get; set; }
@@ -19,7 +20,7 @@ namespace eGYM.Models
         public string Note { get; set; }
 
         public virtual StudentRegistration SpecificToStudent { get; set; }
-        public virtual TrainingPlanExercise TrainingPlanExercise { get; set; }
         public virtual ICollection<StudentRegistration> StudentRegistrations { get; set; }
+        public virtual ICollection<TrainingPlanExercise> TrainingPlanExercises { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class ModalityPaymentType : IEntityBase 
+    public partial class ModalityPaymentType : IEntityBase
     {
         public ModalityPaymentType()
         {

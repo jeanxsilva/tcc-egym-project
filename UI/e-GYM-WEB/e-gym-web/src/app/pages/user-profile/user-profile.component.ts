@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ability, AbilityBuilder } from '@casl/ability';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,5 +12,4 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

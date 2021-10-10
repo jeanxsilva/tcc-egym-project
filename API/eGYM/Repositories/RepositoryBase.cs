@@ -135,5 +135,10 @@ namespace eGYM.Database.Repositories
         {
             return this.dbContext.Set<TEntity>().AsQueryable<TEntity>();
         }
+
+        public DbSet<TEntity> GetDbSet()
+        {
+            return this.dbContext.Set<TEntity>();
+        }
     }
 }
