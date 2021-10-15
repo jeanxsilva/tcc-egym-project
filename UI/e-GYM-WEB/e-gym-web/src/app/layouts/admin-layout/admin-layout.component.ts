@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth-service.ts/auth-service.service';
+import { UserPermissionService } from 'src/app/services/user-permissions-service/user-permission.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userPermissionService: UserPermissionService) { }
 
   ngOnInit() {
+    this.userPermissionService.getUserPermissions();
   }
 
 }

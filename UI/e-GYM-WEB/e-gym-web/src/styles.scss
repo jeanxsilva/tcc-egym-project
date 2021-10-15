@@ -11,3 +11,37 @@
 .alert{
     padding: 0.5rem;
 }
+
+p-table.alternative .p-datatable .p-datatable-thead > tr > th {
+    background: #cdd1e3 !important;
+    color: #525f7f !important;
+}
+
+p-table.alternative .p-datatable .p-datatable-tbody > tr {
+    background: #d1d8e1;
+    color: #6c757d;
+    transition: box-shadow 0.2s;
+    outline-color: #a6d5fa;
+}
+
+p-table.alternative .p-paginator {
+    background: #cdd1e3 !important;
+    color: #525f7f !important;
+    border: solid #e9ecef;
+    border-width: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+}
+p-table.alternative .p-datatable .p-datatable-tbody > tr > td {
+    border-bottom: 1px solid  #b9c3d3;
+}
+
+p-table.alternative .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background: #92a0b1;
+    border-color: #92a0b1;
+    color: #f7fafc;
+}
+
+.form-control{
+    color: #2b2c2e;
+}

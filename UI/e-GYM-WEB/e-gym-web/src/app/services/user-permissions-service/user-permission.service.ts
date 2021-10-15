@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth-service.ts/auth-service.service';
 import { QueryBuilder } from './../query-builder/query-builder';
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { Injectable } from '@angular/core';
@@ -9,7 +10,7 @@ import { MatchTypeEnum } from '../query-builder/enums';
 })
 export class UserPermissionService {
 
-  constructor(private ability: Ability, private apiService: ApiService) { }
+  constructor(private ability: Ability, private apiService: ApiService, private authService: AuthService) { }
 
   private updateAbility(userProfile: any) {
     const { can, rules } = new AbilityBuilder(Ability);
@@ -43,8 +44,11 @@ export class UserPermissionService {
 
           can(this.getRoleType(splittedRole[1].toLowerCase()), splittedRole[0]);
         });
-        
+
         this.ability.update(rules);
+      }, (err) => {
+        console.error(err);
+        this.authService.RealizeLogOut();
       });
     }
   }
@@ -72,6 +76,11 @@ export class UserPermissionService {
 
   setUserPermissions(userProfile: any) {
     this.updateAbility(userProfile);
+  }
+
+  getUserPermissions() {
+
+    this.updateAbility(this.authService.GetUserLogged());
   }
 
   clearUserPermissions() {

@@ -40,9 +40,9 @@ namespace eGYM.Services
             return await this.Repository.InsertOrUpdate(entities);
         }
 
-        public bool Delete(TEntity entity)
+        public async Task<bool> DeleteAsync(TEntity entity)
         {
-            this.Repository.Remove(entity);
+            await this.Repository.Remove(entity);
             return true;
         }
 

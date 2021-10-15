@@ -16,8 +16,8 @@ namespace eGYM.Services
         Task<TEntity> SaveAsync(TEntity entity);
 
         Task<bool> SaveAsync(List<TEntity> entities);
-
-        bool Delete(TEntity entity);
+        
+        Task<bool> DeleteAsync(TEntity entity);
 
         Task<bool>Delete(List<TEntity> entities);
 

@@ -35,37 +35,50 @@ namespace eGYM
         [ApiExplorerSettings(IgnoreApi = true)]
         public virtual async Task<dynamic> List(int? entityId)
         {
-            this.ReturnBag.HasError = false;
+            try
+            {
+                this.ReturnBag.HasError = false;
 
-            if (entityId != null)
-            {
-                this.ReturnBag.Result = await this.Service.GetByIdAsync((int)entityId);
+                if (entityId != null)
+                {
+                    this.ReturnBag.Result = await this.Service.GetByIdAsync((int)entityId);
+                }
+                else
+                {
+                    this.ReturnBag.Result = this.Service.GetAll();
+                }
             }
-            else
+            catch (Exception exception)
             {
-                this.ReturnBag.Result = this.Service.GetAll();
+                this.ReturnBag.HasError = true;
+                this.ReturnBag.Message = exception.Message;
             }
 
             return this.ReturnBag;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual dynamic Delete(TEntity entity)
+        public virtual async Task<dynamic> DeleteAsync(TEntity entity)
         {
-            this.ReturnBag.HasError = false;
-
-            if (entity != null)
+            try
             {
-                this.PreDeleteRoutine();
+                if (entity != null)
+                {
+                    await this.PreDeleteRoutine(entity);
 
-                this.ReturnBag.Result = this.Service.Delete(entity);
+                    this.ReturnBag.Result = this.Service.DeleteAsync(entity);
 
-                this.PostDeleteRoutine();
+                    await this.PostDeleteRoutine(entity);
+                }
+                else
+                {
+                    throw new Exception("É necessário passar a entidade a ser excluida");
+                }
             }
-            else
+            catch (Exception exception)
             {
                 this.ReturnBag.HasError = true;
-                this.ReturnBag.Message = "É necessário passar a entidade a ser excluida";
+                this.ReturnBag.Message = exception.Message;
             }
 
             return this.ReturnBag;
@@ -74,20 +87,25 @@ namespace eGYM
         [ApiExplorerSettings(IgnoreApi = true)]
         public virtual async Task<dynamic> SaveAsync(TEntity entity)
         {
-            this.ReturnBag.HasError = false;
-
-            if (entity != null)
+            try
             {
-                this.PreSavingRoutine();
+                if (entity != null)
+                {
+                    await this.PreSavingRoutine(entity);
 
-                this.ReturnBag.Result = await this.Service.SaveAsync(entity);
+                    this.ReturnBag.Result = await this.Service.SaveAsync(entity);
 
-                this.PostSavingRoutine();
+                    await this.PostSavingRoutine(entity);
+                }
+                else
+                {
+                    throw new Exception("É necessário passar a entidade a ser inserida");
+                }
             }
-            else
+            catch (Exception exception)
             {
                 this.ReturnBag.HasError = true;
-                this.ReturnBag.Message = "É necessário passar a entidade a ser inserida";
+                this.ReturnBag.Message = exception.Message;
             }
 
             return this.ReturnBag;
@@ -96,52 +114,57 @@ namespace eGYM
         [ApiExplorerSettings(IgnoreApi = true)]
         public virtual async Task<dynamic> UpdateAsync(TEntity entity)
         {
-            this.ReturnBag.HasError = false;
-
-            if (entity != null)
+            try
             {
-                this.PreUpdateRoutine();
+                if (entity != null)
+                {
+                    await this.PreUpdateRoutine(entity);
 
-                this.ReturnBag.Result = await this.Service.SaveAsync(entity);
+                    this.ReturnBag.Result = await this.Service.SaveAsync(entity);
 
-                this.PostUpdateRoutine();
+                    await this.PostUpdateRoutine(entity);
+                }
+                else
+                {
+                    throw new Exception("É necessário passar a entidade a ser atualizada");
+                }
             }
-            else
+            catch (Exception exception)
             {
                 this.ReturnBag.HasError = true;
-                this.ReturnBag.Message = "É necessário passar a entidade a ser atualizada";
+                this.ReturnBag.Message = exception.Message;
             }
 
             return this.ReturnBag;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual void PreSavingRoutine()
+        public virtual async Task PreSavingRoutine(TEntity entity)
         {
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual void PostSavingRoutine()
+        public virtual async Task PostSavingRoutine(TEntity entity)
         {
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual void PreDeleteRoutine()
+        public virtual async Task PreDeleteRoutine(TEntity entity)
         {
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual void PostDeleteRoutine()
+        public virtual async Task PostDeleteRoutine(TEntity entity)
         {
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual void PreUpdateRoutine()
+        public virtual async Task PreUpdateRoutine(TEntity entity)
         {
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual void PostUpdateRoutine()
+        public virtual async Task PostUpdateRoutine(TEntity entity)
         {
         }
 

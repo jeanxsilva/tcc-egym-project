@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth-service.ts/auth-service.service';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
@@ -22,5 +23,4 @@ export class NavbarComponent implements OnInit {
   getTitle(){
     return 'Dashboard';
   }
-
 }

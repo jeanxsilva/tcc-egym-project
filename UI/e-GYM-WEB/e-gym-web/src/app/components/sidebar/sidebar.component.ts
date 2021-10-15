@@ -1,6 +1,7 @@
 import { ApiService } from './../../services/api-service/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth-service.ts/auth-service.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,7 +13,7 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
     this.apiService.GetFromAPI("UserLevelAccess", "GetLevelAccess").subscribe((result: any[]) => {
@@ -50,6 +51,10 @@ export class SidebarComponent implements OnInit {
     });
 
     return menu;
+  }
+
+  logout(){
+    this.authService.RealizeLogOut();
   }
 }
 

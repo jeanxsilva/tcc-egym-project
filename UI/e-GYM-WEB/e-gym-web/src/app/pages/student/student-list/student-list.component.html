@@ -1,7 +1,7 @@
-<ng-template #removeModal>
+<ng-template #removeModal let-modal>
     <div class="modal-header">
         <h5 class="modal-title">Remover aluno</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -9,8 +9,8 @@
         <p>Deseja remover o aluno selecionado?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Confirmar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Confirm')">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close()">Cancelar</button>
     </div>
 </ng-template>
 <div class="container-fluid mt--7">

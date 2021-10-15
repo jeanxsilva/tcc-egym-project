@@ -1,4 +1,4 @@
-import { UserPermissionService } from './services/user-permissions-service/user-permission.service';
+import { AuthService } from './services/auth-service.ts/auth-service.service';
 import { Component } from '@angular/core';
 
 @Component({

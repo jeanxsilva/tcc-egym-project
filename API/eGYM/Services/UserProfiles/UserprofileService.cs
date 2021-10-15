@@ -39,10 +39,10 @@ namespace eGYM
             return null;
         }
 
-        public UserProfile GetUserProfileByEmail(string email)
+        public UserProfile GetUserProfileByUser(User user)
         {
             IQueryable<UserProfile> queryable = this.Repository.GetQuery();
-            UserProfile userProfile = queryable.FirstOrDefault(up => up.Login.Equals(email));
+            UserProfile userProfile = queryable.FirstOrDefault(up => up.User.Id.Equals(user.Id));
 
             if (userProfile != null)
             {
@@ -52,10 +52,12 @@ namespace eGYM
             return null;
         }
 
-        public async Task<UserProfile> CreateUserProfileAsync(UserProfile userProfile)
+        public async Task<UserProfile> SaveUserProfileAsync(UserProfile userProfile)
         {
             userProfile.PasswordEncrypted = this.securityHash.CryptoPassword(userProfile.Password);
-            return await this.Repository.Create(userProfile);
+            UserProfile savedUserProfile = await this.SaveAsync(userProfile);
+
+            return savedUserProfile;
         }
     }
 }

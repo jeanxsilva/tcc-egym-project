@@ -92,7 +92,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(ClassCheckInOut entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -208,7 +208,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Company entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -324,7 +324,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(CompanyUnit entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -440,7 +440,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Employee entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -556,7 +556,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Exercise entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -672,7 +672,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(ExerciseCategory entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -788,7 +788,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Invoice entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -904,7 +904,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(InvoiceDetail entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1020,7 +1020,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(InvoiceStatus entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1136,7 +1136,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(LastNews entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1252,7 +1252,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Modality entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1368,7 +1368,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(ModalityClass entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1484,7 +1484,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(ModalityPaymentType entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1600,7 +1600,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Payment entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1716,7 +1716,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(PaymentMovement entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1832,7 +1832,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(PaymentReversal entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -1948,7 +1948,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(PaymentReversalStatus entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2064,7 +2064,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(PaymentType entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2180,7 +2180,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(PhysicalAssesment entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2296,7 +2296,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(PhysicalAssesmentScheduled entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2412,7 +2412,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(RegistrationModalityClass entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2528,7 +2528,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(RequestCategory entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2644,7 +2644,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(RequestStatus entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2760,7 +2760,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(Shift entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2876,7 +2876,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(ShiftBook entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -2992,7 +2992,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(StudentCaracteristic entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3108,7 +3108,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(StudentRegistration entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3224,7 +3224,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(StudentRequest entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3340,7 +3340,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(TrainingPlan entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3456,7 +3456,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(TrainingPlanExercise entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3572,7 +3572,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(User entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3688,7 +3688,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(UserLevel entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3804,7 +3804,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(UserLevelAccess entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -3920,7 +3920,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(UserLevelRole entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -4036,7 +4036,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(UserProfile entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
@@ -4152,7 +4152,7 @@ namespace eGYM
         [Route("Delete")]
         public new dynamic Delete(UserState entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]

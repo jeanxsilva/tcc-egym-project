@@ -57,7 +57,7 @@ namespace eGYM
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
 
-            services.AddScoped<EGymDbContext>();
+            //services.AddScoped<EGymDbContext>();
 
             services.AddAuthorization();
             var graphql = services.AddGraphQLServer()

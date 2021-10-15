@@ -27,6 +27,7 @@ namespace eGYM.Core
             {
                 stringBuilder.Append(caracter.ToString("X2"));
             }
+
             return stringBuilder.ToString();
         }
 

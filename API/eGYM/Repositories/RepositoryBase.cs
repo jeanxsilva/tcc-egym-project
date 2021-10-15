@@ -85,17 +85,10 @@ namespace eGYM.Database.Repositories
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            var entityToUpdate = await GetById(entity.Id);
+            this.dbContext.Update<TEntity>(entity);
+            await this.dbContext.SaveChangesAsync();
 
-            if (entityToUpdate != null)
-            {
-                TEntity savedEntity = this.dbContext.Set<TEntity>().Update(entity).Entity;
-                await this.dbContext.SaveChangesAsync();
-
-                return savedEntity;
-            }
-
-            return null;
+            return entity;
         }
 
         public async Task<TEntity> InsertOrUpdate(TEntity entity)
@@ -107,7 +100,12 @@ namespace eGYM.Database.Repositories
                     return await this.Create(entity);
                 }
 
-                return await this.Update(entity);
+                TEntity existent = await this.dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == entity.Id);
+
+                if (existent != null)
+                {
+                    return await this.Update(entity);
+                }
             }
 
             return null;
@@ -139,6 +137,10 @@ namespace eGYM.Database.Repositories
         public DbSet<TEntity> GetDbSet()
         {
             return this.dbContext.Set<TEntity>();
+        }
+        public DbContext GetDbContext()
+        {
+            return this.dbContext;
         }
     }
 }

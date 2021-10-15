@@ -99,9 +99,9 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         }
 
         [HttpPost]
-        [Authorize(Roles = "$($entityName).C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert($($entityName) entity)
+        [Authorize(Roles = "$($entityName).C, $($entityName).U")]
+        [Route("Save")]
+        public async Task<dynamic> Save($($entityName) entity)
         {
             return await base.SaveAsync(entity);
         }

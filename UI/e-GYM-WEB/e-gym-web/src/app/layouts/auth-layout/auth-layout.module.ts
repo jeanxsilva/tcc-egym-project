@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/pages/authentication/login/login.component';
 import { RegisterComponent } from 'src/app/pages/authentication/register/register.component';
 import { UserPermissionService } from 'src/app/services/user-permissions-service/user-permission.service';
+import { ApiService } from 'src/app/services/api-service/api.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { UserPermissionService } from 'src/app/services/user-permissions-service
     RegisterComponent
   ],
   providers:[
+    ApiService,
     AuthService,
     UserPermissionService
   ]

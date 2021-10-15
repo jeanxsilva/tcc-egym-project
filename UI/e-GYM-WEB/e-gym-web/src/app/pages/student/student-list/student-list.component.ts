@@ -1,3 +1,4 @@
+import { ApiService } from 'src/app/services/api-service/api.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +10,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class StudentListComponent implements OnInit {
   @ViewChild('removeModal') removeModal: TemplateRef<any>;
-  constructor(private router: Router, private ngbModal: NgbModal) { }
+
+  constructor(private router: Router, private ngbModal: NgbModal, private apiService: ApiService) { }
 
   ngOnInit(): void {
   }
@@ -24,11 +26,20 @@ export class StudentListComponent implements OnInit {
   }
 
   deleteStudent(student) {
-    console.log(this.removeModal)
     let modal = this.ngbModal.open(this.removeModal, { centered: true });
+
     modal.result.then((result) => {
-      console.log(result);
+      if (result && result == "Confirm") {
+        console.log(result);
+
+        this.apiService.SendToAPI("StudentRegistration", "DeleteStudent", student).subscribe((result) => {
+          console.log(result);
+        }, (err) => {
+          console.error(err);
+        });
+      }
+    }, err =>{
+      console.log(err)
     });
   }
-
 }

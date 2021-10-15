@@ -10,7 +10,6 @@ namespace eGYM.Models
         public User()
         {
             CompanyUnits = new HashSet<CompanyUnit>();
-            Employees = new HashSet<Employee>();
             LastNews = new HashSet<LastNews>();
             ModalityClasses = new HashSet<ModalityClass>();
             PaymentPaidByUsers = new HashSet<Payment>();
@@ -36,10 +35,10 @@ namespace eGYM.Models
         public string AddressCity { get; set; }
 
         public virtual CompanyUnit CompanyUnit { get; set; }
+        public virtual Employee Employee { get; set; }
         public virtual StudentRegistration StudentRegistration { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual ICollection<CompanyUnit> CompanyUnits { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<LastNews> LastNews { get; set; }
         public virtual ICollection<ModalityClass> ModalityClasses { get; set; }
         public virtual ICollection<Payment> PaymentPaidByUsers { get; set; }

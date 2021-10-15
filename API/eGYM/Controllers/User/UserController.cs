@@ -10,29 +10,29 @@ namespace eGYM
 {
     public partial class UserController
     {
-        [HttpPost]
-        [Authorize(Roles = "User.C")]
-        [Authorize(Roles = "StudentRegistration.C")]
-        [Route("InsertNewStudent")]
-        public async Task<dynamic> InsertNewStudent(User entity)
-        {
-            try
-            {
-                this.ReturnBag.HasError = false;
-                bool isInserted = await this.Service.InsertNewStudentAsync(entity);
-                
-                if (isInserted)
-                {
-                    this.ReturnBag.Message = "Aluno inserido com sucesso";
-                }
-            }
-            catch (Exception exception)
-            {
-                this.ReturnBag.HasError = true;
-                this.ReturnBag.Message = exception.Message;
-            }
+        //[HttpPost]
+        //[Authorize(Roles = "User.C, User.U")]
+        //[Authorize(Roles = "StudentRegistration.C, StudentRegistration.U")]
+        //[Route("SaveStudent")]
+        //public async Task<dynamic> SaveStudent(User user)
+        //{
+        //    try
+        //    {
+        //        this.ReturnBag.HasError = false;
+        //        bool isUpdated = await this.Service.SaveStudent(user);
 
-            return this.ReturnBag;
-        }
+        //        if (isUpdated)
+        //        {
+        //            this.ReturnBag.Message = "Aluno salvo com sucesso";
+        //        }
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        this.ReturnBag.HasError = true;
+        //        this.ReturnBag.Message = exception.Message;
+        //    }
+
+        //    return this.ReturnBag;
+        //}
     }
 }

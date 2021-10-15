@@ -13,60 +13,78 @@ namespace eGYM
         private readonly UserLevelRepository userLevelRepository;
         private readonly UserStateRepository userStateRepository;
         private readonly UserProfileService userProfileService;
-        private readonly StudentRegistrationRepository studentRegistrationRepository;
+        //private readonly StudentRegistrationService studentRegistrationService;
 
         public UserService(UserRepository repository, UserLevelRepository userLevelRepository,
-            UserStateRepository userStateRepository, UserProfileService userProfileService,
-            StudentRegistrationRepository studentRegistrationRepository) : this(repository)
+            UserStateRepository userStateRepository, UserProfileService userProfileService 
+            ) : this(repository)
         {
             this.Repository = repository;
             this.userLevelRepository = userLevelRepository;
             this.userStateRepository = userStateRepository;
             this.userProfileService = userProfileService;
-            this.studentRegistrationRepository = studentRegistrationRepository;
+            //this.studentRegistrationService = studentRegistrationService;
         }
 
-        public async Task<bool> InsertNewStudentAsync(User user)
-        {
-            DbSet<User> dbSet = this.Repository.GetDbSet();
-            User userExistent = dbSet.FirstOrDefault(u => u.RegisterCode == user.RegisterCode);
+        //public async Task<bool> SaveStudent(User user)
+        //{
+        //    using (var context = this.Repository.GetDbContext())
+        //    {
+        //        using (var dbContextTransaction = context.Database.BeginTransaction())
+        //        {
+        //            User savedUser = await this.Repository.InsertOrUpdate(user);
 
-            if (userExistent == null)
-            {
-                User createdUser = await this.Repository.Create(user);
+        //            if (savedUser != null)
+        //            {
+        //                UserLevel userLevel = await this.userLevelRepository.GetById(2);
+        //                UserState userState = await this.userStateRepository.GetById(1);
 
-                if (createdUser != null)
-                {
-                    UserProfile userProfile = new UserProfile();
-                    StudentRegistration studentRegistration = new StudentRegistration();
+        //                UserProfile userProfile = this.userProfileService.GetUserProfileByUser(savedUser);
+        //                if (userProfile == null)
+        //                {
+        //                    userProfile = new UserProfile();
+        //                }
 
-                    UserLevel userLevel = await this.userLevelRepository.GetById(2);
-                    UserState userState = await this.userStateRepository.GetById(1);
-                    userProfile.Login = user.RegisterCode;
-                    userProfile.Password = user.Birthday.ToString();
-                    userProfile.User = createdUser;
-                    userProfile.UserLevel = userLevel;
-                    userProfile.UserState = userState;
+        //                userProfile.Login = user.RegisterCode;
+        //                userProfile.Password = user.Birthday.ToString();
+        //                userProfile.User = savedUser;
+        //                userProfile.UserLevel = userLevel;
+        //                userProfile.UserState = userState;
 
-                    UserProfile createdUserProfile = await this.userProfileService.CreateUserProfileAsync(userProfile);
+        //                UserProfile savedUserProfile = await this.userProfileService.SaveUserProfileAsync(userProfile);
+        //                if (savedUserProfile == null)
+        //                {
+        //                    dbContextTransaction.Rollback();
+        //                    throw new Exception("Não foi possivel salvar o perfil de usuário.");
+        //                }
 
-                    studentRegistration.User = createdUser;
-                    studentRegistration.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
-                    studentRegistration.Code = DateTime.UtcNow.Year.ToString() + DateTime.UtcNow.Month.ToString() + user.RegisterCode;
+        //                StudentRegistration studentRegistration = this.studentRegistrationService.GetStudentByUser(user);
+        //                if (studentRegistration == null)
+        //                {
+        //                    studentRegistration = new StudentRegistration();
+        //                }
 
-                    StudentRegistration createdStudentRegistration = await this.studentRegistrationRepository.Create(studentRegistration);
-                    if (createdStudentRegistration != null)
-                    {
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                throw new Exception("O CPF informado já esta registrado no sistema");
-            }
+        //                studentRegistration.User = savedUser;
+        //                studentRegistration.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
+        //                studentRegistration.Code = DateTime.UtcNow.Year.ToString() + DateTime.UtcNow.Month.ToString() + user.RegisterCode;
 
-            return false;
-        }
+        //                StudentRegistration savedStudentRegistration = await this.studentRegistrationService.SaveAsync(studentRegistration);
+        //                if (savedStudentRegistration == null)
+        //                {
+        //                    dbContextTransaction.Rollback();
+        //                    throw new Exception("Não foi possivel salvar a matricula do aluno.");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                dbContextTransaction.Rollback();
+        //                throw new Exception("Não foi possivel salvar o aluno.");
+        //            }
+
+        //            dbContextTransaction.Commit();
+        //            return true;
+        //        }
+        //    }
+        //}
     }
 }
