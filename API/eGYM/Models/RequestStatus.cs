@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class RequestStatus : IEntityBase
+    public partial class RequestStatus : IEntityBase 
     {
         public RequestStatus()
         {

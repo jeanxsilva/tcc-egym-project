@@ -151,7 +151,7 @@ export class Query {
 
       complexField.Filters.forEach((filter, index) => {
         if (filter instanceof FilterField) {
-          assembledComplexFields += `${filter.Field}: {${filter.Match}: ${filter.Value}}`;
+          assembledComplexFields += `${filter.Field}: {${filter.Match}: ${typeof filter.Value === "string" ? `"${filter.Value}"` : filter.Value}}`;
         } else if (filter instanceof FilterListField) {
           assembledComplexFields += `${filter.ListField}: { ${filter.Match}: {${filter.FilterField.Field}: {${filter.FilterField.Match}: ${typeof filter.FilterField.Value === "string" ? `"${filter.FilterField.Value}"` : filter.FilterField.Value}}}}`;
         }

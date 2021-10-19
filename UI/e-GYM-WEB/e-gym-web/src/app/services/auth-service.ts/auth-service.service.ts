@@ -26,9 +26,9 @@ export class AuthService {
       }
 
       if (result && !result.HasError) {
+        console.log(result);
         this.setSession(result);
         this.userProfile = result.UserProfile;
-
         // self.userPermissionService.setUserPermissions(this.GetUserLogged());
 
         response.isAuthenticated = true;
@@ -46,10 +46,7 @@ export class AuthService {
       return token;
     }
 
-    if (token) {
-      this.RealizeLogOut();
-    }
-
+    this.RealizeLogOut();
     return null;
   }
 
@@ -66,7 +63,7 @@ export class AuthService {
   public RealizeLogOut() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
-    
+
     this.router.navigate(['login']);
   }
 

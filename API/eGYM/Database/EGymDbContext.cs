@@ -104,7 +104,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.ClassCheckInOuts)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_ClassCheckInOut_Student1");
             });
 
@@ -166,7 +166,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.CompanyUnits)
                     .HasForeignKey(d => d.CompanyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_CompanyUnit_Company1");
 
                 entity.HasOne(d => d.UserContact)
@@ -196,13 +196,13 @@ namespace eGYM.Models
                 entity.HasOne(d => d.Shift)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.ShiftId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Employee_Shift1");
 
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.Employee)
                     .HasForeignKey<Employee>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Employee_User1");
             });
 
@@ -232,7 +232,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.ExerciseCategory)
                     .WithMany(p => p.Exercises)
                     .HasForeignKey(d => d.ExerciseCategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Exercise_ExerciseCategory1");
             });
 
@@ -286,19 +286,19 @@ namespace eGYM.Models
                 entity.HasOne(d => d.CompanyUnit)
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.CompanyUnitId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Invoice_CompanyUnit1");
 
                 entity.HasOne(d => d.InvoiceStatus)
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.InvoiceStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Invoice_InvoiceStatus1");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Invoice_Student1");
             });
 
@@ -323,7 +323,7 @@ namespace eGYM.Models
                     .WithMany(p => p.InvoiceDetails)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.InvoiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_InvoiceDetails_Invoice1");
             });
 
@@ -370,7 +370,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.PublishedByUser)
                     .WithMany(p => p.LastNews)
                     .HasForeignKey(d => d.PublishedByUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_LastNews_user1");
             });
 
@@ -428,7 +428,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.CompanyUnit)
                     .WithMany(p => p.ModalityClasses)
                     .HasForeignKey(d => d.CompanyUnitId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_ModalityClass_CompanyUnit1");
 
                 entity.HasOne(d => d.Instructor)
@@ -439,7 +439,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.Modality)
                     .WithMany(p => p.ModalityClasses)
                     .HasForeignKey(d => d.ModalityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_ModalityClass_Modalities1");
             });
 
@@ -494,32 +494,32 @@ namespace eGYM.Models
                 entity.HasOne(d => d.CompanyUnit)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.CompanyUnitId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Payment_CompanyUnit1");
 
                 entity.HasOne(d => d.Invoice)
                     .WithMany(p => p.Payments)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.InvoiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Payment_Invoice1");
 
                 entity.HasOne(d => d.PaidByUser)
                     .WithMany(p => p.PaymentPaidByUsers)
                     .HasForeignKey(d => d.PaidByUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Payment_User1");
 
                 entity.HasOne(d => d.PaymentType)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.PaymentTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Payment_PaymentType1");
 
                 entity.HasOne(d => d.ReceivedByUser)
                     .WithMany(p => p.PaymentReceivedByUsers)
                     .HasForeignKey(d => d.ReceivedByUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Payment_User2");
             });
 
@@ -547,13 +547,13 @@ namespace eGYM.Models
                 entity.HasOne(d => d.PaymentReversalStatus)
                     .WithMany(p => p.PaymentMovements)
                     .HasForeignKey(d => d.PaymentReversalStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentMovements_PaymentReversalStatus1");
 
                 entity.HasOne(d => d.RegisteredByEmployee)
                     .WithMany(p => p.PaymentMovements)
                     .HasForeignKey(d => d.RegisteredByEmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentMovements_Employee1");
             });
 
@@ -593,32 +593,32 @@ namespace eGYM.Models
                 entity.HasOne(d => d.AuthorizedByUser)
                     .WithMany(p => p.PaymentReversalAuthorizedByUsers)
                     .HasForeignKey(d => d.AuthorizedByUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentReversal_User1");
 
                 entity.HasOne(d => d.CreatedByUser)
                     .WithMany(p => p.PaymentReversalCreatedByUsers)
                     .HasForeignKey(d => d.CreatedByUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentReversal_User2");
 
                 entity.HasOne(d => d.FinishedByUser)
                     .WithMany(p => p.PaymentReversalFinishedByUsers)
                     .HasForeignKey(d => d.FinishedByUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentReversal_User3");
 
                 entity.HasOne(d => d.Payment)
                     .WithMany(p => p.PaymentReversals)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.PaymentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentReversal_Payment1");
 
                 entity.HasOne(d => d.PaymentReversalStatus)
                     .WithMany(p => p.PaymentReversals)
                     .HasForeignKey(d => d.PaymentReversalStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PaymentReversal_PaymentReversalStatus1");
             });
 
@@ -684,26 +684,26 @@ namespace eGYM.Models
                 entity.HasOne(d => d.RegisteredByEmployee)
                     .WithMany(p => p.PhysicalAssesments)
                     .HasForeignKey(d => d.RegisteredByEmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PhysicalAssesment_Employee1");
 
                 entity.HasOne(d => d.ScheduledPhysicalAssesment)
                     .WithMany(p => p.PhysicalAssesments)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.ScheduledPhysicalAssesmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PhysicalAssesment_PhysicalAssesmentScheduled1");
 
                 entity.HasOne(d => d.StudentCaracteristics)
                     .WithMany(p => p.PhysicalAssesments)
                     .HasForeignKey(d => d.StudentCaracteristicsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_physical_assesment_StudentCaracteristics1");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.PhysicalAssesments)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PhysicalAssesment_Student1");
             });
 
@@ -730,10 +730,12 @@ namespace eGYM.Models
 
                 entity.Property(e => e.RegisterDateTime).HasColumnType("datetime");
 
+                entity.Property(e => e.ScheduledToDate).HasColumnType("datetime");
+
                 entity.HasOne(d => d.StudentRegistration)
                     .WithMany(p => p.PhysicalAssesmentScheduleds)
                     .HasForeignKey(d => d.StudentRegistrationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_PhysicalAssesmentScheduled_StudentRegistration1");
             });
 
@@ -748,11 +750,15 @@ namespace eGYM.Models
 
                 entity.HasIndex(e => e.StudentRegistrationId, "fk_RegistrationModalityClass_Student1_idx");
 
+                entity.HasIndex(e => e.InvoiceId, "fk_registration_modality_class_invoice1_idx");
+
                 entity.HasIndex(e => e.ModalityPaymentTypeId, "fk_registrationmodalityclass_modalitypaymenttype1_idx");
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.DueDay).HasColumnType("int(11)");
+
+                entity.Property(e => e.InvoiceId).HasColumnType("int(11)");
 
                 entity.Property(e => e.ModalityClassId).HasColumnType("int(11)");
 
@@ -762,23 +768,29 @@ namespace eGYM.Models
 
                 entity.Property(e => e.StudentRegistrationId).HasColumnType("int(11)");
 
+                entity.HasOne(d => d.Invoice)
+                    .WithMany(p => p.RegistrationModalityClasses)
+                    .HasPrincipalKey(p => p.Id)
+                    .HasForeignKey(d => d.InvoiceId)
+                    .HasConstraintName("fk_registration_modality_class_invoice1");
+
                 entity.HasOne(d => d.ModalityClass)
                     .WithMany(p => p.RegistrationModalityClasses)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.ModalityClassId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Matricula_has_ModalityClass_ModalityClass1");
 
                 entity.HasOne(d => d.ModalityPaymentType)
                     .WithMany(p => p.RegistrationModalityClasses)
                     .HasForeignKey(d => d.ModalityPaymentTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_registrationmodalityclass_modalitypaymenttype1");
 
                 entity.HasOne(d => d.StudentRegistration)
                     .WithMany(p => p.RegistrationModalityClasses)
                     .HasForeignKey(d => d.StudentRegistrationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_RegistrationModalityClass_Student1");
             });
 
@@ -856,7 +868,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ShiftBooks)
                     .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_ShiftMark_Employee1");
             });
 
@@ -900,7 +912,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.StudentRegistration)
                     .WithMany(p => p.StudentCaracteristics)
                     .HasForeignKey(d => d.StudentRegistrationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_StudentCaracteristics_student_registration1");
             });
 
@@ -934,7 +946,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.StudentRegistration)
                     .HasForeignKey<StudentRegistration>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_Student_User1");
             });
 
@@ -1002,19 +1014,19 @@ namespace eGYM.Models
                 entity.HasOne(d => d.RequestCategory)
                     .WithMany(p => p.StudentRequests)
                     .HasForeignKey(d => d.RequestCategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_StudentRequests_RequestCategory2");
 
                 entity.HasOne(d => d.RequestStatus)
                     .WithMany(p => p.StudentRequests)
                     .HasForeignKey(d => d.RequestStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_RequestedPhysicalAssesments_RequestStatus1");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.StudentRequests)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_RequestedPhysicalAssesments_Student1");
             });
 
@@ -1082,19 +1094,18 @@ namespace eGYM.Models
                     .WithMany(p => p.TrainingPlanExerciseCombinedExercises)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.CombinedExerciseId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_TrainingPlanExercises_Exercise1");
 
                 entity.HasOne(d => d.Exercise)
                     .WithMany(p => p.TrainingPlanExerciseExercises)
                     .HasPrincipalKey(p => p.Id)
                     .HasForeignKey(d => d.ExerciseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Exercise_has_TrainingPlan_Exercise1");
 
                 entity.HasOne(d => d.TrainingPlan)
                     .WithMany(p => p.TrainingPlanExercises)
                     .HasForeignKey(d => d.TrainingPlanId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Exercise_has_TrainingPlan_TrainingPlan1");
             });
 
@@ -1212,7 +1223,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.UserLevel)
                     .WithMany(p => p.UserLevelAccesses)
                     .HasForeignKey(d => d.UserLevelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_UserLevelAccess_UserLevel1");
             });
 
@@ -1236,7 +1247,7 @@ namespace eGYM.Models
                 entity.HasOne(d => d.UserLevel)
                     .WithMany(p => p.UserLevelRoles)
                     .HasForeignKey(d => d.UserLevelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_UserLevelRoles_UserLevel1");
             });
 
@@ -1276,19 +1287,19 @@ namespace eGYM.Models
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.UserProfile)
                     .HasForeignKey<UserProfile>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_UserProfile_User1");
 
                 entity.HasOne(d => d.UserLevel)
                     .WithMany(p => p.UserProfiles)
                     .HasForeignKey(d => d.UserLevelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_UserProfile_UserLevel1");
 
                 entity.HasOne(d => d.UserState)
                     .WithMany(p => p.UserProfiles)
                     .HasForeignKey(d => d.UserStateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_UserProfile_UserState1");
             });
 

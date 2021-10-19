@@ -32,10 +32,11 @@ namespace eGYM
             try
             {
                 this.ReturnBag.HasError = false;
-                bool isSaved = await this.Service.SaveStudentUser(studentRegistration);
+                StudentRegistration savedStudent = await this.Service.SaveStudentUser(studentRegistration);
 
-                if (isSaved)
+                if (savedStudent != null)
                 {
+                    this.ReturnBag.Result = savedStudent;
                     this.ReturnBag.Message = "Aluno salvo com sucesso";
                 }
             }

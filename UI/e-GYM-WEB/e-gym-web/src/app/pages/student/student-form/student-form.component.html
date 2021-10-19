@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div *ngIf="isNew">
                                 <hr class="my-4" />
                                 <h6 class="heading-small text-muted mb-4">Classes em aberto</h6>
                                 <div class="row">
@@ -184,8 +184,7 @@
                                                 </tr>
                                             </ng-template>
                                             <ng-template pTemplate="body" let-modalityClass>
-                                                <tr
-                                                    [ngClass]="{'bg-translucent-success text-dark': modalityClass.totalActiveMembers < modalityClass.totalVacancies, 'bg-translucent-danger text-dark': modalityClass.totalActiveMembers >= modalityClass.totalVacancies}">
+                                                <tr>
                                                     <td>{{modalityClass.modality.description}}</td>
                                                     <td>{{modalityClass.modality.price}}</td>
                                                     <td>{{modalityClass.instructor.name}}</td>

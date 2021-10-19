@@ -26,6 +26,7 @@ using System.Reflection;
 using eGYM.GraphQL;
 using HotChocolate.Data.Filters;
 using HotChocolate.Data.Filters.Expressions;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace eGYM
 {
@@ -44,7 +45,11 @@ namespace eGYM
             var serverVersion = new MariaDbServerVersion(new Version(10, 4, 18));
             services.AddDbContext<EGymDbContext>(options => options.UseLazyLoadingProxies().UseMySql(Configuration.GetConnectionString("DefaultConnection"), serverVersion)
                 .EnableSensitiveDataLogging() // <-- These two calls are optional but help
-                .EnableDetailedErrors());
+                .EnableDetailedErrors()
+                .ConfigureWarnings(warning => 
+                    warning.Default(WarningBehavior.Ignore)
+                        .Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)
+                        .Throw(RelationalEventId.BoolWithDefaultWarning)));
 
             services.AddSwaggerGen(c =>
             {

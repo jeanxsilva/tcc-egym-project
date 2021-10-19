@@ -31,6 +31,9 @@ import { AbilityModule } from '@casl/angular';
 import { ApiService } from '../services/api-service/api.service';
 import { AuthService } from '../services/auth-service.ts/auth-service.service';
 import { UserPermissionService } from '../services/user-permissions-service/user-permission.service';
+import { BaseCardComponent } from './base-card/base-card/base-card.component';
+import { FullcalendarComponent } from './calendar/fullcalendar/fullcalendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 @NgModule({
@@ -56,6 +59,7 @@ import { UserPermissionService } from '../services/user-permissions-service/user
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    FullCalendarModule,
     AbilityModule
   ],
   declarations: [
@@ -64,12 +68,17 @@ import { UserPermissionService } from '../services/user-permissions-service/user
     SidebarComponent,
     CrudTableComponent,
     UserProfileComponent,
+    BaseCardComponent,
+    FullcalendarComponent,
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    CrudTableComponent
+    CrudTableComponent,
+    UserProfileComponent,
+    BaseCardComponent,
+    FullcalendarComponent,
   ],
   providers: [
     MessageService,

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class ClassCheckInOut : IEntityBase
+    public partial class ClassCheckInOut : IEntityBase 
     {
         public int Id { get; set; }
         public DateTime StartDateTime { get; set; }

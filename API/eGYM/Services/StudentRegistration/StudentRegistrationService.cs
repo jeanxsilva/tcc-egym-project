@@ -16,13 +16,14 @@ namespace eGYM
         private readonly ModalityClassService modalityClassService;
         private readonly ModalityPaymentTypeService modalityPaymentTypeService;
         private readonly RegistrationModalityClassService registrationModalityClassService;
+        private readonly InvoiceService invoiceService;
 
         public StudentRegistrationService(StudentRegistrationRepository repository, UserLevelRepository userLevelRepository,
             UserStateRepository userStateRepository, UserProfileService userProfileService,
             UserService userService,
             ModalityClassService modalityClassService,
             ModalityPaymentTypeService modalityPaymentTypeService,
-            RegistrationModalityClassService registrationModalityClassService) : this(repository)
+            RegistrationModalityClassService registrationModalityClassService, InvoiceService invoiceService) : this(repository)
         {
             this.Repository = repository;
             this.userLevelRepository = userLevelRepository;
@@ -32,6 +33,7 @@ namespace eGYM
             this.modalityClassService = modalityClassService;
             this.modalityPaymentTypeService = modalityPaymentTypeService;
             this.registrationModalityClassService = registrationModalityClassService;
+            this.invoiceService = invoiceService;
         }
 
         public StudentRegistration GetStudentByUser(User user)
@@ -42,9 +44,11 @@ namespace eGYM
             return student;
         }
 
-        public async Task<bool> SaveStudentUser(StudentRegistration studentRegistration)
+        public async Task<StudentRegistration> SaveStudentUser(StudentRegistration studentRegistration)
         {
             User user = studentRegistration.User;
+            bool isNew = true;
+
             using (var context = this.Repository.GetDbContext())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -74,13 +78,17 @@ namespace eGYM
                             throw new Exception("Não foi possivel salvar o perfil de usuário.");
                         }
 
-                        foreach (RegistrationModalityClass registrationModalityClass in studentRegistration.RegistrationModalityClasses)
+                        List<RegistrationModalityClass> registrationModalityClasses = studentRegistration.RegistrationModalityClasses.ToList();
+                        if (registrationModalityClasses.Count > 0)
                         {
-                            registrationModalityClass.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
-                            registrationModalityClass.StudentRegistration = studentRegistration;
-                            registrationModalityClass.IsValid = false;
-                            registrationModalityClass.ModalityClass = await this.modalityClassService.GetByIdAsync(registrationModalityClass.ModalityClassId);
-                            registrationModalityClass.ModalityPaymentType = await this.modalityPaymentTypeService.GetByIdAsync(registrationModalityClass.ModalityPaymentTypeId);
+                            foreach (RegistrationModalityClass registrationModalityClass in registrationModalityClasses)
+                            {
+                                registrationModalityClass.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
+                                registrationModalityClass.StudentRegistration = studentRegistration;
+                                registrationModalityClass.IsValid = false;
+                                registrationModalityClass.ModalityClass = await this.modalityClassService.GetByIdAsync(registrationModalityClass.ModalityClassId);
+                                registrationModalityClass.ModalityPaymentType = await this.modalityPaymentTypeService.GetByIdAsync(registrationModalityClass.ModalityPaymentTypeId);
+                            }
                         }
 
                         studentRegistration.User = savedUser;
@@ -93,15 +101,25 @@ namespace eGYM
                             dbContextTransaction.Rollback();
                             throw new Exception("Não foi possivel salvar a matricula do aluno.");
                         }
+
+                        if (isNew && registrationModalityClasses.Count > 0)
+                        {
+                            Invoice invoice = await this.invoiceService.GenerateInvoice(registrationModalityClasses, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura do aluno");
+                            if (invoice == null)
+                            {
+                                dbContextTransaction.Rollback();
+                                throw new Exception("Não foi possivel gerar a fatura do aluno.");
+                            }
+                        }
+
+                        dbContextTransaction.Commit();
+                        return savedStudentRegistration;
                     }
                     else
                     {
                         dbContextTransaction.Rollback();
                         throw new Exception("Não foi possivel salvar o aluno.");
                     }
-
-                    dbContextTransaction.Commit();
-                    return true;
                 }
             }
         }

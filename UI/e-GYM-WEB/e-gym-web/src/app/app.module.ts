@@ -38,6 +38,30 @@ import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { PaymentListComponent } from './pages/payment/payment-list/payment-list.component';
+
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+import { InvoiceListComponent } from './pages/invoice/invoice-list/invoice-list.component';
+import { InvoiceDetailsComponent } from './pages/invoice/invoice-details/invoice-details.component';
+import { PaymentScreenComponent } from './pages/payment/payment-screen/payment-screen.component';
+registerLocaleData(localePt);
+import { ChipModule } from 'primeng/chip';
+import { PhysicalAssesmentListComponent } from './pages/physicalAssesment/physical-assesment-list/physical-assesment-list.component';
+import { PhysicalAssesmentScreenComponent } from './pages/physicalAssesment/physical-assesment-screen/physical-assesment-screen.component';
+import { SchedulePhysicalAssesmentComponent } from './pages/physicalAssesment/schedule-physical-assesment/schedule-physical-assesment.component';
+import { PhysicalAssesmentScheduleListComponent } from './pages/physicalAssesment/physical-assesment-schedule-list/physical-assesment-schedule-list.component';
+import { StudentRequestListComponent } from './pages/student-request/student-request-list/student-request-list.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  timeGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   imports: [
@@ -68,7 +92,9 @@ import { ToolbarModule } from 'primeng/toolbar';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
-    AbilityModule
+    AbilityModule,
+    FullCalendarModule,
+    ChipModule
   ],
   declarations: [
     AppComponent,
@@ -76,7 +102,16 @@ import { ToolbarModule } from 'primeng/toolbar';
     AuthLayoutComponent,
     StudentListComponent,
     StudentFormComponent,
-    RemoveModalComponent
+    RemoveModalComponent,
+    PaymentListComponent,
+    InvoiceListComponent,
+    InvoiceDetailsComponent,
+    PaymentScreenComponent,
+    PhysicalAssesmentListComponent,
+    PhysicalAssesmentScreenComponent,
+    SchedulePhysicalAssesmentComponent,
+    PhysicalAssesmentScheduleListComponent,
+    StudentRequestListComponent
   ],
   providers: [
     {

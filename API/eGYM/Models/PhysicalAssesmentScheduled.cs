@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class PhysicalAssesmentScheduled : IEntityBase
+    public partial class PhysicalAssesmentScheduled : IEntityBase 
     {
         public PhysicalAssesmentScheduled()
         {
@@ -18,6 +18,7 @@ namespace eGYM.Models
         public bool WasAnswered { get; set; }
         public bool WasCanceled { get; set; }
         public string Note { get; set; }
+        public DateTime ScheduledToDate { get; set; }
 
         public virtual StudentRegistration StudentRegistration { get; set; }
         public virtual ICollection<PhysicalAssesment> PhysicalAssesments { get; set; }

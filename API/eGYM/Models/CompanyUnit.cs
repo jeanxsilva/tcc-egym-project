@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class CompanyUnit : IEntityBase
+    public partial class CompanyUnit : IEntityBase 
     {
         public CompanyUnit()
         {

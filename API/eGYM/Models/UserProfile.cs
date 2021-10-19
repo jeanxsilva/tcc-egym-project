@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eGYM.Models
 {
-    public partial class UserProfile : IEntityBase
+    public partial class UserProfile : IEntityBase 
     {
         public int Id { get; set; }
         public string Login { get; set; }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class Shift : IEntityBase
+    public partial class Shift : IEntityBase 
     {
         public Shift()
         {

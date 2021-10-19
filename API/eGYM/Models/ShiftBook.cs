@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class ShiftBook : IEntityBase
+    public partial class ShiftBook : IEntityBase 
     {
         public int Id { get; set; }
         public DateTime EntryDateTime { get; set; }

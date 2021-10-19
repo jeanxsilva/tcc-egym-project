@@ -1,0 +1,22 @@
+.table td, .table th{
+ font-size: 1rem;
+ padding-left: 0.5rem;
+ padding-right: 0.5rem;
+ padding: 0.5rem;   
+}
+
+:host ::ng-deep .p-chip.danger-chip {
+    background: var(--danger);
+    color: white;
+  }
+  
+:host ::ng-deep .p-chip.warning-chip {
+    background: var(--warning);
+    color: white;
+  }
+  
+:host ::ng-deep .p-chip.success-chip {
+    background: var(--success);
+    color: white;
+  }
+  

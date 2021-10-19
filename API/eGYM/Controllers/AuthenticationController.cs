@@ -37,12 +37,25 @@ namespace eGYM.Controllers
 
             if (userProfile != null)
             {
-                userProfile.PasswordEncrypted = null;
-
                 string token = ServiceToken.GenerateToken(userProfile);
 
                 returnBag.Token = token;
                 returnBag.ExpiresIn = 2;
+
+                userProfile.PasswordEncrypted = null;
+                userProfile.User.CompanyUnit = new CompanyUnit();
+                userProfile.User.ModalityClasses.Clear();
+                userProfile.User.PaymentPaidByUsers.Clear();
+                userProfile.User.PaymentReceivedByUsers.Clear();
+                userProfile.User.PaymentReversalCreatedByUsers.Clear();
+                userProfile.User.StudentRequests.Clear();
+                userProfile.User.CompanyUnits.Clear();
+                userProfile.User.LastNews.Clear();
+                userProfile.User.StudentRegistration = null;
+                userProfile.UserLevel.UserLevelRoles.Clear();
+                userProfile.UserLevel.UserLevelAccesses.Clear();
+                userProfile.UserState = new UserState();
+
                 returnBag.UserProfile = userProfile;
             }
             else

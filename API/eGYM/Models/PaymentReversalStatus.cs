@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class PaymentReversalStatus : IEntityBase
+    public partial class PaymentReversalStatus : IEntityBase 
     {
         public PaymentReversalStatus()
         {

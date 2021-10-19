@@ -1588,7 +1588,7 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Payment.C")]
+        [Authorize]
         [Route("Insert")]
         public async Task<dynamic> Insert(Payment entity)
         {

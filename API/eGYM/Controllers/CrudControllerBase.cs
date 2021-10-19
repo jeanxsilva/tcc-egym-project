@@ -93,7 +93,12 @@ namespace eGYM
                 {
                     await this.PreSavingRoutine(entity);
 
-                    this.ReturnBag.Result = await this.Service.SaveAsync(entity);
+                    TEntity savedEntity = await this.Service.SaveAsync(entity);
+
+                    if (savedEntity != null)
+                    {
+                        this.ReturnBag.Result = true;
+                    }
 
                     await this.PostSavingRoutine(entity);
                 }

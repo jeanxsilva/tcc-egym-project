@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/services/api-service/api.service';
 import { QueryBuilder } from 'src/app/services/query-builder/query-builder';
 import { MatchTypeEnum } from 'src/app/services/query-builder/enums';
 import { formatDate, Time } from '@angular/common';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
 
@@ -107,9 +107,9 @@ export class StudentFormComponent implements OnInit {
         this.router.navigate(['dashboard']);
       });
   }
-  
- 
-  get registrationModalityClasses() : FormArray {
+
+
+  get registrationModalityClasses(): FormArray {
     return this.formStudent.get('registrationModalityClasses') as FormArray;
   }
 
@@ -129,19 +129,26 @@ export class StudentFormComponent implements OnInit {
         addressCode: this.student.user.addressCode,
         addressNumber: this.student.user.addressNumber,
         addressCity: this.student.user.addressCity
-      }
+      },
     });
   }
-  
+
   public save() {
     let entity = this.formStudent.value;
     console.log(entity)
-    
+
     this.apiService.SendToAPI("StudentRegistration", "SaveStudent", entity).subscribe((result: any) => {
       if (result.HasError == false) {
-        this.router.navigate(['student']);
+        if (this.isNew) {
+          this.router.navigate(['invoice'], {
+            state: {
+              studentName: result.Result.User.Name
+            }
+          });
+        } else {
+          this.router.navigate(['student']);
+        }
       }
-      console.log(result);
     }, (err) => {
       console.error(err);
     });
@@ -150,8 +157,8 @@ export class StudentFormComponent implements OnInit {
   public cancel() {
     this.router.navigate(['student']);
   }
- 
-  public addRegistrationModality(modalityClass){
+
+  public addRegistrationModality(modalityClass) {
     this.registrationModalityClasses.push(
       this.formBuilder.group({
         id: 0,
@@ -159,6 +166,7 @@ export class StudentFormComponent implements OnInit {
         modalityClassId: modalityClass.id,
         isValid: false,
         dueDay: 1,
+        groupEnumerator: 0,
         modalityPaymentTypeId: 1
       })
     );
@@ -166,7 +174,7 @@ export class StudentFormComponent implements OnInit {
     this.registered.push(modalityClass.id);
   }
 
-  public removeRegistrationModality(index: number){
+  public removeRegistrationModality(index: number) {
     this.registered.splice(this.registered.indexOf(this.registrationModalityClasses.at(index).value.modalityClass.id), 1);
     this.registrationModalityClasses.removeAt(index);
   }
@@ -185,8 +193,8 @@ export class StudentFormComponent implements OnInit {
   public searchAddress() {
     let cep = this.formStudent.get('user.addressCode').value;
 
-    this.http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe((result: any)=>{
-      if(result){
+    this.http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe((result: any) => {
+      if (result) {
         this.formStudent.get('user.addressCity').patchValue(result.localidade)
         this.street = result.logradouro;
       }
@@ -199,6 +207,7 @@ export class Student {
   actualTrainingPlanId: number = 0;
   code: string = "";
   user: User = new User();
+  registrationModalityClasses: RegistrationModalityClass[] = []
 }
 
 export class User {
@@ -236,10 +245,11 @@ export class Modality {
   public modality: Modality;
 }
 
-export class RegistrationModalityClass{
+export class RegistrationModalityClass {
   public id: number;
   public studentRegistration: Student;
   public modalityClassId: number;
+  public modalityClass: ModalityClass;
   public registerDateTime: Date;
   public isValid: boolean;
   public dueDay: number;
