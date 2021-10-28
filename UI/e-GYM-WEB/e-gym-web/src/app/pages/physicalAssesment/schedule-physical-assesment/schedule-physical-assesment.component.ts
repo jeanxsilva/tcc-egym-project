@@ -32,7 +32,7 @@ export class SchedulePhysicalAssesmentComponent implements OnInit {
       registerDateTime: [new Date()],
       wasAnswered: [false],
       wasCanceled: [false],
-      scheduledToDate: [new Date()],
+      scheduledToDate: [null, Validators.required],
       note: ['']
     });
   }
@@ -59,7 +59,7 @@ export class SchedulePhysicalAssesmentComponent implements OnInit {
       registerDateTime: new Date(),
       wasAnswered: false,
       wasCanceled: false,
-      scheduledToDate: new Date(),
+      scheduledToDate: null,
       note: ''
     });
   }
@@ -68,6 +68,7 @@ export class SchedulePhysicalAssesmentComponent implements OnInit {
     if (this.dateAdded && clickInfo.event.id === this.dateAdded.id) {
       clickInfo.event.remove();
       this.dateAdded = null;
+      this.formSchedule.get('scheduledToDate').patchValue(null);
     }
   }
 
@@ -86,6 +87,12 @@ export class SchedulePhysicalAssesmentComponent implements OnInit {
       return;
     }
 
+    if (new Date(selectInfo.startStr) < new Date()) {
+      this.message = "Não é possivel adicionar uma data anterior a atual.";
+      calendarApi.unselect();
+      return;
+    }
+
     let newEvent = {
       id: student.id.toString(),
       title: `${student.user.name}`,
@@ -96,15 +103,19 @@ export class SchedulePhysicalAssesmentComponent implements OnInit {
     calendarApi.unselect();
     calendarApi.addEvent(newEvent);
     this.dateAdded = newEvent;
+    this.formSchedule.get('scheduledToDate').patchValue(newEvent.start);
   }
 
   public save() {
     let entity = this.formSchedule.value;
     entity.studentRegistrationId = entity.studentRegistration.id;
-    entity.scheduledToDate = this.dateAdded.start;
-    console.log(this.formSchedule.value)
-    this.apiService.SendToAPI("PhysicalAssesmentScheduled", "Insert", entity).subscribe(result => {
-      console.log(result);
-    })
+    if(entity.scheduledToDate != null){
+      entity.scheduledToDate = this.dateAdded.start;
+      
+      console.log(this.formSchedule.value)
+      this.apiService.SendToAPI("PhysicalAssesmentScheduled", "Save", entity).subscribe(result => {
+        console.log(result);
+      });
+    }
   }
 }

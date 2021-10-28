@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class StudentCaracteristic : IEntityBase 
+    public partial class StudentCaracteristic : IEntityBase
     {
         public StudentCaracteristic()
         {
@@ -13,15 +13,15 @@ namespace eGYM.Models
         }
 
         public int Id { get; set; }
-        public string Weight { get; set; }
-        public string Height { get; set; }
-        public string Triceps { get; set; }
-        public string Chest { get; set; }
-        public string Subaxillary { get; set; }
-        public string Subscapular { get; set; }
-        public string Abdominal { get; set; }
-        public string Suprailiac { get; set; }
-        public string Thigh { get; set; }
+        public double Weight { get; set; }
+        public double Height { get; set; }
+        public double Triceps { get; set; }
+        public double Chest { get; set; }
+        public double Subaxillary { get; set; }
+        public double Subscapular { get; set; }
+        public double Abdominal { get; set; }
+        public double Suprailiac { get; set; }
+        public double Thigh { get; set; }
         public double? LeanMass { get; set; }
         public double? FatMass { get; set; }
         public double? FatPercentage { get; set; }

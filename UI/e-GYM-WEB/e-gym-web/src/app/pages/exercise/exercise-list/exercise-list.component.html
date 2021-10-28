@@ -1,0 +1,9 @@
+<app-base-card title="Exercicios" [hideFooter]="true">
+    <div class="row">
+        <div class="col-12">
+            <app-custom-table [entity]="'Exercise'" [title]="'Listagem de exercicios'" [isCrud]="true"
+                (editEvent)="edit($event)" (deleteEvent)="remove($event)" (insertEvent)="insert()">
+            </app-custom-table>
+        </div>
+    </div>
+</app-base-card>

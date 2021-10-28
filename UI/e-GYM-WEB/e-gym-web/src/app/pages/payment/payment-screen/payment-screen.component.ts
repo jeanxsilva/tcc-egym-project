@@ -1,7 +1,7 @@
 import { ApiService } from 'src/app/services/api-service/api.service';
 import { QueryBuilder } from 'src/app/services/query-builder/query-builder';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';

@@ -5,16 +5,15 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class PhysicalAssesment : IEntityBase 
+    public partial class PhysicalAssesment : IEntityBase
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
-        public int RegisteredByEmployeeId { get; set; }
+        public int? RegisteredByEmployeeId { get; set; }
         public string StudentGoal { get; set; }
         public DateTime RegisterDateTime { get; set; }
-        public int ScheduledPhysicalAssesmentId { get; set; }
+        public int? ScheduledPhysicalAssesmentId { get; set; }
         public int StudentCaracteristicsId { get; set; }
-
         public virtual Employee RegisteredByEmployee { get; set; }
         public virtual PhysicalAssesmentScheduled ScheduledPhysicalAssesment { get; set; }
         public virtual StudentRegistration Student { get; set; }

@@ -13,7 +13,7 @@ namespace eGYM
 {
 
     #region ClassCheckInOutService
-
+    
     public partial class ClassCheckInOutService : ServiceBase<ClassCheckInOut, ClassCheckInOutRepository>
     {
         public ClassCheckInOutService(ClassCheckInOutRepository repository)
@@ -45,9 +45,9 @@ namespace eGYM
     [ApiController]
     public partial class ClassCheckInOutController : CrudControllerBase<ClassCheckInOut, ClassCheckInOutService, ClassCheckInOutRepository>
     {
-
+    
         #region Service
-
+        
         protected override ClassCheckInOutService Service { get; set; }
 
         #endregion
@@ -62,9 +62,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "ClassCheckInOut.R")]
+        //[Authorize(Roles = "ClassCheckInOut.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -72,7 +73,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "ClassCheckInOut.R")]
+        //[Authorize(Roles = "ClassCheckInOut.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -80,15 +82,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ClassCheckInOut.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(ClassCheckInOut entity)
+        //[Authorize(Roles = "ClassCheckInOut.C, ClassCheckInOut.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(ClassCheckInOut entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "ClassCheckInOut.D")]
+        //[Authorize(Roles = "ClassCheckInOut.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(ClassCheckInOut entity)
         {
@@ -96,7 +100,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ClassCheckInOut.U")]
+        //[Authorize(Roles = "ClassCheckInOut.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(ClassCheckInOut entity)
         {
@@ -110,15 +115,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "ClassCheckInOut.R")]
+        //[Authorize(Roles = "ClassCheckInOut.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -129,7 +135,7 @@ namespace eGYM
     #endregion
 
     #region CompanyService
-
+    
     public partial class CompanyService : ServiceBase<Company, CompanyRepository>
     {
         public CompanyService(CompanyRepository repository)
@@ -161,9 +167,9 @@ namespace eGYM
     [ApiController]
     public partial class CompanyController : CrudControllerBase<Company, CompanyService, CompanyRepository>
     {
-
+    
         #region Service
-
+        
         protected override CompanyService Service { get; set; }
 
         #endregion
@@ -178,9 +184,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Company.R")]
+        //[Authorize(Roles = "Company.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -188,7 +195,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Company.R")]
+        //[Authorize(Roles = "Company.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -196,15 +204,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Company.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Company entity)
+        //[Authorize(Roles = "Company.C, Company.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(Company entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Company.D")]
+        //[Authorize(Roles = "Company.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Company entity)
         {
@@ -212,7 +222,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Company.U")]
+        //[Authorize(Roles = "Company.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Company entity)
         {
@@ -226,15 +237,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Company.R")]
+        //[Authorize(Roles = "Company.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -245,7 +257,7 @@ namespace eGYM
     #endregion
 
     #region CompanyUnitService
-
+    
     public partial class CompanyUnitService : ServiceBase<CompanyUnit, CompanyUnitRepository>
     {
         public CompanyUnitService(CompanyUnitRepository repository)
@@ -277,9 +289,9 @@ namespace eGYM
     [ApiController]
     public partial class CompanyUnitController : CrudControllerBase<CompanyUnit, CompanyUnitService, CompanyUnitRepository>
     {
-
+    
         #region Service
-
+        
         protected override CompanyUnitService Service { get; set; }
 
         #endregion
@@ -294,9 +306,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "CompanyUnit.R")]
+        //[Authorize(Roles = "CompanyUnit.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -304,7 +317,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "CompanyUnit.R")]
+        //[Authorize(Roles = "CompanyUnit.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -312,15 +326,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "CompanyUnit.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(CompanyUnit entity)
+        //[Authorize(Roles = "CompanyUnit.C, CompanyUnit.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(CompanyUnit entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "CompanyUnit.D")]
+        //[Authorize(Roles = "CompanyUnit.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(CompanyUnit entity)
         {
@@ -328,7 +344,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "CompanyUnit.U")]
+        //[Authorize(Roles = "CompanyUnit.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(CompanyUnit entity)
         {
@@ -342,15 +359,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "CompanyUnit.R")]
+        //[Authorize(Roles = "CompanyUnit.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -361,7 +379,7 @@ namespace eGYM
     #endregion
 
     #region EmployeeService
-
+    
     public partial class EmployeeService : ServiceBase<Employee, EmployeeRepository>
     {
         public EmployeeService(EmployeeRepository repository)
@@ -393,9 +411,9 @@ namespace eGYM
     [ApiController]
     public partial class EmployeeController : CrudControllerBase<Employee, EmployeeService, EmployeeRepository>
     {
-
+    
         #region Service
-
+        
         protected override EmployeeService Service { get; set; }
 
         #endregion
@@ -410,9 +428,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Employee.R")]
+        //[Authorize(Roles = "Employee.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -420,7 +439,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Employee.R")]
+        //[Authorize(Roles = "Employee.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -428,15 +448,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Employee.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Employee entity)
+        //[Authorize(Roles = "Employee.C, Employee.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(Employee entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Employee.D")]
+        //[Authorize(Roles = "Employee.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Employee entity)
         {
@@ -444,7 +466,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Employee.U")]
+        //[Authorize(Roles = "Employee.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Employee entity)
         {
@@ -458,15 +481,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Employee.R")]
+        //[Authorize(Roles = "Employee.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -477,7 +501,7 @@ namespace eGYM
     #endregion
 
     #region ExerciseService
-
+    
     public partial class ExerciseService : ServiceBase<Exercise, ExerciseRepository>
     {
         public ExerciseService(ExerciseRepository repository)
@@ -509,9 +533,9 @@ namespace eGYM
     [ApiController]
     public partial class ExerciseController : CrudControllerBase<Exercise, ExerciseService, ExerciseRepository>
     {
-
+    
         #region Service
-
+        
         protected override ExerciseService Service { get; set; }
 
         #endregion
@@ -526,9 +550,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Exercise.R")]
+        //[Authorize(Roles = "Exercise.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -536,7 +561,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Exercise.R")]
+        //[Authorize(Roles = "Exercise.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -544,15 +570,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Exercise.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Exercise entity)
+        //[Authorize(Roles = "Exercise.C, Exercise.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(Exercise entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Exercise.D")]
+        //[Authorize(Roles = "Exercise.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Exercise entity)
         {
@@ -560,7 +588,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Exercise.U")]
+        //[Authorize(Roles = "Exercise.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Exercise entity)
         {
@@ -574,15 +603,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Exercise.R")]
+        //[Authorize(Roles = "Exercise.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -593,7 +623,7 @@ namespace eGYM
     #endregion
 
     #region ExerciseCategoryService
-
+    
     public partial class ExerciseCategoryService : ServiceBase<ExerciseCategory, ExerciseCategoryRepository>
     {
         public ExerciseCategoryService(ExerciseCategoryRepository repository)
@@ -625,9 +655,9 @@ namespace eGYM
     [ApiController]
     public partial class ExerciseCategoryController : CrudControllerBase<ExerciseCategory, ExerciseCategoryService, ExerciseCategoryRepository>
     {
-
+    
         #region Service
-
+        
         protected override ExerciseCategoryService Service { get; set; }
 
         #endregion
@@ -642,9 +672,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "ExerciseCategory.R")]
+        //[Authorize(Roles = "ExerciseCategory.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -652,7 +683,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "ExerciseCategory.R")]
+        //[Authorize(Roles = "ExerciseCategory.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -660,15 +692,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ExerciseCategory.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(ExerciseCategory entity)
+        //[Authorize(Roles = "ExerciseCategory.C, ExerciseCategory.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(ExerciseCategory entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "ExerciseCategory.D")]
+        //[Authorize(Roles = "ExerciseCategory.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(ExerciseCategory entity)
         {
@@ -676,7 +710,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ExerciseCategory.U")]
+        //[Authorize(Roles = "ExerciseCategory.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(ExerciseCategory entity)
         {
@@ -690,15 +725,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "ExerciseCategory.R")]
+        //[Authorize(Roles = "ExerciseCategory.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -709,7 +745,7 @@ namespace eGYM
     #endregion
 
     #region InvoiceService
-
+    
     public partial class InvoiceService : ServiceBase<Invoice, InvoiceRepository>
     {
         public InvoiceService(InvoiceRepository repository)
@@ -741,9 +777,9 @@ namespace eGYM
     [ApiController]
     public partial class InvoiceController : CrudControllerBase<Invoice, InvoiceService, InvoiceRepository>
     {
-
+    
         #region Service
-
+        
         protected override InvoiceService Service { get; set; }
 
         #endregion
@@ -758,9 +794,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Invoice.R")]
+        //[Authorize(Roles = "Invoice.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -768,7 +805,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Invoice.R")]
+        //[Authorize(Roles = "Invoice.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -776,15 +814,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Invoice.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Invoice entity)
+        //[Authorize(Roles = "Invoice.C, Invoice.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(Invoice entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Invoice.D")]
+        //[Authorize(Roles = "Invoice.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Invoice entity)
         {
@@ -792,7 +832,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Invoice.U")]
+        //[Authorize(Roles = "Invoice.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Invoice entity)
         {
@@ -806,15 +847,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Invoice.R")]
+        //[Authorize(Roles = "Invoice.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -825,7 +867,7 @@ namespace eGYM
     #endregion
 
     #region InvoiceDetailService
-
+    
     public partial class InvoiceDetailService : ServiceBase<InvoiceDetail, InvoiceDetailRepository>
     {
         public InvoiceDetailService(InvoiceDetailRepository repository)
@@ -857,9 +899,9 @@ namespace eGYM
     [ApiController]
     public partial class InvoiceDetailController : CrudControllerBase<InvoiceDetail, InvoiceDetailService, InvoiceDetailRepository>
     {
-
+    
         #region Service
-
+        
         protected override InvoiceDetailService Service { get; set; }
 
         #endregion
@@ -874,9 +916,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "InvoiceDetail.R")]
+        //[Authorize(Roles = "InvoiceDetail.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -884,7 +927,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "InvoiceDetail.R")]
+        //[Authorize(Roles = "InvoiceDetail.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -892,15 +936,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "InvoiceDetail.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(InvoiceDetail entity)
+        //[Authorize(Roles = "InvoiceDetail.C, InvoiceDetail.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(InvoiceDetail entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "InvoiceDetail.D")]
+        //[Authorize(Roles = "InvoiceDetail.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(InvoiceDetail entity)
         {
@@ -908,7 +954,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "InvoiceDetail.U")]
+        //[Authorize(Roles = "InvoiceDetail.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(InvoiceDetail entity)
         {
@@ -922,15 +969,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "InvoiceDetail.R")]
+        //[Authorize(Roles = "InvoiceDetail.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -941,7 +989,7 @@ namespace eGYM
     #endregion
 
     #region InvoiceStatusService
-
+    
     public partial class InvoiceStatusService : ServiceBase<InvoiceStatus, InvoiceStatusRepository>
     {
         public InvoiceStatusService(InvoiceStatusRepository repository)
@@ -973,9 +1021,9 @@ namespace eGYM
     [ApiController]
     public partial class InvoiceStatusController : CrudControllerBase<InvoiceStatus, InvoiceStatusService, InvoiceStatusRepository>
     {
-
+    
         #region Service
-
+        
         protected override InvoiceStatusService Service { get; set; }
 
         #endregion
@@ -990,9 +1038,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "InvoiceStatus.R")]
+        //[Authorize(Roles = "InvoiceStatus.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1000,7 +1049,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "InvoiceStatus.R")]
+        //[Authorize(Roles = "InvoiceStatus.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1008,15 +1058,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "InvoiceStatus.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(InvoiceStatus entity)
+        //[Authorize(Roles = "InvoiceStatus.C, InvoiceStatus.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(InvoiceStatus entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "InvoiceStatus.D")]
+        //[Authorize(Roles = "InvoiceStatus.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(InvoiceStatus entity)
         {
@@ -1024,7 +1076,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "InvoiceStatus.U")]
+        //[Authorize(Roles = "InvoiceStatus.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(InvoiceStatus entity)
         {
@@ -1038,15 +1091,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "InvoiceStatus.R")]
+        //[Authorize(Roles = "InvoiceStatus.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1057,7 +1111,7 @@ namespace eGYM
     #endregion
 
     #region LastNewsService
-
+    
     public partial class LastNewsService : ServiceBase<LastNews, LastNewsRepository>
     {
         public LastNewsService(LastNewsRepository repository)
@@ -1089,9 +1143,9 @@ namespace eGYM
     [ApiController]
     public partial class LastNewsController : CrudControllerBase<LastNews, LastNewsService, LastNewsRepository>
     {
-
+    
         #region Service
-
+        
         protected override LastNewsService Service { get; set; }
 
         #endregion
@@ -1106,9 +1160,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "LastNews.R")]
+        //[Authorize(Roles = "LastNews.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1116,7 +1171,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "LastNews.R")]
+        //[Authorize(Roles = "LastNews.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1124,15 +1180,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "LastNews.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(LastNews entity)
+        //[Authorize(Roles = "LastNews.C, LastNews.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(LastNews entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "LastNews.D")]
+        //[Authorize(Roles = "LastNews.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(LastNews entity)
         {
@@ -1140,7 +1198,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "LastNews.U")]
+        //[Authorize(Roles = "LastNews.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(LastNews entity)
         {
@@ -1154,15 +1213,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "LastNews.R")]
+        //[Authorize(Roles = "LastNews.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1173,7 +1233,7 @@ namespace eGYM
     #endregion
 
     #region ModalityService
-
+    
     public partial class ModalityService : ServiceBase<Modality, ModalityRepository>
     {
         public ModalityService(ModalityRepository repository)
@@ -1205,9 +1265,9 @@ namespace eGYM
     [ApiController]
     public partial class ModalityController : CrudControllerBase<Modality, ModalityService, ModalityRepository>
     {
-
+    
         #region Service
-
+        
         protected override ModalityService Service { get; set; }
 
         #endregion
@@ -1222,9 +1282,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Modality.R")]
+        //[Authorize(Roles = "Modality.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1232,7 +1293,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Modality.R")]
+        //[Authorize(Roles = "Modality.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1240,15 +1302,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Modality.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Modality entity)
+        //[Authorize(Roles = "Modality.C, Modality.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(Modality entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Modality.D")]
+        //[Authorize(Roles = "Modality.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Modality entity)
         {
@@ -1256,7 +1320,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Modality.U")]
+        //[Authorize(Roles = "Modality.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Modality entity)
         {
@@ -1270,15 +1335,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Modality.R")]
+        //[Authorize(Roles = "Modality.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1289,7 +1355,7 @@ namespace eGYM
     #endregion
 
     #region ModalityClassService
-
+    
     public partial class ModalityClassService : ServiceBase<ModalityClass, ModalityClassRepository>
     {
         public ModalityClassService(ModalityClassRepository repository)
@@ -1321,9 +1387,9 @@ namespace eGYM
     [ApiController]
     public partial class ModalityClassController : CrudControllerBase<ModalityClass, ModalityClassService, ModalityClassRepository>
     {
-
+    
         #region Service
-
+        
         protected override ModalityClassService Service { get; set; }
 
         #endregion
@@ -1338,9 +1404,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "ModalityClass.R")]
+        //[Authorize(Roles = "ModalityClass.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1348,7 +1415,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "ModalityClass.R")]
+        //[Authorize(Roles = "ModalityClass.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1356,15 +1424,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ModalityClass.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(ModalityClass entity)
+        //[Authorize(Roles = "ModalityClass.C, ModalityClass.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(ModalityClass entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "ModalityClass.D")]
+        //[Authorize(Roles = "ModalityClass.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(ModalityClass entity)
         {
@@ -1372,7 +1442,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ModalityClass.U")]
+        //[Authorize(Roles = "ModalityClass.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(ModalityClass entity)
         {
@@ -1386,15 +1457,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "ModalityClass.R")]
+        //[Authorize(Roles = "ModalityClass.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1405,7 +1477,7 @@ namespace eGYM
     #endregion
 
     #region ModalityPaymentTypeService
-
+    
     public partial class ModalityPaymentTypeService : ServiceBase<ModalityPaymentType, ModalityPaymentTypeRepository>
     {
         public ModalityPaymentTypeService(ModalityPaymentTypeRepository repository)
@@ -1437,9 +1509,9 @@ namespace eGYM
     [ApiController]
     public partial class ModalityPaymentTypeController : CrudControllerBase<ModalityPaymentType, ModalityPaymentTypeService, ModalityPaymentTypeRepository>
     {
-
+    
         #region Service
-
+        
         protected override ModalityPaymentTypeService Service { get; set; }
 
         #endregion
@@ -1454,9 +1526,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "ModalityPaymentType.R")]
+        //[Authorize(Roles = "ModalityPaymentType.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1464,7 +1537,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "ModalityPaymentType.R")]
+        //[Authorize(Roles = "ModalityPaymentType.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1472,15 +1546,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ModalityPaymentType.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(ModalityPaymentType entity)
+        //[Authorize(Roles = "ModalityPaymentType.C, ModalityPaymentType.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(ModalityPaymentType entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "ModalityPaymentType.D")]
+        //[Authorize(Roles = "ModalityPaymentType.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(ModalityPaymentType entity)
         {
@@ -1488,7 +1564,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ModalityPaymentType.U")]
+        //[Authorize(Roles = "ModalityPaymentType.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(ModalityPaymentType entity)
         {
@@ -1502,15 +1579,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "ModalityPaymentType.R")]
+        //[Authorize(Roles = "ModalityPaymentType.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1521,7 +1599,7 @@ namespace eGYM
     #endregion
 
     #region PaymentService
-
+    
     public partial class PaymentService : ServiceBase<Payment, PaymentRepository>
     {
         public PaymentService(PaymentRepository repository)
@@ -1553,9 +1631,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentController : CrudControllerBase<Payment, PaymentService, PaymentRepository>
     {
-
+    
         #region Service
-
+        
         protected override PaymentService Service { get; set; }
 
         #endregion
@@ -1570,9 +1648,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Payment.R")]
+        //[Authorize(Roles = "Payment.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1580,7 +1659,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Payment.R")]
+        //[Authorize(Roles = "Payment.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1588,15 +1668,17 @@ namespace eGYM
         }
 
         [HttpPost]
+        //[Authorize(Roles = "Payment.C, Payment.U")]
         [Authorize]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Payment entity)
+        [Route("Save")]
+        public async Task<dynamic> Save(Payment entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Payment.D")]
+        //[Authorize(Roles = "Payment.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Payment entity)
         {
@@ -1604,7 +1686,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Payment.U")]
+        //[Authorize(Roles = "Payment.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Payment entity)
         {
@@ -1618,15 +1701,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Payment.R")]
+        //[Authorize(Roles = "Payment.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1637,7 +1721,7 @@ namespace eGYM
     #endregion
 
     #region PaymentMovementService
-
+    
     public partial class PaymentMovementService : ServiceBase<PaymentMovement, PaymentMovementRepository>
     {
         public PaymentMovementService(PaymentMovementRepository repository)
@@ -1669,9 +1753,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentMovementController : CrudControllerBase<PaymentMovement, PaymentMovementService, PaymentMovementRepository>
     {
-
+    
         #region Service
-
+        
         protected override PaymentMovementService Service { get; set; }
 
         #endregion
@@ -1686,9 +1770,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "PaymentMovement.R")]
+        //[Authorize(Roles = "PaymentMovement.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1696,7 +1781,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "PaymentMovement.R")]
+        //[Authorize(Roles = "PaymentMovement.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1704,15 +1790,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentMovement.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(PaymentMovement entity)
+        //[Authorize(Roles = "PaymentMovement.C, PaymentMovement.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(PaymentMovement entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentMovement.D")]
+        //[Authorize(Roles = "PaymentMovement.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(PaymentMovement entity)
         {
@@ -1720,7 +1808,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentMovement.U")]
+        //[Authorize(Roles = "PaymentMovement.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(PaymentMovement entity)
         {
@@ -1734,15 +1823,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "PaymentMovement.R")]
+        //[Authorize(Roles = "PaymentMovement.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1753,7 +1843,7 @@ namespace eGYM
     #endregion
 
     #region PaymentReversalService
-
+    
     public partial class PaymentReversalService : ServiceBase<PaymentReversal, PaymentReversalRepository>
     {
         public PaymentReversalService(PaymentReversalRepository repository)
@@ -1785,9 +1875,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentReversalController : CrudControllerBase<PaymentReversal, PaymentReversalService, PaymentReversalRepository>
     {
-
+    
         #region Service
-
+        
         protected override PaymentReversalService Service { get; set; }
 
         #endregion
@@ -1802,9 +1892,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "PaymentReversal.R")]
+        //[Authorize(Roles = "PaymentReversal.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1812,7 +1903,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "PaymentReversal.R")]
+        //[Authorize(Roles = "PaymentReversal.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1820,15 +1912,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentReversal.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(PaymentReversal entity)
+        //[Authorize(Roles = "PaymentReversal.C, PaymentReversal.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(PaymentReversal entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentReversal.D")]
+        //[Authorize(Roles = "PaymentReversal.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(PaymentReversal entity)
         {
@@ -1836,7 +1930,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentReversal.U")]
+        //[Authorize(Roles = "PaymentReversal.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(PaymentReversal entity)
         {
@@ -1850,15 +1945,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "PaymentReversal.R")]
+        //[Authorize(Roles = "PaymentReversal.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1869,7 +1965,7 @@ namespace eGYM
     #endregion
 
     #region PaymentReversalStatusService
-
+    
     public partial class PaymentReversalStatusService : ServiceBase<PaymentReversalStatus, PaymentReversalStatusRepository>
     {
         public PaymentReversalStatusService(PaymentReversalStatusRepository repository)
@@ -1901,9 +1997,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentReversalStatusController : CrudControllerBase<PaymentReversalStatus, PaymentReversalStatusService, PaymentReversalStatusRepository>
     {
-
+    
         #region Service
-
+        
         protected override PaymentReversalStatusService Service { get; set; }
 
         #endregion
@@ -1918,9 +2014,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "PaymentReversalStatus.R")]
+        //[Authorize(Roles = "PaymentReversalStatus.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -1928,7 +2025,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "PaymentReversalStatus.R")]
+        //[Authorize(Roles = "PaymentReversalStatus.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -1936,15 +2034,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentReversalStatus.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(PaymentReversalStatus entity)
+        //[Authorize(Roles = "PaymentReversalStatus.C, PaymentReversalStatus.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(PaymentReversalStatus entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentReversalStatus.D")]
+        //[Authorize(Roles = "PaymentReversalStatus.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(PaymentReversalStatus entity)
         {
@@ -1952,7 +2052,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentReversalStatus.U")]
+        //[Authorize(Roles = "PaymentReversalStatus.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(PaymentReversalStatus entity)
         {
@@ -1966,15 +2067,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "PaymentReversalStatus.R")]
+        //[Authorize(Roles = "PaymentReversalStatus.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -1985,7 +2087,7 @@ namespace eGYM
     #endregion
 
     #region PaymentTypeService
-
+    
     public partial class PaymentTypeService : ServiceBase<PaymentType, PaymentTypeRepository>
     {
         public PaymentTypeService(PaymentTypeRepository repository)
@@ -2017,9 +2119,9 @@ namespace eGYM
     [ApiController]
     public partial class PaymentTypeController : CrudControllerBase<PaymentType, PaymentTypeService, PaymentTypeRepository>
     {
-
+    
         #region Service
-
+        
         protected override PaymentTypeService Service { get; set; }
 
         #endregion
@@ -2034,9 +2136,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "PaymentType.R")]
+        //[Authorize(Roles = "PaymentType.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2044,7 +2147,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "PaymentType.R")]
+        //[Authorize(Roles = "PaymentType.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2052,15 +2156,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentType.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(PaymentType entity)
+        //[Authorize(Roles = "PaymentType.C, PaymentType.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(PaymentType entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentType.D")]
+        //[Authorize(Roles = "PaymentType.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(PaymentType entity)
         {
@@ -2068,7 +2174,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PaymentType.U")]
+        //[Authorize(Roles = "PaymentType.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(PaymentType entity)
         {
@@ -2082,15 +2189,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "PaymentType.R")]
+        //[Authorize(Roles = "PaymentType.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2101,7 +2209,7 @@ namespace eGYM
     #endregion
 
     #region PhysicalAssesmentService
-
+    
     public partial class PhysicalAssesmentService : ServiceBase<PhysicalAssesment, PhysicalAssesmentRepository>
     {
         public PhysicalAssesmentService(PhysicalAssesmentRepository repository)
@@ -2133,9 +2241,9 @@ namespace eGYM
     [ApiController]
     public partial class PhysicalAssesmentController : CrudControllerBase<PhysicalAssesment, PhysicalAssesmentService, PhysicalAssesmentRepository>
     {
-
+    
         #region Service
-
+        
         protected override PhysicalAssesmentService Service { get; set; }
 
         #endregion
@@ -2150,9 +2258,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "PhysicalAssesment.R")]
+        //[Authorize(Roles = "PhysicalAssesment.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2160,7 +2269,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "PhysicalAssesment.R")]
+        //[Authorize(Roles = "PhysicalAssesment.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2168,15 +2278,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PhysicalAssesment.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(PhysicalAssesment entity)
+        //[Authorize(Roles = "PhysicalAssesment.C, PhysicalAssesment.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(PhysicalAssesment entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "PhysicalAssesment.D")]
+        //[Authorize(Roles = "PhysicalAssesment.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(PhysicalAssesment entity)
         {
@@ -2184,7 +2296,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PhysicalAssesment.U")]
+        //[Authorize(Roles = "PhysicalAssesment.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(PhysicalAssesment entity)
         {
@@ -2198,15 +2311,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "PhysicalAssesment.R")]
+        //[Authorize(Roles = "PhysicalAssesment.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2217,7 +2331,7 @@ namespace eGYM
     #endregion
 
     #region PhysicalAssesmentScheduledService
-
+    
     public partial class PhysicalAssesmentScheduledService : ServiceBase<PhysicalAssesmentScheduled, PhysicalAssesmentScheduledRepository>
     {
         public PhysicalAssesmentScheduledService(PhysicalAssesmentScheduledRepository repository)
@@ -2249,9 +2363,9 @@ namespace eGYM
     [ApiController]
     public partial class PhysicalAssesmentScheduledController : CrudControllerBase<PhysicalAssesmentScheduled, PhysicalAssesmentScheduledService, PhysicalAssesmentScheduledRepository>
     {
-
+    
         #region Service
-
+        
         protected override PhysicalAssesmentScheduledService Service { get; set; }
 
         #endregion
@@ -2266,9 +2380,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "PhysicalAssesmentScheduled.R")]
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2276,7 +2391,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "PhysicalAssesmentScheduled.R")]
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2284,15 +2400,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PhysicalAssesmentScheduled.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(PhysicalAssesmentScheduled entity)
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.C, PhysicalAssesmentScheduled.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(PhysicalAssesmentScheduled entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "PhysicalAssesmentScheduled.D")]
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(PhysicalAssesmentScheduled entity)
         {
@@ -2300,7 +2418,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "PhysicalAssesmentScheduled.U")]
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(PhysicalAssesmentScheduled entity)
         {
@@ -2314,15 +2433,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "PhysicalAssesmentScheduled.R")]
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2333,7 +2453,7 @@ namespace eGYM
     #endregion
 
     #region RegistrationModalityClassService
-
+    
     public partial class RegistrationModalityClassService : ServiceBase<RegistrationModalityClass, RegistrationModalityClassRepository>
     {
         public RegistrationModalityClassService(RegistrationModalityClassRepository repository)
@@ -2365,9 +2485,9 @@ namespace eGYM
     [ApiController]
     public partial class RegistrationModalityClassController : CrudControllerBase<RegistrationModalityClass, RegistrationModalityClassService, RegistrationModalityClassRepository>
     {
-
+    
         #region Service
-
+        
         protected override RegistrationModalityClassService Service { get; set; }
 
         #endregion
@@ -2382,9 +2502,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "RegistrationModalityClass.R")]
+        //[Authorize(Roles = "RegistrationModalityClass.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2392,7 +2513,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "RegistrationModalityClass.R")]
+        //[Authorize(Roles = "RegistrationModalityClass.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2400,15 +2522,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "RegistrationModalityClass.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(RegistrationModalityClass entity)
+        //[Authorize(Roles = "RegistrationModalityClass.C, RegistrationModalityClass.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(RegistrationModalityClass entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "RegistrationModalityClass.D")]
+        //[Authorize(Roles = "RegistrationModalityClass.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(RegistrationModalityClass entity)
         {
@@ -2416,7 +2540,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "RegistrationModalityClass.U")]
+        //[Authorize(Roles = "RegistrationModalityClass.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(RegistrationModalityClass entity)
         {
@@ -2430,15 +2555,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "RegistrationModalityClass.R")]
+        //[Authorize(Roles = "RegistrationModalityClass.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2449,7 +2575,7 @@ namespace eGYM
     #endregion
 
     #region RequestCategoryService
-
+    
     public partial class RequestCategoryService : ServiceBase<RequestCategory, RequestCategoryRepository>
     {
         public RequestCategoryService(RequestCategoryRepository repository)
@@ -2481,9 +2607,9 @@ namespace eGYM
     [ApiController]
     public partial class RequestCategoryController : CrudControllerBase<RequestCategory, RequestCategoryService, RequestCategoryRepository>
     {
-
+    
         #region Service
-
+        
         protected override RequestCategoryService Service { get; set; }
 
         #endregion
@@ -2498,9 +2624,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "RequestCategory.R")]
+        //[Authorize(Roles = "RequestCategory.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2508,7 +2635,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "RequestCategory.R")]
+        //[Authorize(Roles = "RequestCategory.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2516,15 +2644,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "RequestCategory.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(RequestCategory entity)
+        //[Authorize(Roles = "RequestCategory.C, RequestCategory.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(RequestCategory entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "RequestCategory.D")]
+        //[Authorize(Roles = "RequestCategory.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(RequestCategory entity)
         {
@@ -2532,7 +2662,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "RequestCategory.U")]
+        //[Authorize(Roles = "RequestCategory.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(RequestCategory entity)
         {
@@ -2546,15 +2677,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "RequestCategory.R")]
+        //[Authorize(Roles = "RequestCategory.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2565,7 +2697,7 @@ namespace eGYM
     #endregion
 
     #region RequestStatusService
-
+    
     public partial class RequestStatusService : ServiceBase<RequestStatus, RequestStatusRepository>
     {
         public RequestStatusService(RequestStatusRepository repository)
@@ -2597,9 +2729,9 @@ namespace eGYM
     [ApiController]
     public partial class RequestStatusController : CrudControllerBase<RequestStatus, RequestStatusService, RequestStatusRepository>
     {
-
+    
         #region Service
-
+        
         protected override RequestStatusService Service { get; set; }
 
         #endregion
@@ -2614,9 +2746,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "RequestStatus.R")]
+        //[Authorize(Roles = "RequestStatus.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2624,7 +2757,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "RequestStatus.R")]
+        //[Authorize(Roles = "RequestStatus.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2632,15 +2766,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "RequestStatus.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(RequestStatus entity)
+        //[Authorize(Roles = "RequestStatus.C, RequestStatus.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(RequestStatus entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "RequestStatus.D")]
+        //[Authorize(Roles = "RequestStatus.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(RequestStatus entity)
         {
@@ -2648,7 +2784,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "RequestStatus.U")]
+        //[Authorize(Roles = "RequestStatus.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(RequestStatus entity)
         {
@@ -2662,15 +2799,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "RequestStatus.R")]
+        //[Authorize(Roles = "RequestStatus.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2681,7 +2819,7 @@ namespace eGYM
     #endregion
 
     #region ShiftService
-
+    
     public partial class ShiftService : ServiceBase<Shift, ShiftRepository>
     {
         public ShiftService(ShiftRepository repository)
@@ -2713,9 +2851,9 @@ namespace eGYM
     [ApiController]
     public partial class ShiftController : CrudControllerBase<Shift, ShiftService, ShiftRepository>
     {
-
+    
         #region Service
-
+        
         protected override ShiftService Service { get; set; }
 
         #endregion
@@ -2730,9 +2868,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "Shift.R")]
+        //[Authorize(Roles = "Shift.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2740,7 +2879,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "Shift.R")]
+        //[Authorize(Roles = "Shift.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2748,15 +2888,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Shift.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(Shift entity)
+        //[Authorize(Roles = "Shift.C, Shift.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(Shift entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Shift.D")]
+        //[Authorize(Roles = "Shift.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(Shift entity)
         {
@@ -2764,7 +2906,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "Shift.U")]
+        //[Authorize(Roles = "Shift.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(Shift entity)
         {
@@ -2778,15 +2921,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "Shift.R")]
+        //[Authorize(Roles = "Shift.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2797,7 +2941,7 @@ namespace eGYM
     #endregion
 
     #region ShiftBookService
-
+    
     public partial class ShiftBookService : ServiceBase<ShiftBook, ShiftBookRepository>
     {
         public ShiftBookService(ShiftBookRepository repository)
@@ -2829,9 +2973,9 @@ namespace eGYM
     [ApiController]
     public partial class ShiftBookController : CrudControllerBase<ShiftBook, ShiftBookService, ShiftBookRepository>
     {
-
+    
         #region Service
-
+        
         protected override ShiftBookService Service { get; set; }
 
         #endregion
@@ -2846,9 +2990,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "ShiftBook.R")]
+        //[Authorize(Roles = "ShiftBook.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2856,7 +3001,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "ShiftBook.R")]
+        //[Authorize(Roles = "ShiftBook.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2864,15 +3010,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ShiftBook.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(ShiftBook entity)
+        //[Authorize(Roles = "ShiftBook.C, ShiftBook.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(ShiftBook entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "ShiftBook.D")]
+        //[Authorize(Roles = "ShiftBook.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(ShiftBook entity)
         {
@@ -2880,7 +3028,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "ShiftBook.U")]
+        //[Authorize(Roles = "ShiftBook.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(ShiftBook entity)
         {
@@ -2894,15 +3043,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "ShiftBook.R")]
+        //[Authorize(Roles = "ShiftBook.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -2913,7 +3063,7 @@ namespace eGYM
     #endregion
 
     #region StudentCaracteristicService
-
+    
     public partial class StudentCaracteristicService : ServiceBase<StudentCaracteristic, StudentCaracteristicRepository>
     {
         public StudentCaracteristicService(StudentCaracteristicRepository repository)
@@ -2945,9 +3095,9 @@ namespace eGYM
     [ApiController]
     public partial class StudentCaracteristicController : CrudControllerBase<StudentCaracteristic, StudentCaracteristicService, StudentCaracteristicRepository>
     {
-
+    
         #region Service
-
+        
         protected override StudentCaracteristicService Service { get; set; }
 
         #endregion
@@ -2962,9 +3112,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "StudentCaracteristic.R")]
+        //[Authorize(Roles = "StudentCaracteristic.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -2972,7 +3123,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "StudentCaracteristic.R")]
+        //[Authorize(Roles = "StudentCaracteristic.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -2980,15 +3132,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentCaracteristic.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(StudentCaracteristic entity)
+        //[Authorize(Roles = "StudentCaracteristic.C, StudentCaracteristic.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(StudentCaracteristic entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentCaracteristic.D")]
+        //[Authorize(Roles = "StudentCaracteristic.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(StudentCaracteristic entity)
         {
@@ -2996,7 +3150,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentCaracteristic.U")]
+        //[Authorize(Roles = "StudentCaracteristic.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(StudentCaracteristic entity)
         {
@@ -3010,15 +3165,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "StudentCaracteristic.R")]
+        //[Authorize(Roles = "StudentCaracteristic.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3029,7 +3185,7 @@ namespace eGYM
     #endregion
 
     #region StudentRegistrationService
-
+    
     public partial class StudentRegistrationService : ServiceBase<StudentRegistration, StudentRegistrationRepository>
     {
         public StudentRegistrationService(StudentRegistrationRepository repository)
@@ -3061,9 +3217,9 @@ namespace eGYM
     [ApiController]
     public partial class StudentRegistrationController : CrudControllerBase<StudentRegistration, StudentRegistrationService, StudentRegistrationRepository>
     {
-
+    
         #region Service
-
+        
         protected override StudentRegistrationService Service { get; set; }
 
         #endregion
@@ -3078,9 +3234,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "StudentRegistration.R")]
+        //[Authorize(Roles = "StudentRegistration.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3088,7 +3245,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "StudentRegistration.R")]
+        //[Authorize(Roles = "StudentRegistration.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3096,15 +3254,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRegistration.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(StudentRegistration entity)
+        //[Authorize(Roles = "StudentRegistration.C, StudentRegistration.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(StudentRegistration entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRegistration.D")]
+        //[Authorize(Roles = "StudentRegistration.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(StudentRegistration entity)
         {
@@ -3112,7 +3272,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRegistration.U")]
+        //[Authorize(Roles = "StudentRegistration.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(StudentRegistration entity)
         {
@@ -3126,15 +3287,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "StudentRegistration.R")]
+        //[Authorize(Roles = "StudentRegistration.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3145,7 +3307,7 @@ namespace eGYM
     #endregion
 
     #region StudentRequestService
-
+    
     public partial class StudentRequestService : ServiceBase<StudentRequest, StudentRequestRepository>
     {
         public StudentRequestService(StudentRequestRepository repository)
@@ -3177,9 +3339,9 @@ namespace eGYM
     [ApiController]
     public partial class StudentRequestController : CrudControllerBase<StudentRequest, StudentRequestService, StudentRequestRepository>
     {
-
+    
         #region Service
-
+        
         protected override StudentRequestService Service { get; set; }
 
         #endregion
@@ -3194,9 +3356,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "StudentRequest.R")]
+        //[Authorize(Roles = "StudentRequest.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3204,7 +3367,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "StudentRequest.R")]
+        //[Authorize(Roles = "StudentRequest.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3212,15 +3376,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRequest.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(StudentRequest entity)
+        //[Authorize(Roles = "StudentRequest.C, StudentRequest.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(StudentRequest entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRequest.D")]
+        //[Authorize(Roles = "StudentRequest.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(StudentRequest entity)
         {
@@ -3228,7 +3394,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRequest.U")]
+        //[Authorize(Roles = "StudentRequest.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(StudentRequest entity)
         {
@@ -3242,15 +3409,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "StudentRequest.R")]
+        //[Authorize(Roles = "StudentRequest.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3261,7 +3429,7 @@ namespace eGYM
     #endregion
 
     #region TrainingPlanService
-
+    
     public partial class TrainingPlanService : ServiceBase<TrainingPlan, TrainingPlanRepository>
     {
         public TrainingPlanService(TrainingPlanRepository repository)
@@ -3293,9 +3461,9 @@ namespace eGYM
     [ApiController]
     public partial class TrainingPlanController : CrudControllerBase<TrainingPlan, TrainingPlanService, TrainingPlanRepository>
     {
-
+    
         #region Service
-
+        
         protected override TrainingPlanService Service { get; set; }
 
         #endregion
@@ -3310,9 +3478,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "TrainingPlan.R")]
+        //[Authorize(Roles = "TrainingPlan.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3320,7 +3489,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "TrainingPlan.R")]
+        //[Authorize(Roles = "TrainingPlan.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3328,15 +3498,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "TrainingPlan.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(TrainingPlan entity)
+        //[Authorize(Roles = "TrainingPlan.C, TrainingPlan.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(TrainingPlan entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "TrainingPlan.D")]
+        //[Authorize(Roles = "TrainingPlan.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(TrainingPlan entity)
         {
@@ -3344,7 +3516,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "TrainingPlan.U")]
+        //[Authorize(Roles = "TrainingPlan.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(TrainingPlan entity)
         {
@@ -3358,15 +3531,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "TrainingPlan.R")]
+        //[Authorize(Roles = "TrainingPlan.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3377,7 +3551,7 @@ namespace eGYM
     #endregion
 
     #region TrainingPlanExerciseService
-
+    
     public partial class TrainingPlanExerciseService : ServiceBase<TrainingPlanExercise, TrainingPlanExerciseRepository>
     {
         public TrainingPlanExerciseService(TrainingPlanExerciseRepository repository)
@@ -3409,9 +3583,9 @@ namespace eGYM
     [ApiController]
     public partial class TrainingPlanExerciseController : CrudControllerBase<TrainingPlanExercise, TrainingPlanExerciseService, TrainingPlanExerciseRepository>
     {
-
+    
         #region Service
-
+        
         protected override TrainingPlanExerciseService Service { get; set; }
 
         #endregion
@@ -3426,9 +3600,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "TrainingPlanExercise.R")]
+        //[Authorize(Roles = "TrainingPlanExercise.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3436,7 +3611,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "TrainingPlanExercise.R")]
+        //[Authorize(Roles = "TrainingPlanExercise.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3444,15 +3620,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "TrainingPlanExercise.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(TrainingPlanExercise entity)
+        //[Authorize(Roles = "TrainingPlanExercise.C, TrainingPlanExercise.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(TrainingPlanExercise entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "TrainingPlanExercise.D")]
+        //[Authorize(Roles = "TrainingPlanExercise.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(TrainingPlanExercise entity)
         {
@@ -3460,7 +3638,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "TrainingPlanExercise.U")]
+        //[Authorize(Roles = "TrainingPlanExercise.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(TrainingPlanExercise entity)
         {
@@ -3474,15 +3653,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "TrainingPlanExercise.R")]
+        //[Authorize(Roles = "TrainingPlanExercise.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3493,7 +3673,7 @@ namespace eGYM
     #endregion
 
     #region UserService
-
+    
     public partial class UserService : ServiceBase<User, UserRepository>
     {
         public UserService(UserRepository repository)
@@ -3525,9 +3705,9 @@ namespace eGYM
     [ApiController]
     public partial class UserController : CrudControllerBase<User, UserService, UserRepository>
     {
-
+    
         #region Service
-
+        
         protected override UserService Service { get; set; }
 
         #endregion
@@ -3542,9 +3722,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "User.R")]
+        //[Authorize(Roles = "User.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3552,7 +3733,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "User.R")]
+        //[Authorize(Roles = "User.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3560,15 +3742,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "User.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(User entity)
+        //[Authorize(Roles = "User.C, User.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(User entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "User.D")]
+        //[Authorize(Roles = "User.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(User entity)
         {
@@ -3576,7 +3760,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "User.U")]
+        //[Authorize(Roles = "User.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(User entity)
         {
@@ -3590,15 +3775,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "User.R")]
+        //[Authorize(Roles = "User.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3609,7 +3795,7 @@ namespace eGYM
     #endregion
 
     #region UserLevelService
-
+    
     public partial class UserLevelService : ServiceBase<UserLevel, UserLevelRepository>
     {
         public UserLevelService(UserLevelRepository repository)
@@ -3641,9 +3827,9 @@ namespace eGYM
     [ApiController]
     public partial class UserLevelController : CrudControllerBase<UserLevel, UserLevelService, UserLevelRepository>
     {
-
+    
         #region Service
-
+        
         protected override UserLevelService Service { get; set; }
 
         #endregion
@@ -3658,9 +3844,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "UserLevel.R")]
+        //[Authorize(Roles = "UserLevel.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3668,7 +3855,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "UserLevel.R")]
+        //[Authorize(Roles = "UserLevel.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3676,15 +3864,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevel.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(UserLevel entity)
+        //[Authorize(Roles = "UserLevel.C, UserLevel.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(UserLevel entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevel.D")]
+        //[Authorize(Roles = "UserLevel.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(UserLevel entity)
         {
@@ -3692,7 +3882,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevel.U")]
+        //[Authorize(Roles = "UserLevel.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(UserLevel entity)
         {
@@ -3706,15 +3897,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "UserLevel.R")]
+        //[Authorize(Roles = "UserLevel.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3725,7 +3917,7 @@ namespace eGYM
     #endregion
 
     #region UserLevelAccessService
-
+    
     public partial class UserLevelAccessService : ServiceBase<UserLevelAccess, UserLevelAccessRepository>
     {
         public UserLevelAccessService(UserLevelAccessRepository repository)
@@ -3757,9 +3949,9 @@ namespace eGYM
     [ApiController]
     public partial class UserLevelAccessController : CrudControllerBase<UserLevelAccess, UserLevelAccessService, UserLevelAccessRepository>
     {
-
+    
         #region Service
-
+        
         protected override UserLevelAccessService Service { get; set; }
 
         #endregion
@@ -3774,9 +3966,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "UserLevelAccess.R")]
+        //[Authorize(Roles = "UserLevelAccess.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3784,7 +3977,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "UserLevelAccess.R")]
+        //[Authorize(Roles = "UserLevelAccess.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3792,15 +3986,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevelAccess.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(UserLevelAccess entity)
+        //[Authorize(Roles = "UserLevelAccess.C, UserLevelAccess.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(UserLevelAccess entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevelAccess.D")]
+        //[Authorize(Roles = "UserLevelAccess.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(UserLevelAccess entity)
         {
@@ -3808,7 +4004,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevelAccess.U")]
+        //[Authorize(Roles = "UserLevelAccess.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(UserLevelAccess entity)
         {
@@ -3822,15 +4019,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "UserLevelAccess.R")]
+        //[Authorize(Roles = "UserLevelAccess.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3841,7 +4039,7 @@ namespace eGYM
     #endregion
 
     #region UserLevelRoleService
-
+    
     public partial class UserLevelRoleService : ServiceBase<UserLevelRole, UserLevelRoleRepository>
     {
         public UserLevelRoleService(UserLevelRoleRepository repository)
@@ -3873,9 +4071,9 @@ namespace eGYM
     [ApiController]
     public partial class UserLevelRoleController : CrudControllerBase<UserLevelRole, UserLevelRoleService, UserLevelRoleRepository>
     {
-
+    
         #region Service
-
+        
         protected override UserLevelRoleService Service { get; set; }
 
         #endregion
@@ -3890,9 +4088,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "UserLevelRole.R")]
+        //[Authorize(Roles = "UserLevelRole.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -3900,7 +4099,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "UserLevelRole.R")]
+        //[Authorize(Roles = "UserLevelRole.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -3908,15 +4108,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevelRole.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(UserLevelRole entity)
+        //[Authorize(Roles = "UserLevelRole.C, UserLevelRole.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(UserLevelRole entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevelRole.D")]
+        //[Authorize(Roles = "UserLevelRole.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(UserLevelRole entity)
         {
@@ -3924,7 +4126,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserLevelRole.U")]
+        //[Authorize(Roles = "UserLevelRole.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(UserLevelRole entity)
         {
@@ -3938,15 +4141,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "UserLevelRole.R")]
+        //[Authorize(Roles = "UserLevelRole.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -3957,7 +4161,7 @@ namespace eGYM
     #endregion
 
     #region UserProfileService
-
+    
     public partial class UserProfileService : ServiceBase<UserProfile, UserProfileRepository>
     {
         public UserProfileService(UserProfileRepository repository)
@@ -3989,9 +4193,9 @@ namespace eGYM
     [ApiController]
     public partial class UserProfileController : CrudControllerBase<UserProfile, UserProfileService, UserProfileRepository>
     {
-
+    
         #region Service
-
+        
         protected override UserProfileService Service { get; set; }
 
         #endregion
@@ -4006,9 +4210,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "UserProfile.R")]
+        //[Authorize(Roles = "UserProfile.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -4016,7 +4221,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "UserProfile.R")]
+        //[Authorize(Roles = "UserProfile.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -4024,15 +4230,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserProfile.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(UserProfile entity)
+        //[Authorize(Roles = "UserProfile.C, UserProfile.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(UserProfile entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserProfile.D")]
+        //[Authorize(Roles = "UserProfile.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(UserProfile entity)
         {
@@ -4040,7 +4248,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserProfile.U")]
+        //[Authorize(Roles = "UserProfile.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(UserProfile entity)
         {
@@ -4054,15 +4263,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "UserProfile.R")]
+        //[Authorize(Roles = "UserProfile.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -4073,7 +4283,7 @@ namespace eGYM
     #endregion
 
     #region UserStateService
-
+    
     public partial class UserStateService : ServiceBase<UserState, UserStateRepository>
     {
         public UserStateService(UserStateRepository repository)
@@ -4105,9 +4315,9 @@ namespace eGYM
     [ApiController]
     public partial class UserStateController : CrudControllerBase<UserState, UserStateService, UserStateRepository>
     {
-
+    
         #region Service
-
+        
         protected override UserStateService Service { get; set; }
 
         #endregion
@@ -4122,9 +4332,10 @@ namespace eGYM
         #endregion
 
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
-
+            
         [HttpGet]
-        [Authorize(Roles = "UserState.R")]
+        //[Authorize(Roles = "UserState.R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -4132,7 +4343,8 @@ namespace eGYM
         }
 
         [HttpGet]
-        [Authorize(Roles = "UserState.R")]
+        //[Authorize(Roles = "UserState.R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -4140,15 +4352,17 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserState.C")]
-        [Route("Insert")]
-        public async Task<dynamic> Insert(UserState entity)
+        //[Authorize(Roles = "UserState.C, UserState.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(UserState entity)
         {
             return await base.SaveAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserState.D")]
+        //[Authorize(Roles = "UserState.D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete(UserState entity)
         {
@@ -4156,7 +4370,8 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "UserState.U")]
+        //[Authorize(Roles = "UserState.U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit(UserState entity)
         {
@@ -4170,15 +4385,16 @@ namespace eGYM
         #endregion
 
         #region GetDataColumns()
-
+        
         [HttpGet]
-        [Authorize(Roles = "UserState.R")]
+        //[Authorize(Roles = "UserState.R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-
-            dataColumns = this.GetColumns();
+            
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }
@@ -4187,4 +4403,4 @@ namespace eGYM
     }
 
     #endregion
-}  
+}

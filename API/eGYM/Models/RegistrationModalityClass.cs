@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class RegistrationModalityClass : IEntityBase 
+    public partial class RegistrationModalityClass : IEntityBase
     {
         public RegistrationModalityClass()
         {
+            InvoiceDetails = new HashSet<InvoiceDetail>();
             StudentRequests = new HashSet<StudentRequest>();
         }
 
@@ -19,12 +20,11 @@ namespace eGYM.Models
         public bool IsValid { get; set; }
         public int DueDay { get; set; }
         public int ModalityPaymentTypeId { get; set; }
-        public int? InvoiceId { get; set; }
 
-        public virtual Invoice Invoice { get; set; }
         public virtual ModalityClass ModalityClass { get; set; }
         public virtual ModalityPaymentType ModalityPaymentType { get; set; }
         public virtual StudentRegistration StudentRegistration { get; set; }
+        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual ICollection<StudentRequest> StudentRequests { get; set; }
     }
 }

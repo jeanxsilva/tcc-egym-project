@@ -64,11 +64,11 @@ namespace eGYM
             {
                 if (entity != null)
                 {
-                    await this.PreDeleteRoutine(entity);
+                    await this.Service.PreDeleteRoutine(entity);
 
                     this.ReturnBag.Result = this.Service.DeleteAsync(entity);
 
-                    await this.PostDeleteRoutine(entity);
+                    await this.Service.PostDeleteRoutine(entity);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace eGYM
             {
                 if (entity != null)
                 {
-                    await this.PreSavingRoutine(entity);
+                    await this.Service.PreSavingRoutine(entity);
 
                     TEntity savedEntity = await this.Service.SaveAsync(entity);
 
@@ -100,7 +100,7 @@ namespace eGYM
                         this.ReturnBag.Result = true;
                     }
 
-                    await this.PostSavingRoutine(entity);
+                    await this.Service.PostSavingRoutine(entity);
                 }
                 else
                 {
@@ -123,11 +123,11 @@ namespace eGYM
             {
                 if (entity != null)
                 {
-                    await this.PreUpdateRoutine(entity);
+                    await this.Service.PreUpdateRoutine(entity);
 
                     this.ReturnBag.Result = await this.Service.SaveAsync(entity);
 
-                    await this.PostUpdateRoutine(entity);
+                    await this.Service.PostUpdateRoutine(entity);
                 }
                 else
                 {
@@ -143,67 +143,6 @@ namespace eGYM
             return this.ReturnBag;
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual async Task PreSavingRoutine(TEntity entity)
-        {
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual async Task PostSavingRoutine(TEntity entity)
-        {
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual async Task PreDeleteRoutine(TEntity entity)
-        {
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual async Task PostDeleteRoutine(TEntity entity)
-        {
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual async Task PreUpdateRoutine(TEntity entity)
-        {
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public virtual async Task PostUpdateRoutine(TEntity entity)
-        {
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
-        protected virtual List<DataColumn> GetColumns()
-        {
-            List<DataColumn> dataColumns = new List<DataColumn>();
-            dataColumns.Add(new DataColumn("", DataTypes.String, ""));
-
-            return dataColumns;
-        }
-
         #endregion
-    }
-
-    public enum DataTypes
-    {
-        Int = 0,
-        String = 1,
-        Date = 2,
-        Boolean = 3
-    }
-
-    public class DataColumn
-    {
-        public string PropertyName { get; set; }
-        public string LabelDescription { get; set; }
-        public DataTypes DataType { get; set; }
-
-        public DataColumn(string name, DataTypes type, string description)
-        {
-            this.PropertyName = name;
-            this.DataType = type;
-            this.LabelDescription = description;
-        }
     }
 }

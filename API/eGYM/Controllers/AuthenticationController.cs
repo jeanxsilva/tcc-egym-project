@@ -9,12 +9,6 @@ using System.Threading.Tasks;
 
 namespace eGYM.Controllers
 {
-    public class UserLogin
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-
-    }
 
     [Route("api/[controller]")]
     [ApiController]
@@ -37,7 +31,7 @@ namespace eGYM.Controllers
 
             if (userProfile != null)
             {
-                string token = ServiceToken.GenerateToken(userProfile);
+                string token = await ServiceToken.GenerateToken(userProfile);
 
                 returnBag.Token = token;
                 returnBag.ExpiresIn = 2;

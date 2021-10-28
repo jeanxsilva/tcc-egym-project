@@ -1,3 +1,17 @@
+import { ExerciseListComponent } from './../../pages/exercise/exercise-list/exercise-list.component';
+import { ExerciseFormComponent } from './../../pages/exercise/exercise-form/exercise-form.component';
+import { ModalityFormComponent } from './../../pages/modality/modality-form/modality-form.component';
+import { ModalityListComponent } from './../../pages/modality/modality-list/modality-list.component';
+import { ModalityClassFormComponent } from './../../pages/modality-class/modality-class-form/modality-class-form.component';
+import { ModalityClassListComponent } from './../../pages/modality-class/modality-class-list/modality-class-list.component';
+import { ReversalPaymentScreenComponent } from './../../pages/payment/reversal-payment-screen/reversal-payment-screen.component';
+import { ReversalPaymentDetailsComponent } from './../../pages/payment/reversal-payment-details/reversal-payment-details.component';
+import { ReversalPaymentListComponent } from './../../pages/payment/reversal-payment-list/reversal-payment-list.component';
+import { EmployeeFormComponent } from './../../pages/employee/employee-form/employee-form.component';
+import { EmployeeListComponent } from './../../pages/employee/employee-list/employee-list.component';
+import { TrainingPlanListComponent } from './../../pages/training/training-plan-list/training-plan-list.component';
+import { TrainingPlanFormComponent } from './../../pages/training/training-plan-form/training-plan-form.component';
+import { PhysicalAssesmentDetailsComponent } from './../../pages/physicalAssesment/physical-assesment-details/physical-assesment-details.component';
 import { SchedulePhysicalAssesmentComponent } from './../../pages/physicalAssesment/schedule-physical-assesment/schedule-physical-assesment.component';
 import { PhysicalAssesmentScreenComponent } from './../../pages/physicalAssesment/physical-assesment-screen/physical-assesment-screen.component';
 import { PhysicalAssesmentScheduleListComponent } from './../../pages/physicalAssesment/physical-assesment-schedule-list/physical-assesment-schedule-list.component';
@@ -16,15 +30,41 @@ import { PhysicalAssesmentListComponent } from 'src/app/pages/physicalAssesment/
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'user-profile', component: UserProfileComponent },
-    { path: 'student', component: StudentListComponent },
+
+    { path: 'employees', component: EmployeeListComponent },
+    { path: 'employee/create', component: EmployeeFormComponent },
+    { path: 'employee/edit/:id', component: EmployeeFormComponent },
+
+    { path: 'students', component: StudentListComponent },
     { path: 'student/create', component: StudentFormComponent },
     { path: 'student/edit/:id', component: StudentFormComponent },
-    { path: 'payment', component: PaymentListComponent },
-    { path: 'payment/register', component: PaymentScreenComponent},
+
+    { path: 'trainings', component: TrainingPlanListComponent },
+    { path: 'training/create', component: TrainingPlanFormComponent },
+    { path: 'training/edit/:id', component: TrainingPlanFormComponent },
+
+    { path: 'payments', component: PaymentListComponent },
+    { path: 'payment/register', component: PaymentScreenComponent },
     { path: 'payment/invoices', component: InvoiceListComponent },
+    { path: 'payment/reversals', component: ReversalPaymentListComponent },
+    { path: 'payment/reversal/register', component: ReversalPaymentScreenComponent },
     { path: 'payment/invoice/:id', component: InvoiceDetailsComponent },
-    { path: 'assessments', component: PhysicalAssesmentListComponent},
-    { path: 'assessment/register', component: PhysicalAssesmentScreenComponent},
-    { path: 'assessment/scheduled', component: PhysicalAssesmentScheduleListComponent},
-    { path: 'assessment/schedule/register', component: SchedulePhysicalAssesmentComponent}
+    { path: 'payment/reversal/:id', component: ReversalPaymentDetailsComponent },
+
+    { path: 'modalities', component: ModalityListComponent },
+    { path: 'modality/create', component: ModalityFormComponent },
+    { path: 'modality/edit/:id', component: ModalityFormComponent },
+    { path: 'modality/classes', component: ModalityClassListComponent },
+    { path: 'modality/class/create', component: ModalityClassFormComponent },
+    { path: 'modality/class/edit/:id', component: ModalityClassFormComponent },
+
+    { path: 'exercises', component: ExerciseListComponent },
+    { path: 'exercise/create', component: ExerciseFormComponent },
+    { path: 'exercise/edit/:id', component: ExerciseFormComponent },
+
+    { path: 'assessments', component: PhysicalAssesmentListComponent },
+    { path: 'assessment/scheduleds', component: PhysicalAssesmentScheduleListComponent },
+    { path: 'assessment/schedule/register', component: SchedulePhysicalAssesmentComponent },
+    { path: 'assessment/register/:scheduledId', component: PhysicalAssesmentScreenComponent },
+    { path: 'assessment/:id', component: PhysicalAssesmentDetailsComponent },
 ];

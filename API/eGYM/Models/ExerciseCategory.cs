@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class ExerciseCategory : IEntityBase 
+    public partial class ExerciseCategory : IEntityBase
     {
         public ExerciseCategory()
         {

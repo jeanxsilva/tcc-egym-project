@@ -13,13 +13,25 @@ namespace eGYM
     public partial class UserProfileService
     {
         private readonly UserRepository userRepository;
+        private readonly ClaimResolver claimResolver;
         private readonly SecurityHash securityHash;
 
-        public UserProfileService(UserProfileRepository repository, UserRepository userRepository) : this(repository)
+        public UserProfileService(UserProfileRepository repository, UserRepository userRepository, ClaimResolver claimResolver) : this(repository)
         {
             this.Repository = repository;
             this.userRepository = userRepository;
+            this.claimResolver = claimResolver;
             this.securityHash = new SecurityHash(SHA256.Create());
+        }
+
+        public async Task<UserProfile> ResolveUserProfile()
+        {
+            IQueryable<UserProfile> queryable = this.Repository.GetQuery();
+            string userLogin = await this.claimResolver.ResolveUserLoginAsync();
+
+            UserProfile userProfile = queryable.FirstOrDefault(up => up.Login.Equals(userLogin));
+
+            return userProfile;
         }
 
         public async Task<UserProfile> AuthenticateAsync(UserLogin userLogin)

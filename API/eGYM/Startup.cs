@@ -27,6 +27,7 @@ using eGYM.GraphQL;
 using HotChocolate.Data.Filters;
 using HotChocolate.Data.Filters.Expressions;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace eGYM
 {
@@ -50,6 +51,9 @@ namespace eGYM
                     warning.Default(WarningBehavior.Ignore)
                         .Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)
                         .Throw(RelationalEventId.BoolWithDefaultWarning)));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ClaimResolver>();
 
             services.AddSwaggerGen(c =>
             {

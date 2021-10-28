@@ -1,1 +1,47 @@
-<p>physical-assesment-schedule-list works!</p>
+<app-base-card title="Avaliações fisicas agendadas" [hideFooter]="true">
+    <div class="row">
+        <div class="col-12">
+            <label class="form-control-label" for="name">Selecione um horário <span class="text-danger">*</span></label>
+            <app-fullcalendar (onClickEvent)="handleEvent($event)" [events]="events" [options]="options">
+            </app-fullcalendar>
+        </div>
+    </div>
+</app-base-card>
+
+<ng-template #confirmModal let-modal>
+    <div class="modal-header border-bottom align-items-center">
+        <h4 class="modal-title">Qual ação deseja realizar?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-12">
+            <div class="row align-items-center">
+                <div class="col-12 mb-3"><button class="btn btn-success btn-block" (click)="modal.close(true)">Realizar
+                        avaliação</button></div>
+                <div class="col-12"><button class="btn btn-outline-danger btn-block"
+                        (click)="modal.close(false)">Cancelar agendamento</button></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #dialogModal let-modal>
+    <div class="modal-header border-bottom align-items-center">
+        <h4 class="modal-title">Tem certeza que deseja excluir?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-12">
+            <div class="row align-items-center">
+                <div class="col-6"><button class="btn btn-outline-danger btn-block" (click)="modal.close(false)">Não,
+                        voltar a listagem</button></div>
+                <div class="col-6"><button class="btn btn-success btn-block" (click)="modal.close(true)">Sim, cancelar
+                        agendamento selecionado</button></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

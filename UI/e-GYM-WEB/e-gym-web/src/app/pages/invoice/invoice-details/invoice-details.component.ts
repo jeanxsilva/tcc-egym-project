@@ -38,7 +38,7 @@ export class InvoiceDetailsComponent implements OnInit {
     active.result.then(hasSuccess => {
       if (hasSuccess) {
         if (this.redirectToSchedule) {
-          this.router.navigate([`assesment/schedule/register`], {
+          this.router.navigate([`assesment/scheduled`], {
             state: {
               student: this.invoice.student
             }

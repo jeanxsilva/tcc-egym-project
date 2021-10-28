@@ -56,6 +56,22 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { PhysicalAssesmentDetailsComponent } from './pages/physicalAssesment/physical-assesment-details/physical-assesment-details.component';
+import { TrainingPlanListComponent } from './pages/training/training-plan-list/training-plan-list.component';
+import { TrainingPlanFormComponent } from './pages/training/training-plan-form/training-plan-form.component';
+import { EmployeeListComponent } from './pages/employee/employee-list/employee-list.component';
+import { EmployeeFormComponent } from './pages/employee/employee-form/employee-form.component';
+import { ReversalPaymentListComponent } from './pages/payment/reversal-payment-list/reversal-payment-list.component';
+import { ReversalPaymentScreenComponent } from './pages/payment/reversal-payment-screen/reversal-payment-screen.component';
+import { StudentRequestScreenComponent } from './pages/student-request/student-request-screen/student-request-screen.component';
+import { LastNewsScreenComponent } from './pages/last-news/last-news-screen/last-news-screen.component';
+import { ExerciseListComponent } from './pages/exercise/exercise-list/exercise-list.component';
+import { ExerciseFormComponent } from './pages/exercise/exercise-form/exercise-form.component';
+import { ModalityClassListComponent } from './pages/modality-class/modality-class-list/modality-class-list.component';
+import { ModalityClassFormComponent } from './pages/modality-class/modality-class-form/modality-class-form.component';
+import { ModalityFormComponent } from './pages/modality/modality-form/modality-form.component';
+import { ModalityListComponent } from './pages/modality/modality-list/modality-list.component';
+import { ReversalPaymentDetailsComponent } from './pages/payment/reversal-payment-details/reversal-payment-details.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -111,7 +127,23 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PhysicalAssesmentScreenComponent,
     SchedulePhysicalAssesmentComponent,
     PhysicalAssesmentScheduleListComponent,
-    StudentRequestListComponent
+    StudentRequestListComponent,
+    PhysicalAssesmentDetailsComponent,
+    TrainingPlanListComponent,
+    TrainingPlanFormComponent,
+    EmployeeListComponent,
+    EmployeeFormComponent,
+    ReversalPaymentListComponent,
+    ReversalPaymentScreenComponent,
+    StudentRequestScreenComponent,
+    LastNewsScreenComponent,
+    ExerciseListComponent,
+    ExerciseFormComponent,
+    ModalityClassListComponent,
+    ModalityClassFormComponent,
+    ModalityFormComponent,
+    ModalityListComponent,
+    ReversalPaymentDetailsComponent
   ],
   providers: [
     {

@@ -36,11 +36,19 @@
       </ul>
 
       <ng-template #greet let-item>
-        <a routerLinkActive="active" [routerLink]="[item.Path]" class="nav-link" role="button"
+        <a routerLinkActive="active" [routerLink]="[item.Path]" *ngIf="item.Path || item.Path != ''" class="nav-link"
+          role="button" (click)="item.Collapsed = !item.Collapsed">
+          <i class="fas {{item.Icon}}"></i>
+          <span class="w-100">{{item.Description}}</span>
+          <i class="fas text-right"
+            [ngClass]="{'fa-angle-right': !item.Collapsed, 'fa-angle-down': item.Collapsed}"
+            *ngIf="item.Children.length"></i>
+        </a>
+        <a routerLinkActive="active" *ngIf="!item.Path || item.Path == ''" class="nav-link" role="button"
           (click)="item.Collapsed = !item.Collapsed">
           <i class="fas {{item.Icon}}"></i>
-          {{item.Description}}
-          <i class="fas text-right w-100"
+          <span class="w-100">{{item.Description}}</span>
+          <i class="fas text-right"
             [ngClass]="{'fa-angle-right': !item.Collapsed, 'fa-angle-down': item.Collapsed}"
             *ngIf="item.Children.length"></i>
         </a>

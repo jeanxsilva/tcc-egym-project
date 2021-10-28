@@ -1,4 +1,5 @@
-﻿using eGYM.Models;
+﻿using eGYM.Core;
+using eGYM.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace eGYM
         private readonly UserLevelRepository userLevelRepository;
         private readonly UserStateRepository userStateRepository;
         private readonly UserProfileService userProfileService;
+        private readonly ClaimResolver claimResolver;
         private readonly UserService userService;
         private readonly ModalityClassService modalityClassService;
         private readonly ModalityPaymentTypeService modalityPaymentTypeService;
@@ -20,6 +22,7 @@ namespace eGYM
 
         public StudentRegistrationService(StudentRegistrationRepository repository, UserLevelRepository userLevelRepository,
             UserStateRepository userStateRepository, UserProfileService userProfileService,
+            ClaimResolver claimResolver,
             UserService userService,
             ModalityClassService modalityClassService,
             ModalityPaymentTypeService modalityPaymentTypeService,
@@ -29,12 +32,27 @@ namespace eGYM
             this.userLevelRepository = userLevelRepository;
             this.userStateRepository = userStateRepository;
             this.userProfileService = userProfileService;
+            this.claimResolver = claimResolver;
             this.userService = userService;
             this.modalityClassService = modalityClassService;
             this.modalityPaymentTypeService = modalityPaymentTypeService;
             this.registrationModalityClassService = registrationModalityClassService;
             this.invoiceService = invoiceService;
         }
+
+        #region GetDataColumns()
+
+        public override List<DataColumn> GetColumns()
+        {
+            List<DataColumn> dataColumns = new List<DataColumn>();
+            dataColumns.Add(new DataColumn("id", DataTypes.Int, "Id"));
+            dataColumns.Add(new DataColumn("code", DataTypes.String, "Matricula"));
+            dataColumns.Add(new DataColumn("user.name", DataTypes.String, "Nome"));
+
+            return dataColumns;
+        }
+
+        #endregion
 
         public StudentRegistration GetStudentByUser(User user)
         {
@@ -57,19 +75,20 @@ namespace eGYM
 
                     if (savedUser != null)
                     {
-                        UserLevel userLevel = await this.userLevelRepository.GetById(2);
-                        UserState userState = await this.userStateRepository.GetById(1);
                         UserProfile userProfile = this.userProfileService.GetUserProfileByUser(savedUser);
                         if (userProfile == null)
                         {
+                            UserLevel userLevel = await this.userLevelRepository.GetById(2);
+                            UserState userState = await this.userStateRepository.GetById((long)UserStateEnum.Active);
+
                             userProfile = new UserProfile();
+                            userProfile.Login = savedUser.RegisterCode;
+                            userProfile.User = savedUser;
+                            userProfile.UserLevel = userLevel;
+                            userProfile.UserState = userState;
                         }
 
-                        userProfile.Login = savedUser.RegisterCode;
                         userProfile.Password = savedUser.Birthday.ToString();
-                        userProfile.User = savedUser;
-                        userProfile.UserLevel = userLevel;
-                        userProfile.UserState = userState;
 
                         UserProfile savedUserProfile = await this.userProfileService.SaveUserProfileAsync(userProfile);
                         if (savedUserProfile == null)

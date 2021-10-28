@@ -60,6 +60,37 @@ namespace eGYM.Services
             return this.Repository.GetQuery();
         }
 
+
+        public virtual async Task PreSavingRoutine(TEntity entity)
+        {
+        }
+
+        public virtual async Task PostSavingRoutine(TEntity entity)
+        {
+        }
+
+        public virtual async Task PreDeleteRoutine(TEntity entity)
+        {
+        }
+
+        public virtual async Task PostDeleteRoutine(TEntity entity)
+        {
+        }
+
+        public virtual async Task PreUpdateRoutine(TEntity entity)
+        {
+        }
+
+        public virtual async Task PostUpdateRoutine(TEntity entity)
+        {
+        }
+
+        public virtual List<DataColumn> GetColumns()
+        {
+            List<DataColumn> dataColumns = new List<DataColumn>();
+
+            return dataColumns;
+        }
         #endregion
     }
 }

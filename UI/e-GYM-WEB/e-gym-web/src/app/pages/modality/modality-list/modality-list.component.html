@@ -1,0 +1,9 @@
+<app-base-card title="Modalidades" [hideFooter]="true">
+    <div class="row">
+        <div class="col-12">
+            <app-custom-table [entity]="'Modality'" [title]="'Listagem de modalidades'" [isCrud]="true"
+            (editEvent)="edit($event)" (deleteEvent)="remove($event)" (insertEvent)="insert()">
+            </app-custom-table>
+        </div>
+    </div>
+</app-base-card>

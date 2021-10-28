@@ -25,22 +25,36 @@ namespace eGYM
             this.companyUnitService = companyUnitService;
         }
 
-        public async Task<Payment> PreSave(Payment payment)
+
+        #region GetDataColumns()
+
+        public override List<DataColumn> GetColumns()
+        {
+            List<DataColumn> dataColumns = new List<DataColumn>();
+            dataColumns.Add(new DataColumn("paidByUser.name", DataTypes.String, "Nome do aluno"));
+            dataColumns.Add(new DataColumn("receivedByUser.name", DataTypes.String, "Recebido por"));
+            dataColumns.Add(new DataColumn("paymentType.description", DataTypes.String, "Tipo de pagamento"));
+            dataColumns.Add(new DataColumn("invoice.totalValue", DataTypes.Currency, "Valor"));
+            dataColumns.Add(new DataColumn("paymentDateTime", DataTypes.Date, "Data de pagamento"));
+
+            return dataColumns;
+        }
+
+        #endregion
+
+        public override async Task PreSavingRoutine(Payment payment)
         {
             payment.PaymentDateTime = DateTime.UtcNow.ToLocalTime();
             payment.PaidByUser = await this.userService.GetByIdAsync(payment.PaidByUserId);
             payment.PaymentType = await this.paymentTypeService.GetByIdAsync(payment.PaymentTypeId);
-            payment.ReceivedByUser = await this.userService.GetByIdAsync(1);
-            payment.CompanyUnit = await this.companyUnitService.GetByIdAsync(1);
+            payment.ReceivedByUser = await this.userService.ResolveUser();
+            payment.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
             payment.Invoice = await this.invoiceService.GetByIdAsync(payment.InvoiceId);
-
-            return payment;
         }
 
-        public async Task<bool> PostSave(Payment payment)
+        public override async Task PostSavingRoutine(Payment payment)
         {
             await this.invoiceService.SavePaymentInvoice(payment.Invoice);
-            return false;
         }
     }
 }

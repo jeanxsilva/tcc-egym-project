@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg } from '@fullcalendar/angular';
+import { Component, OnInit, EventEmitter, Output, Input, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { CalendarOptions, DateSelectArg, EventApi, EventClickArg } from '@fullcalendar/angular';
 import ptLocale from '@fullcalendar/core/locales/pt-br';
 
 @Component({
@@ -12,12 +12,9 @@ export class FullcalendarComponent implements OnInit {
   @Output() onClickEvent = new EventEmitter<EventClickArg>();
   @Output() onAddEvent = new EventEmitter<DateSelectArg>();
   @Input() options: any;
-  @Input() events: CalendarEvent[] = [
-    { id: '', title: 'event 1', start: '2021-10-18T16:00', end: '2021-10-18T16:30' },
-    { id: '', title: 'event 2', start: '2021-10-18T15:00', end: '2021-10-18T15:30' }
-  ];
+  @Input() events: EventApi[] = [];
 
-  public dateNow = formatDate(new Date(), 'yyyy-MM-dd', 'pt-br').toString();
+  public dateNow = formatDate(new Date(), 'yyyy-MM-dd hh:mm', 'pt-br').toString();
   public dateEnd = formatDate(new Date().setHours(new Date().getHours() + 168), 'yyyy-MM-dd', 'pt-br').toString();
   public locales = [ptLocale];
   public calendarOptions: CalendarOptions = {
@@ -32,12 +29,13 @@ export class FullcalendarComponent implements OnInit {
     selectMirror: true,
     dayMaxEvents: true,
     hiddenDays: [0],
+    showNonCurrentDates: false,
+    defaultTimedEventDuration: 30,
     validRange: {
       start: this.dateNow,
       end: this.dateEnd
     },
     eventConstraint: "businessHours",
-    events: this.events,
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
@@ -56,10 +54,12 @@ export class FullcalendarComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.dateEnd)
+  ngDoCheck(): void {
+    this.calendarOptions = { ...this.calendarOptions, ...this.options };
   }
 
+  ngOnInit(): void {
+  }
 
   handleDateSelect(selectInfo: DateSelectArg) {
     this.onAddEvent.emit(selectInfo);
@@ -75,4 +75,6 @@ export class CalendarEvent {
   public title: string;
   public start: string;
   public end: string;
+  public eventBackgroundColor?: string;
+
 }

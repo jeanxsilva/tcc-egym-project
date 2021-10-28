@@ -44,13 +44,13 @@ export class InvoiceListComponent implements OnInit {
   }
 
   public search() {
-    this.loadInvoices(this.filterBy, this.searchBy);
-  }
-  
-  public seeDetails(id){
-    this.router.navigate([`payment/invoice/${id}`]);
+    // this.loadInvoices(this.filterBy, this.searchBy);
   }
 
+  public seeDetails(id) {
+    this.router.navigate([`payment/invoice/${id}`]);
+  }
+  
   private loadInvoices(filterBy?: any, searchBy?: string) {
     let queryBuilder: QueryBuilder = new QueryBuilder("listInvoice");
 

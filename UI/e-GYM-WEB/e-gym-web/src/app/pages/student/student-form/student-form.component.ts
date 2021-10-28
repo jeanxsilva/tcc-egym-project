@@ -8,6 +8,7 @@ import { formatDate, Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http'
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
+import { Modality } from '../../modality/modality-form/modality-form.component';
 
 @Component({
   selector: 'app-student-form',
@@ -22,6 +23,7 @@ export class StudentFormComponent implements OnInit {
   public modalityClasses: Array<ModalityClass> = [];
   public selectedModalities;
   public registered: number[] = [];
+  public dateNow: string = formatDate(new Date(), "dd", 'pt-br');
 
   constructor(private apiService: ApiService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private http: HttpClient) {
     this.student.user = new User();
@@ -140,7 +142,7 @@ export class StudentFormComponent implements OnInit {
     this.apiService.SendToAPI("StudentRegistration", "SaveStudent", entity).subscribe((result: any) => {
       if (result.HasError == false) {
         if (this.isNew) {
-          this.router.navigate(['invoice'], {
+          this.router.navigate(['payment/invoices'], {
             state: {
               studentName: result.Result.User.Name
             }
@@ -208,6 +210,7 @@ export class Student {
   code: string = "";
   user: User = new User();
   registrationModalityClasses: RegistrationModalityClass[] = []
+  physicalAssesments: any [] = [];
 }
 
 export class User {
@@ -230,16 +233,6 @@ export class ModalityClass {
   public startTime: string;
   public endTime: string;
   public totalVacancies: number;
-  public totalActiveMembers: number;
-  public instructor: User;
-  public modality: Modality;
-}
-
-export class Modality {
-  public id: number = 0;
-  public description: string;
-  public price: number;
-  public daysInWeek: number;
   public totalActiveMembers: number;
   public instructor: User;
   public modality: Modality;

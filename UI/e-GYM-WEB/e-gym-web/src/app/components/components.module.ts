@@ -5,7 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CrudTableComponent } from './crud-table/crud-table.component';
+import { CustomTableComponent } from './custom-table/custom-table.component';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
@@ -34,7 +34,6 @@ import { UserPermissionService } from '../services/user-permissions-service/user
 import { BaseCardComponent } from './base-card/base-card/base-card.component';
 import { FullcalendarComponent } from './calendar/fullcalendar/fullcalendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-
 
 @NgModule({
   imports: [
@@ -66,18 +65,18 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    CrudTableComponent,
     UserProfileComponent,
     BaseCardComponent,
-    FullcalendarComponent,
+    CustomTableComponent,
+    FullcalendarComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    CrudTableComponent,
     UserProfileComponent,
     BaseCardComponent,
+    CustomTableComponent,
     FullcalendarComponent,
   ],
   providers: [

@@ -21,6 +21,22 @@ namespace eGYM
             this.registrationModalityClassService = registrationModalityClassService;
         }
 
+        #region GetDataColumns()
+
+        public override List<DataColumn> GetColumns()
+        {
+            List<DataColumn> dataColumns = new List<DataColumn>();
+            dataColumns.Add(new DataColumn("student.user.name", DataTypes.String, "Nome do aluno"));
+            dataColumns.Add(new DataColumn("dueDate", DataTypes.Date, "Data de vencimento"));
+            dataColumns.Add(new DataColumn("referentToDate", DataTypes.Date, "Referente a data"));
+            dataColumns.Add(new DataColumn("invoiceStatus.description", DataTypes.Date, "Status"));
+            dataColumns.Add(new DataColumn("totalValue", DataTypes.Currency, "Valor total"));
+
+            return dataColumns;
+        }
+
+        #endregion
+
         public async Task<Invoice> GenerateInvoice(List<RegistrationModalityClass> registrationModalityClasses, StudentRegistration student, DateTime referentToDate, bool isByRequest, string note)
         {
             Invoice invoice = new Invoice();
@@ -29,8 +45,8 @@ namespace eGYM
             invoice.Student = student;
             invoice.IsByRequest = isByRequest;
             invoice.Note = note;
-            invoice.CompanyUnit = await this.companyUnitService.GetByIdAsync(1);
-            invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync(0);
+            invoice.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
+            invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Generated);
 
             List<InvoiceDetail> invoiceDetails = new List<InvoiceDetail>();
             foreach (RegistrationModalityClass registrationModalityClass in registrationModalityClasses)
@@ -41,13 +57,13 @@ namespace eGYM
                 invoiceDetail.Description = modality.Description;
                 invoiceDetail.Price = modality.Price;
                 invoiceDetail.Invoice = invoice;
+                invoiceDetail.RegistrationModalityClass = registrationModalityClass;
 
                 invoiceDetails.Add(invoiceDetail);
 
                 invoice.TotalValue += modality.Price;
             }
 
-            invoice.RegistrationModalityClasses = registrationModalityClasses;
             invoice.InvoiceDetails = invoiceDetails;
 
             return await this.Repository.Create(invoice);
@@ -55,21 +71,28 @@ namespace eGYM
 
         public async Task<bool> SavePaymentInvoice(Invoice invoice)
         {
-            List<RegistrationModalityClass> registrationModalityClasses = invoice.RegistrationModalityClasses.ToList();
+            List<InvoiceDetail> invoiceDetails = invoice.InvoiceDetails.ToList();
 
-            if(registrationModalityClasses.Count > 0)
+            if (invoiceDetails.Count > 0)
             {
-                foreach(RegistrationModalityClass registrationModalityClass in registrationModalityClasses)
+                List<RegistrationModalityClass> registrationModalityClasses = new List<RegistrationModalityClass>();
+                foreach (InvoiceDetail invoiceDetail in invoiceDetails)
                 {
-                    registrationModalityClass.IsValid = true;
+                    RegistrationModalityClass registrationModalityClass = invoiceDetail.RegistrationModalityClass;
+
+                    if (registrationModalityClass != null)
+                    {
+                        registrationModalityClass.IsValid = true;
+                        registrationModalityClasses.Add(registrationModalityClass);
+                    }
                 }
 
                 await this.registrationModalityClassService.SaveAsync(registrationModalityClasses);
             }
 
-            invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync(10);
+            invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Paid);
             await this.Repository.Update(invoice);
-            return false;
+            return true;
         }
     }
 }

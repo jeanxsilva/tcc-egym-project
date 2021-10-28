@@ -15,11 +15,21 @@ namespace eGYM
             this.studentRegistrationService = studentRegistrationService;
         }
 
-        public async Task<PhysicalAssesmentScheduled> PreSave(PhysicalAssesmentScheduled entity)
+        #region GetDataColumns()
+
+        public override List<DataColumn> GetColumns()
+        {
+            List<DataColumn> dataColumns = new List<DataColumn>();
+
+            return dataColumns;
+        }
+
+        #endregion
+
+        public override async Task PreSavingRoutine(PhysicalAssesmentScheduled entity)
         {
             entity.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
             entity.StudentRegistration = await this.studentRegistrationService.GetByIdAsync(entity.StudentRegistrationId);
-            return entity;
         }
     }
 }

@@ -83,7 +83,8 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
             
         [HttpGet]
-        [Authorize(Roles = "$($entityName).R")]
+        //[Authorize(Roles = "$($entityName).R")]
+        [Authorize]
         [Route("List")]
         public async Task<dynamic> List()
         {
@@ -91,7 +92,8 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         }
 
         [HttpGet]
-        [Authorize(Roles = "$($entityName).R")]
+        //[Authorize(Roles = "$($entityName).R")]
+        [Authorize]
         [Route("GetById")]
         public async Task<dynamic> GetById(int entityId)
         {
@@ -99,7 +101,8 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         }
 
         [HttpPost]
-        [Authorize(Roles = "$($entityName).C, $($entityName).U")]
+        //[Authorize(Roles = "$($entityName).C, $($entityName).U")]
+        [Authorize]
         [Route("Save")]
         public async Task<dynamic> Save($($entityName) entity)
         {
@@ -107,15 +110,17 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         }
 
         [HttpPost]
-        [Authorize(Roles = "$($entityName).D")]
+        //[Authorize(Roles = "$($entityName).D")]
+        [Authorize]
         [Route("Delete")]
         public new dynamic Delete($($entityName) entity)
         {
-            return base.Delete(entity);
+            return base.DeleteAsync(entity);
         }
 
         [HttpPost]
-        [Authorize(Roles = "$($entityName).U")]
+        //[Authorize(Roles = "$($entityName).U")]
+        [Authorize]
         [Route("Edit")]
         public dynamic Edit($($entityName) entity)
         {
@@ -131,13 +136,14 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         #region GetDataColumns()
         
         [HttpGet]
-        [Authorize(Roles = "$($entityName).R")]
+        //[Authorize(Roles = "$($entityName).R")]
+        [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
             
-            dataColumns = this.GetColumns();
+            dataColumns = this.Service.GetColumns();
 
             return dataColumns;
         }

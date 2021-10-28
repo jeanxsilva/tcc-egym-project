@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class ModalityClass : IEntityBase 
+    public partial class ModalityClass : IEntityBase
     {
         public ModalityClass()
         {

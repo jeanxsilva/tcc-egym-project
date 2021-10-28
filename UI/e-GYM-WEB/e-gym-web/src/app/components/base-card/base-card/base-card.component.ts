@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, ContentChildren, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -10,7 +10,7 @@ export class BaseCardComponent implements OnInit {
   @Input() hideFooter: boolean = false;
   @Input() hideHeader: boolean = false;
   @Input() title: string = "";
-  @ViewChild('footer') footer: TemplateRef<any>;
+  @ContentChild('footer') footer: TemplateRef<any>;
 
   constructor(private location: Location) { }
 
@@ -19,7 +19,7 @@ export class BaseCardComponent implements OnInit {
 
   ngAfterViewInit() {
   }
-  
+
   goBack() {
     this.location.back();
   }

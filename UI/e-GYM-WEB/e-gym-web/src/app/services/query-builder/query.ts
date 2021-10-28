@@ -97,7 +97,7 @@ export class Query {
           if (index < splitedString.length - 1) {
             queryParameters += `${entity}: {`;
           } else {
-            queryParameters += `${entity}: ${param.value}`;
+            queryParameters += `${entity}: ${param.value}}`;
           }
 
         });

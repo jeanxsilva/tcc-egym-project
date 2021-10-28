@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class UserLevelRole : IEntityBase 
+    public partial class UserLevelRole : IEntityBase
     {
         public int Id { get; set; }
         public string Role { get; set; }

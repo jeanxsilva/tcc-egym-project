@@ -21,5 +21,18 @@ namespace eGYM.Services
 
         Task<bool>Delete(List<TEntity> entities);
 
+        Task PreSavingRoutine(TEntity entity);
+
+        Task PostSavingRoutine(TEntity entity);
+
+        Task PreDeleteRoutine(TEntity entity);
+
+        Task PostDeleteRoutine(TEntity entity);
+
+        Task PreUpdateRoutine(TEntity entity);
+
+        Task PostUpdateRoutine(TEntity entity);
+
+        List<DataColumn> GetColumns();
     }
 }

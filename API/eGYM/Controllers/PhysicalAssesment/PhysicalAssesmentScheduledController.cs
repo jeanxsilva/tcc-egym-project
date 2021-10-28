@@ -1,4 +1,6 @@
 ﻿using eGYM.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +10,29 @@ namespace eGYM
 {
     public partial class PhysicalAssesmentScheduledController
     {
-        public override async Task PreSavingRoutine(PhysicalAssesmentScheduled entity)
+        [HttpPost]
+        //[Authorize(Roles = "PhysicalAssesmentScheduled.C, PhysicalAssesmentScheduled.U")]
+        [Authorize]
+        [Route("UpdateScheduleStatus")]
+        public async Task<dynamic> UpdateScheduleStatus(PhysicalAssesmentScheduled entity)
         {
-            entity = await this.Service.PreSave(entity);
-        }
+            try
+            {
+                this.ReturnBag.HasError = false;
 
-        public override async Task PostSavingRoutine(PhysicalAssesmentScheduled entity)
-        {
+                PhysicalAssesmentScheduled physicalAssesmentScheduled = await this.Service.GetByIdAsync(entity.Id);
+                physicalAssesmentScheduled.WasAnswered = entity.WasAnswered;
+                physicalAssesmentScheduled.WasCanceled = entity.WasCanceled;
+
+                this.ReturnBag.Result = await this.Service.SaveAsync(physicalAssesmentScheduled);
+            }
+            catch (Exception exception)
+            {
+                this.ReturnBag.HasError = true;
+                this.ReturnBag.Message = exception.Message;
+            }
+
+            return this.ReturnBag;
         }
     }
 }

@@ -1,9 +1,9 @@
-import { ApiService } from './../../services/api-service/api.service';
-import { MatchingTypes, MatchTypeEnum, StringMatchTypeEnum, NumberMatchTypeEnum, SortEnum } from './../../services/query-builder/enums';
-import { QueryBuilder } from './../../services/query-builder/query-builder';
+import { ApiService } from '../../services/api-service/api.service';
+import { MatchingTypes, MatchTypeEnum, StringMatchTypeEnum, NumberMatchTypeEnum, SortEnum } from '../../services/query-builder/enums';
+import { QueryBuilder } from '../../services/query-builder/query-builder';
 import { HttpClient } from '@angular/common/http';
-import { Sort, SortInfo } from './../../models/SortInfo';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Sort, SortInfo } from '../../models/SortInfo';
+import { Component, ContentChild, ContentChildren, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { PageInfo } from 'src/app/models/PageInfo';
 import { DataColumn } from 'src/app/models/DataColumn';
@@ -12,11 +12,11 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Query } from 'src/app/services/query-builder/query';
 
 @Component({
-  selector: 'app-crud-table',
-  templateUrl: './crud-table.component.html',
-  styleUrls: ['./crud-table.component.scss']
+  selector: 'app-custom-table',
+  templateUrl: './custom-table.component.html',
+  styleUrls: ['./custom-table.component.scss']
 })
-export class CrudTableComponent implements OnInit {
+export class CustomTableComponent implements OnInit {
 
   public paginationInfo: PageInfo = new PageInfo();
   public sortInfo: SortInfo = new SortInfo();
@@ -29,8 +29,11 @@ export class CrudTableComponent implements OnInit {
   @Output() editEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() insertEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Input() isCrud: boolean = true;
   @Input() entity: string;
-  @Input() title: string = "Tabela";
+  @Input() title: string;
+  @ContentChildren('column') additionalColumns: TemplateRef<any>;
+  @ContentChildren('row') additionalRows: TemplateRef<any>;
 
   constructor(private apiService: ApiService) {
     this.paginationInfo.Size = 5;
@@ -39,12 +42,17 @@ export class CrudTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.GetFromAPI(this.entity, "GetDataColumns").subscribe((result: DataColumn[]) => {
-      this.columns = result;
-      this.getData();
+    if (this.entity) {
+      this.apiService.GetFromAPI(this.entity, "GetDataColumns").subscribe((result: DataColumn[]) => {
+        console.log(result);
+        if (result.length > 0) {
+          this.columns = result;
+          this.getData();
 
-      this.isLoaded = true;
-    });
+          this.isLoaded = true;
+        }
+      }, err => console.error(err));
+    }
   }
 
   public getData(query?: Query) {
@@ -61,7 +69,7 @@ export class CrudTableComponent implements OnInit {
       this.rows = result.items;
 
       this.paginationInfo.TotalElements = result.totalCount;
-    });
+    }, err => console.error(err));
   }
 
   public getColumnsToFetch(queryBuilder: QueryBuilder): QueryBuilder {
@@ -72,8 +80,8 @@ export class CrudTableComponent implements OnInit {
 
         splittedColumn.forEach((element, index) => {
           if (index < splittedColumn.length - 1) {
-            if(index != 0){
-              entityBuilder.AddEntity(element);
+            if (index != 0) {
+              entityBuilder = entityBuilder.AddEntity(element);
             }
 
             return;
@@ -132,39 +140,6 @@ export class CrudTableComponent implements OnInit {
     this.deleteEvent.emit(entity);
   }
 
-  public onLoadTest(event) {
-    if (event.sortField) {
-      this.sortInfo.Clear();
-
-      let sort = new Sort();
-
-      sort.Property = event.sortField;
-      sort.Order = event.sortOrder;
-
-      this.sortInfo.AddSortableColumns(sort);
-    }
-
-    this.paginationInfo.Skip = event.first;
-    this.paginationInfo.Take = event.rows;
-
-    if (event.filters) {
-      let keys = Object.keys(event.filters);
-
-      this.filterInfo.Clear();
-
-      keys.forEach(key => {
-        if (event.filters[key].value != null) {
-          let filter = new Filter();
-
-          filter.Property = key;
-          filter.Value = event.filters[key].value;
-
-          this.filterInfo.AddFilter(filter);
-        }
-      });
-    }
-  }
-
   getContentOfColumn(column, value): any {
     let result = "-";
 
@@ -174,11 +149,19 @@ export class CrudTableComponent implements OnInit {
         result = value;
 
         splittedColumn.forEach(element => {
+          if (!result[element]) {
+            return;
+          }
+
           result = result[element];
         });
       } else {
         result = value[column.PropertyName];
       }
+    }
+
+    if (typeof result === 'object') {
+      return '';
     }
 
     return result;

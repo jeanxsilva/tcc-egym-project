@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace eGYM.Models
 {
-    public partial class UserLevel : IEntityBase 
+    public partial class UserLevel : IEntityBase
     {
         public UserLevel()
         {
