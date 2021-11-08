@@ -11,7 +11,7 @@ namespace eGYM.Models
         {
             CompanyUnits = new HashSet<CompanyUnit>();
             LastNews = new HashSet<LastNews>();
-            ModalityClasses = new HashSet<ModalityClass>();
+            PaymentMovements = new HashSet<PaymentMovement>();
             PaymentPaidByUsers = new HashSet<Payment>();
             PaymentReceivedByUsers = new HashSet<Payment>();
             PaymentReversalAuthorizedByUsers = new HashSet<PaymentReversal>();
@@ -40,7 +40,7 @@ namespace eGYM.Models
         public virtual UserProfile UserProfile { get; set; }
         public virtual ICollection<CompanyUnit> CompanyUnits { get; set; }
         public virtual ICollection<LastNews> LastNews { get; set; }
-        public virtual ICollection<ModalityClass> ModalityClasses { get; set; }
+        public virtual ICollection<PaymentMovement> PaymentMovements { get; set; }
         public virtual ICollection<Payment> PaymentPaidByUsers { get; set; }
         public virtual ICollection<Payment> PaymentReceivedByUsers { get; set; }
         public virtual ICollection<PaymentReversal> PaymentReversalAuthorizedByUsers { get; set; }

@@ -1,0 +1,119 @@
+<app-base-card title="Detalhes da fatura" [hideFooter]="true" [bodyClass]="'p-4'">
+    <div class="row align-items-center" *ngIf="invoice">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <h4>Nome do aluno</h4>
+                    <p>{{invoice.student.user.name}}</p>
+                    <h4>Sobrenome</h4>
+                    <p>{{invoice.student.user.lastName || '-'}}</p>
+                    <h4>Matricula</h4>
+                    <p>{{invoice.student.code}}</p>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tr class="bg-light">
+                            <th>
+                                <span>Data de referência</span>
+                            </th>
+                            <th>
+                                <span>Data de vencimento</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>{{invoice.referentToDate | date : 'shortDate' : '' : 'pt-BR'}}</td>
+                            <td>{{invoice.dueDate | date : 'shortDate' : '' : 'pt-BR'}}</td>
+                        </tr>
+                        <tr class="my-1">
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Status</th>
+                            <td class="text-center">
+                                <span class="badge p-mr-2" [ngClass]="{
+                                        'badge-warning':invoice.invoiceStatus.id < invoiceStatusEnum.Paid, 
+                                        'badge-success': invoice.invoiceStatus.id == invoiceStatusEnum.Paid,
+                                        'badge-danger': invoice.invoiceStatus.id == invoiceStatusEnum.Canceled
+                                    }">
+                                    {{invoice.invoiceStatus.description}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Valor total</th>
+                            <td class="text-center">{{invoice.totalValue | currency: 'BRL'}}</td>
+                        </tr>
+                    </table>
+                    <button *ngIf="invoice && invoice.invoiceStatus.id < invoiceStatusEnum.Paid"
+                        (click)="receivePayment()" class="btn btn-primary btn-block my-4">Registrar
+                        pagamento</button>
+                    <button *ngIf="invoice && invoice.invoiceStatus.id == invoiceStatusEnum.Paid" (click)="seePayment()"
+                        class="btn btn-default btn-block my-4">Ver detalhes do pagamento</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-2">
+                    <table class="table alternative">
+                        <thead>
+                            <tr class="bg-translucent-primary">
+                                <th colspan="2" class="text-center">
+                                    <span>Detalhes</span>
+                                </th>
+                            </tr>
+                            <tr class="bg-translucent-light">
+                                <th>
+                                    Descrição
+                                </th>
+                                <th>
+                                    Preço
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detail of invoice.invoiceDetails">
+                                <td>
+                                    {{detail.description}}
+                                </td>
+                                <td>
+                                    {{detail.price | currency: 'BRL'}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;" class="bg-light">Total</td>
+                                <td style="font-weight: 600" class="bg-translucent-primary">
+                                    {{invoice.totalValue | currency: 'BRL'}}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-12 mt-4">
+                    <table class="table alternative">
+                        <thead>
+                            <tr class="bg-translucent-primary">
+                                <th colspan="2" class="text-center">
+                                    <span>Observações</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {{invoice.note}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="!invoice">
+        <div class="col-8 text-center">
+            <h3 class="text-reset">Não foi possivel encontrar a fatura informada.</h3>
+            <a class="btn btn-sm btn-default mt-2" [routerLink]="['/payment/invoices']">Voltar para listagem</a>
+        </div>
+    </div>
+</app-base-card>

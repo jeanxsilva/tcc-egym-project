@@ -9,7 +9,7 @@ namespace eGYM.Models
     {
         public Employee()
         {
-            PaymentMovements = new HashSet<PaymentMovement>();
+            ModalityClasses = new HashSet<ModalityClass>();
             PhysicalAssesments = new HashSet<PhysicalAssesment>();
             ShiftBooks = new HashSet<ShiftBook>();
         }
@@ -20,7 +20,7 @@ namespace eGYM.Models
 
         public virtual Shift Shift { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<PaymentMovement> PaymentMovements { get; set; }
+        public virtual ICollection<ModalityClass> ModalityClasses { get; set; }
         public virtual ICollection<PhysicalAssesment> PhysicalAssesments { get; set; }
         public virtual ICollection<ShiftBook> ShiftBooks { get; set; }
     }

@@ -113,18 +113,18 @@ Add-Content -Path ../"(AutoCode)"/"GeneratedAutoCode.cs" -Value @"
         //[Authorize(Roles = "$($entityName).D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete($($entityName) entity)
+        public async Task<dynamic> Delete($($entityName) entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "$($entityName).U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit($($entityName) entity)
+        public async Task<dynamic> Edit($($entityName) entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion

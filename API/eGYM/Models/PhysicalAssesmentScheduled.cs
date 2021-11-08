@@ -10,6 +10,7 @@ namespace eGYM.Models
         public PhysicalAssesmentScheduled()
         {
             PhysicalAssesments = new HashSet<PhysicalAssesment>();
+            StudentRequests = new HashSet<StudentRequest>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace eGYM.Models
 
         public virtual StudentRegistration StudentRegistration { get; set; }
         public virtual ICollection<PhysicalAssesment> PhysicalAssesments { get; set; }
+        public virtual ICollection<StudentRequest> StudentRequests { get; set; }
     }
 }

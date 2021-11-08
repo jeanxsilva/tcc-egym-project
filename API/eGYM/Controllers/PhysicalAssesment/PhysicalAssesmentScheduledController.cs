@@ -24,7 +24,9 @@ namespace eGYM
                 physicalAssesmentScheduled.WasAnswered = entity.WasAnswered;
                 physicalAssesmentScheduled.WasCanceled = entity.WasCanceled;
 
-                this.ReturnBag.Result = await this.Service.SaveAsync(physicalAssesmentScheduled);
+                PhysicalAssesmentScheduled saved = await this.Service.SaveAsync(physicalAssesmentScheduled);
+
+                this.ReturnBag.Result = saved != null;
             }
             catch (Exception exception)
             {

@@ -32,7 +32,6 @@ namespace eGYM
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
             dataColumns.Add(new DataColumn("paidByUser.name", DataTypes.String, "Nome do aluno"));
-            dataColumns.Add(new DataColumn("receivedByUser.name", DataTypes.String, "Recebido por"));
             dataColumns.Add(new DataColumn("paymentType.description", DataTypes.String, "Tipo de pagamento"));
             dataColumns.Add(new DataColumn("invoice.totalValue", DataTypes.Currency, "Valor"));
             dataColumns.Add(new DataColumn("paymentDateTime", DataTypes.Date, "Data de pagamento"));
@@ -50,6 +49,7 @@ namespace eGYM
             payment.ReceivedByUser = await this.userService.ResolveUser();
             payment.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
             payment.Invoice = await this.invoiceService.GetByIdAsync(payment.InvoiceId);
+            payment.IsValid = true;
         }
 
         public override async Task PostSavingRoutine(Payment payment)

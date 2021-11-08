@@ -29,7 +29,7 @@ namespace eGYM
             dataColumns.Add(new DataColumn("student.user.name", DataTypes.String, "Nome do aluno"));
             dataColumns.Add(new DataColumn("dueDate", DataTypes.Date, "Data de vencimento"));
             dataColumns.Add(new DataColumn("referentToDate", DataTypes.Date, "Referente a data"));
-            dataColumns.Add(new DataColumn("invoiceStatus.description", DataTypes.Date, "Status"));
+            dataColumns.Add(new DataColumn("invoiceStatus.description", DataTypes.String, "Status"));
             dataColumns.Add(new DataColumn("totalValue", DataTypes.Currency, "Valor total"));
 
             return dataColumns;
@@ -41,7 +41,7 @@ namespace eGYM
         {
             Invoice invoice = new Invoice();
             invoice.ReferentToDate = referentToDate;
-            invoice.DueDate = referentToDate.AddDays(3);
+            invoice.DueDate = referentToDate.AddDays(15);
             invoice.Student = student;
             invoice.IsByRequest = isByRequest;
             invoice.Note = note;
@@ -93,6 +93,36 @@ namespace eGYM
             invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Paid);
             await this.Repository.Update(invoice);
             return true;
+        }
+
+        public async Task<Invoice> CancelInvoice(Invoice invoice)
+        {
+            invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Canceled);
+            foreach (InvoiceDetail detail in invoice.InvoiceDetails)
+            {
+                if (detail.RegistrationModalityClass != null)
+                {
+                    detail.RegistrationModalityClass.IsValid = false;
+                }
+            }
+
+            return await this.Repository.Update(invoice);
+        }
+        public async Task<bool> CancelInvoices(List<Invoice> invoices)
+        {
+            foreach (Invoice invoice in invoices)
+            {
+                invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Canceled);
+                foreach (InvoiceDetail detail in invoice.InvoiceDetails)
+                {
+                    if (detail.RegistrationModalityClass != null)
+                    {
+                        detail.RegistrationModalityClass.IsValid = false;
+                    }
+                }
+            }
+
+            return await this.Repository.InsertOrUpdate(invoices);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace eGYM.Models
     {
         public UserLevel()
         {
+            RequestCategoryLevels = new HashSet<RequestCategoryLevel>();
             UserLevelAccesses = new HashSet<UserLevelAccess>();
             UserLevelRoles = new HashSet<UserLevelRole>();
             UserProfiles = new HashSet<UserProfile>();
@@ -18,6 +19,7 @@ namespace eGYM.Models
         public string Description { get; set; }
         public string RoleCode { get; set; }
 
+        public virtual ICollection<RequestCategoryLevel> RequestCategoryLevels { get; set; }
         public virtual ICollection<UserLevelAccess> UserLevelAccesses { get; set; }
         public virtual ICollection<UserLevelRole> UserLevelRoles { get; set; }
         public virtual ICollection<UserProfile> UserProfiles { get; set; }

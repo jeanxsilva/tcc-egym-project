@@ -10,10 +10,12 @@ namespace eGYM
     public partial class CompanyUnitService
     {
         private readonly ClaimResolver claimResolver;
+        private readonly UserService userService;
 
-        public CompanyUnitService(CompanyUnitRepository repository, ClaimResolver claimResolver) : this(repository)
+        public CompanyUnitService(CompanyUnitRepository repository, ClaimResolver claimResolver, UserService userService) : this(repository)
         {
             this.claimResolver = claimResolver;
+            this.userService = userService;
         }
 
         public async Task<CompanyUnit> ResolveCompanyUnit()
@@ -23,7 +25,14 @@ namespace eGYM
 
             if (companyUnitId != null)
             {
-                CompanyUnit companyUnit = queryable.FirstOrDefault(unit => unit.Id.Equals(companyUnitId));
+                CompanyUnit companyUnit = queryable.FirstOrDefault(unit => unit.Id == companyUnitId);
+
+                return companyUnit;
+            }
+            else
+            {
+                User currentUser = await this.userService.ResolveUser();
+                CompanyUnit companyUnit = currentUser.CompanyUnit;
 
                 return companyUnit;
             }

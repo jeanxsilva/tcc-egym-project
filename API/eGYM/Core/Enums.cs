@@ -12,7 +12,8 @@ namespace eGYM
         Date = 2,
         Boolean = 3,
         Double = 4,
-        Currency = 5
+        Currency = 5,
+        Time = 6
     }
 
     public enum GenreEnum
@@ -49,5 +50,19 @@ namespace eGYM
     {
         Inactive = 0,
         Active = 1,
+    }
+    public enum PaymentTypeEnum
+    {
+        MONEY = 1,
+        TICKET = 0,
+        CREDIT_CARD = 2,
+        CARD = 3,
+    }
+    
+    public enum ModalityPaymentTypeEnum
+    {
+        Monthly = 0,
+        Weekly = 1,
+        Yearly = 2
     }
 }

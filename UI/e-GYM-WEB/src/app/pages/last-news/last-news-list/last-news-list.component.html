@@ -1,0 +1,17 @@
+<app-base-card title="Ultimos avisos postados" [bodyClass]="'p-4'">
+    <ng-template #header>
+        <button class="btn btn-success btn-sm float-right" (click)="create()">
+            Inserir nova postagem &nbsp;<i class="fas fa-plus"></i>
+        </button>
+    </ng-template>
+    <div class="row">
+        <div class="col-12" style="overflow-y:auto; max-height:800px;">
+            <ng-container *ngFor="let news of lastNews">
+                <app-last-news-card [news]="news" (onEdit)="edit($event)" (onRemove)="remove($event)"
+                    style="margin-top: 10px;">
+                </app-last-news-card>
+            </ng-container>
+            <h3 class="mx-auto text-center" *ngIf="lastNews.length == 0">Não há nenhum aviso publicado ainda.</h3>
+        </div>
+    </div>
+</app-base-card>

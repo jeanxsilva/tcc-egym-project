@@ -71,5 +71,15 @@ namespace eGYM
 
             return savedUserProfile;
         }
+
+        public string EncryptPassword(string password)
+        {
+            if (!string.IsNullOrEmpty(password))
+            {
+                return this.securityHash.CryptoPassword(password);
+            }
+
+            return null;
+        }
     }
 }

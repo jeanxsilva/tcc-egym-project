@@ -1,0 +1,353 @@
+<app-base-card title="Detalhes da avaliação fisica" [hideFooter]="true">
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <h6 class="heading-small text-muted mb-4">Dados do aluno</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Nome</label>
+                                <p class="text-muted">{{assessment?.student?.user?.name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Matricula</label>
+                                <p class="text-muted">{{assessment?.student?.code}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="ageAtMoment">Idade do aluno <span
+                                        class="text-danger">*</span></label>
+                                <input readonly type="number" id="ageAtMoment"
+                                    class="form-control form-control-alternative" placeholder="Ex: 21"
+                                    value="{{studentCaracteristic?.ageAtMoment}}">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="studentGoal">Objetivo</label>
+                                <p readonly type="text" id="studentGoal" style="height: 135px" maxlength="140"
+                                    class="form-control form-control-alternative"
+                                    placeholder="Breve descrição do objetivo do aluno">
+                                    {{assessment?.studentGoal}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 text-center">
+                <svg id="chart" width="75%" height="85%">
+                    <line x1="20" y1="20" x2="20" y2="100%"></line>
+                </svg>
+            </div>
+            <div class="col-6">
+                <h6 class="heading-small text-muted mb-4">Medidas do aluno</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="weight">Peso <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="weight"
+                                        class="form-control form-control-alternative" placeholder="Ex: 75.0"
+                                        value="{{studentCaracteristic?.weight}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            kg
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="height">Altura <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="text" id="height"
+                                        class="form-control form-control-alternative" placeholder="Ex: 186"
+                                        value="{{studentCaracteristic?.height}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            cm
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="triceps">Tríceps
+                                    <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="triceps"
+                                        class="form-control form-control-alternative" placeholder="Ex: 10.0"
+                                        value="{{studentCaracteristic?.triceps}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            mm
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="chest">Peito <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="chest"
+                                        class="form-control form-control-alternative" placeholder="Ex: 10.0"
+                                        value="{{studentCaracteristic?.chest}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            mm
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="subaxillary">Subaxilar <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="subaxillary"
+                                        class="form-control form-control-alternative" placeholder="Ex: 10.0"
+                                        value="{{studentCaracteristic?.subaxillary}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            mm
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="subscapular">Subescapular <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="subscapular"
+                                        class="form-control form-control-alternative" placeholder="Ex: 10.0"
+                                        value="{{studentCaracteristic?.subscapular}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            mm
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-control-label" for="suprailiac">Suprailíaco <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input readonly class="form-control form-control-alternative" type="number"
+                                    name="suprailiac" placeholder="Ex: 10.0" id="suprailiac"
+                                    value="{{studentCaracteristic?.suprailiac}}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        mm
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="abdominal">Abdominal <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input readonly type="number" id="abdominal"
+                                        class="form-control form-control-alternative" placeholder="Ex: 10.0"
+                                        value="{{studentCaracteristic?.abdominal}}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            mm
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-control-label" for="thigh">
+                                Coxa <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input readonly class="form-control form-control-alternative" type="number" name="thigh"
+                                    placeholder="Ex: 10.0" id="thigh" value="{{studentCaracteristic?.thigh}}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        mm
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <hr class="my-4" />
+                <h6 class="heading-small text-muted mb-4">Resultados obtidos</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="leanMass">Massa magra</label>
+                                <div class="input-group">
+                                    <input readonly class="form-control form-control-alternative" type="number"
+                                        name="leanMass" placeholder="Ex: 10.0" id="leanMass" readonly
+                                        [value]="studentCaracteristic?.leanMass | number: '1.3-3'">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            kg
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="fatMass">Massa gorda</label>
+                                <div class="input-group">
+                                    <input readonly class="form-control form-control-alternative" type="number"
+                                        name="fatMass" placeholder="Ex: 10.0" id="fatMass" readonly
+                                        [value]="studentCaracteristic?.fatMass | number: '1.3-3'">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            kg
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="fatPercentage">Percentual de gordura</label>
+                                <div class="input-group">
+                                    <input readonly class="form-control form-control-alternative" type="number"
+                                        name="fatPercentage" placeholder="Ex: 10.0" id="fatPercentage" readonly
+                                        [value]="studentCaracteristic?.fatPercentage | number: '1.3-3'">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            %
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="bodyMassIndex">Indice de massa
+                                    corporal</label>
+                                <div class="input-group">
+                                    <input readonly class="form-control form-control-alternative" type="number"
+                                        name="bodyMassIndex" placeholder="Ex: 10.0" id="bodyMassIndex" readonly
+                                        [value]="studentCaracteristic?.bodyMassIndex | number: '1.3-3'"
+                                        style="color: #212529;" [ngClass]="{
+                                                    'bg-translucent-warning': imcResult <= 18.5 || imcResult > 24.9 && imcResult <= 29.9, 
+                                                    'bg-translucent-success': imcResult > 18.5 && imcResult <= 24.9, 
+                                                    'bg-translucent-danger': imcResult > 29.9}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            kg/m²
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="basalMetabolicRate">Taxa metabólica
+                                    basal</label>
+                                <div class="input-group">
+                                    <input readonly class="form-control form-control-alternative" type="number"
+                                        name="basalMetabolicRate" placeholder="Ex: 10.0" id="basalMetabolicRate"
+                                        readonly value="{{studentCaracteristic?.basalMetabolicRate}}" />
+
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            calorias/dia
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="bodyDensity">Densidade corporal</label>
+                                <div class="input-group">
+                                    <input readonly class="form-control form-control-alternative" type="number"
+                                        name="bodyDensity" placeholder="Ex: 10.0" id="bodyDensity" readonly
+                                        [value]="studentCaracteristic?.bodyDensity | number: '1.3-3'">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            g/ml
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 my-3">
+                            <table class="mx-auto table bg-light" style="border: 1px solid #e9ecef !important;">
+                                <thead>
+                                    <tr class="">
+                                        <th style="font-size: 0.85rem; padding: 0.75rem;">IMC</th>
+                                        <th style="font-size: 0.85rem; padding: 0.75rem;" class="text-right">
+                                            CLASSIFICAÇÃO</th>
+                                        <th style="font-size: 0.85rem; padding: 0.75rem;" class="text-center">
+                                            OBESIDADE (GRAU)</th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr class="bg-translucent-warning text-dark">
+                                        <td style="padding: 10px;" class="">MENOR QUE
+                                            18,5</td>
+                                        <td style="padding: 10px;" class="text-right">MAGREZA</td>
+                                        <td style="padding: 10px;" class="text-center">0</td>
+                                    </tr>
+                                    <tr class="bg-translucent-success text-dark">
+                                        <td style="padding: 10px;">ENTRE 18,5 E 24,9</td>
+                                        <td style="padding: 10px;" class="text-right">NORMAL</td>
+                                        <td style="padding: 10px;" class="text-center">0</td>
+                                    </tr>
+                                    <tr class="bg-translucent-warning text-dark">
+                                        <td style="padding: 10px;">ENTRE 25,0 E 29,9</td>
+                                        <td style="padding: 10px;" class="text-right">SOBREPESO</td>
+                                        <td style="padding: 10px;" class="text-center">I</td>
+                                    </tr>
+                                    <tr class="bg-translucent-danger text-dark">
+                                        <td style="padding: 10px;">ENTRE 30,0 E 39,9</td>
+                                        <td style="padding: 10px;" class="text-right">OBESIDADE</td>
+                                        <td style="padding: 10px;" class="text-center">II</td>
+                                    </tr>
+                                    <tr class="bg-translucent-danger text-dark">
+                                        <td style="padding: 10px;">MAIOR QUE 40,0 </td>
+                                        <td style="padding: 10px;" class="text-right">OBESIDADE GRAVE</td>
+                                        <td style="padding: 10px;" class="text-center">III</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-base-card>

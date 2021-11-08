@@ -17,13 +17,13 @@ namespace eGYM.Models
         public int ModalityId { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
-        public int? InstructorId { get; set; }
         public int TotalVacancies { get; set; }
         public int TotalActiveMembers { get; set; }
         public int CompanyUnitId { get; set; }
+        public int? InstructorId { get; set; }
 
         public virtual CompanyUnit CompanyUnit { get; set; }
-        public virtual User Instructor { get; set; }
+        public virtual Employee Instructor { get; set; }
         public virtual Modality Modality { get; set; }
         public virtual ICollection<ClassCheckInOut> ClassCheckInOuts { get; set; }
         public virtual ICollection<RegistrationModalityClass> RegistrationModalityClasses { get; set; }

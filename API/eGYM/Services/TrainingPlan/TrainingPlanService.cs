@@ -27,6 +27,7 @@ namespace eGYM
             dataColumns.Add(new DataColumn("specificToStudent.user.name", DataTypes.String, "Nome do aluno"));
             dataColumns.Add(new DataColumn("description", DataTypes.String, "Descrição"));
             dataColumns.Add(new DataColumn("registerDateTime", DataTypes.Date, "Data de registro"));
+            dataColumns.Add(new DataColumn("isActive", DataTypes.Boolean, "É o atual?"));
 
             return dataColumns;
         }
@@ -51,6 +52,18 @@ namespace eGYM
                 trainingPlanExercises.Add(exercise);
             }
 
+            IQueryable<TrainingPlan> queryable = this.Repository.GetQuery();
+
+            List<TrainingPlan> trainingPlans = queryable.Where(tp => tp.SpecificToStudent.Id == entity.SpecificToStudent.Id).ToList();
+            foreach (TrainingPlan trainingPlan in trainingPlans)
+            {
+                trainingPlan.IsActive = false;
+            }
+
+            await this.Repository.InsertOrUpdate(trainingPlans);
+
+            entity.IsActive = true;
+            entity.SpecificToStudent.ActualTrainingPlan = entity;
             entity.TrainingPlanExercises = trainingPlanExercises;
         }
     }

@@ -1,0 +1,86 @@
+<app-base-card title="{{'Detalhes do treino'}}" [hideFooter]="true">
+    <div class="col-12 mt-1" *ngIf="student">
+        <h6 class="heading-small text-muted mb-4">Dados do treino</h6>
+        <div class="pl-lg-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-control-label">Aluno</label>
+                        <p class="text-muted">{{student.user.name + ' ' + student.user.lastName}}</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="form-control-label">Matricula</label>
+                        <p class="text-muted">{{student.code}}</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="description">Descrição do treino</label>
+                        <p>{{trainingPlan.description}}</p>
+                    </div>
+                </div>
+                <div class="col-3 p-0 my-auto text-right">
+                    <button class="btn btn-default btn-sm d-inline-block" (click)="print()">
+                        Imprimir treino <i class="fas fa-print"></i>
+                    </button>
+                    <button class="btn btn-outline-default btn-sm d-inline-block" (click)="generateTraining()">
+                        Gerar novo treino
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 scrolling-wrapper rounded py-2"
+                    style="box-shadow: inset 0px 0px 50px 3px #acacac26;">
+                    <div class="form-group mb-0">
+                        <label class="form-control-label" for="description">Treinos por dia</label>
+                    </div>
+                    <div #printable>
+                        <table *ngFor="let day of days; let i = index;" class="printable"
+                            class="table border-left border-top border-bottom d-inline-block overflow-hidden alternative same-height"
+                            [ngClass]="{'rounded-left': i == 0,'border-right rounded-right': i == days.length - 1}"
+                            style="width: 200px; height:fit-content; min-height: 400px;">
+                            <tr>
+                                <th class="bg-translucent-primary" colspan="2">
+                                    {{day.description}}
+                                </th>
+                            </tr>
+                            <tr class="bg-translucent-light">
+                                <th style="width:75%">
+                                    Descrição
+                                </th>
+                                <th>
+                                    Repetição
+                                </th>
+                            </tr>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let trainingPlanExercise of trainingPlanExercises; let i = index;">
+                                    <tr
+                                        *ngIf="trainingPlanExercise.dayOfWeek && trainingPlanExercise.dayOfWeek == day.number">
+                                        <td class="text-wrap">
+                                            <span>{{trainingPlanExercise.exercise ?
+                                                trainingPlanExercise.exercise.description : ''}}</span>
+                                            <span *ngIf="trainingPlanExercise.isCombined == true"> +
+                                                {{trainingPlanExercise.combinedExercise.description}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>{{trainingPlanExercise.repetition}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="isNew">
+                <div class="col-12 rounded" style="box-shadow: inset 0px 0px 50px 3px #acacac26;">
+                    <div class="scrolling-wrapper p-2" #scrolling>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-base-card>

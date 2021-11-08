@@ -1,0 +1,84 @@
+<app-base-card
+    title="{{isNew ? 'Registrando nova classe' : 'Editando turma da modalidade - ' + (modalityClass ? modalityClass?.modality.description : '')}}">
+    <div class="col-12" *ngIf="modalityClass">
+        <form [formGroup]="formEntity">
+            <h6 class="heading-small text-muted mb-4">Dados da turma</h6>
+            <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="modality">Modalidade <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control form-control-alternative" formControlName="modalityId">
+                                <option *ngFor="let modality of modalities" [value]="modality.id">
+                                    {{modality.description}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="startTime">Horário de inicio <span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="time" id="startTime" class="form-control form-control-alternative"
+                                    placeholder="Ex: 10.0" formControlName="startTime">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">hora(s)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="endTime">Horário de término<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="time" id="endTime" class="form-control form-control-alternative"
+                                    placeholder="Ex: 5" formControlName="endTime">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">hora(s)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="instructor">Instrutor</label>
+                            <select class="form-control form-control-alternative" formControlName="instructorId">
+                                <option *ngFor="let instructor of instructors" [value]="instructor.id">
+                                    {{instructor.user.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="totalVacancies">Lotação máxima<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group mb-3">
+                                <input type="number" id="totalVacancies" class="form-control form-control-alternative"
+                                    min="0" placeholder="Ex: 5" formControlName="totalVacancies">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">pessoa(s)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template #footer>
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancelar
+                    alterações</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary btn-block" [disabled]="formEntity.invalid"
+                    (click)="save()">Salvar</button>
+            </div>
+        </div>
+    </ng-template>
+</app-base-card>

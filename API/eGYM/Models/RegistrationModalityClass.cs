@@ -10,7 +10,6 @@ namespace eGYM.Models
         public RegistrationModalityClass()
         {
             InvoiceDetails = new HashSet<InvoiceDetail>();
-            StudentRequests = new HashSet<StudentRequest>();
         }
 
         public int Id { get; set; }
@@ -25,6 +24,5 @@ namespace eGYM.Models
         public virtual ModalityPaymentType ModalityPaymentType { get; set; }
         public virtual StudentRegistration StudentRegistration { get; set; }
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
-        public virtual ICollection<StudentRequest> StudentRequests { get; set; }
     }
 }

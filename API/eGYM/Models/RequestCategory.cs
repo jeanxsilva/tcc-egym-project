@@ -9,6 +9,7 @@ namespace eGYM.Models
     {
         public RequestCategory()
         {
+            RequestCategoryLevels = new HashSet<RequestCategoryLevel>();
             StudentRequests = new HashSet<StudentRequest>();
         }
 
@@ -16,6 +17,7 @@ namespace eGYM.Models
         public string Description { get; set; }
         public double? Value { get; set; }
 
+        public virtual ICollection<RequestCategoryLevel> RequestCategoryLevels { get; set; }
         public virtual ICollection<StudentRequest> StudentRequests { get; set; }
     }
 }

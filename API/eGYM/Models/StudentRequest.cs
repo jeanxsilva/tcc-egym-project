@@ -15,13 +15,13 @@ namespace eGYM.Models
         public string Note { get; set; }
         public bool IsPaid { get; set; }
         public int? InvoiceId { get; set; }
-        public string Attachment { get; set; }
-        public int? ReferToChangeModalityClassId { get; set; }
         public int? ClosedByUserId { get; set; }
+        public bool WasCanceled { get; set; }
+        public int? PhysicalAssesmentScheduledId { get; set; }
 
         public virtual User ClosedByUser { get; set; }
         public virtual Invoice Invoice { get; set; }
-        public virtual RegistrationModalityClass ReferToChangeModalityClass { get; set; }
+        public virtual PhysicalAssesmentScheduled PhysicalAssesmentScheduled { get; set; }
         public virtual RequestCategory RequestCategory { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }
         public virtual StudentRegistration Student { get; set; }

@@ -1,0 +1,70 @@
+<div class="card shadow">
+    <div class="card-header border-0 bg-translucent-primary" style="padding: .75rem 1rem; min-height: 50px">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <h3 class="mb-0">{{title}}</h3>
+            </div>
+            <div class="col-6 text-right">
+                <ng-container *ngIf="!isCrud">
+                    <ng-container [ngTemplateOutlet]="additionalButton"></ng-container>
+                </ng-container>
+                <button class="btn btn-sm-md btn-success" *ngIf="isCrud && ('read' | able: 'User')"
+                    (click)="onInsert()">Inserir
+                    novo</button>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive card-body p-0" *ngIf="isLoaded">
+        <p-toast></p-toast>
+        <div class="card">
+
+            <p-table #dt [value]="rows" [rows]="paginationInfo.Size" [lazy]="true"
+                [totalRecords]="paginationInfo.TotalElements" [loading]="isLoading" [paginator]="true"
+                [globalFilterFields]="[]" [rowHover]="true" dataKey="id"
+                currentPageReportTemplate="Mostrando {last} dos {totalRecords} dados gravados"
+                [showCurrentPageReport]="true" (onLazyLoad)="onLazyLoad($event)">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="{{column.PropertyName}}" *ngFor="let column of columns">
+                            {{column.LabelDescription}}<p-sortIcon field="{{column.PropertyName}}"></p-sortIcon>
+                        </th>
+                        <th *ngFor="let additional of additionalColumns" class="text-center">
+                            <ng-container [ngTemplateOutlet]="additional"></ng-container>
+                        </th>
+                        <th *ngIf="('update' | able: entity) && isCrud" class="text-center">Editar</th>
+                        <th *ngIf="('delete' | able: entity) && isCrud" class="text-center">Excluir</th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let column of columns">
+                            <p-columnFilter type="{{convertDataType(column.DataType)}}" field="{{column.PropertyName}}">
+                            </p-columnFilter>
+                        </th>
+                        <th *ngFor="let additional of additionalColumns">
+                        </th>
+                        <th *ngIf="('update' | able: entity) && isCrud"></th>
+                        <th *ngIf="('delete' | able: entity) && isCrud"></th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-value>
+                    <tr>
+                        <td *ngFor="let column of columns">{{getContentOfColumn(column, value) | dynamic: getPipeType(column.DataType):  getPipeArguments(column.DataType)}}</td>
+                        <td style="max-width: 150px" *ngFor="let additional of additionalRows" class="text-center">
+                            <ng-container [ngTemplateOutlet]="additional"
+                                [ngTemplateOutletContext]="{$implicit: value}"></ng-container>
+                        </td>
+                        <td style="max-width: 150px" *ngIf="('update' | able: entity) && isCrud" class="text-center">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                                (click)="onEdit(value)"></button>
+                        </td>
+                        <td style="max-width: 150px" *ngIf="('delete' | able: entity) && isCrud" class="text-center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                (click)="onDelete(value)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

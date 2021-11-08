@@ -17,7 +17,7 @@ namespace eGYM.GraphQL
         #region ListUserLevelRole()
 
         [UsePaging]
-        [UseOffsetPaging(MaxPageSize = 1000, DefaultPageSize = 20, IncludeTotalCount = true)]
+        [UseOffsetPaging(MaxPageSize = 1000, DefaultPageSize = 50, IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         [UseSorting]

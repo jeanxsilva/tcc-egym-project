@@ -1,0 +1,26 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col-9">
+                <h3>{{news.title}}</h3>
+                <p class="mb-0 text-sm">Publicado por <span
+                        class="font-weight-600">{{news.publishedByUser.name}}</span></p>
+            </div>
+            <div class="col-3 text-right">
+                <button class="btn btn-blue btn-sm" (click)="edit()" *ngIf="true"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-danger btn-sm" (click)="remove()" *ngIf="true"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-justify">{{news.content}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right pb-2 pt-2">
+        <p class="text-sm mb-0 float-left">Registrado em {{news.registerDateTime | date: 'mediumDate' : '': 'pt-BR' }}</p>
+        <p class="text-sm mb-0">Expira em {{news.expireDateTime | date: 'mediumDate' : '': 'pt-BR' }}</p>
+    </div>
+</div>

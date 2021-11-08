@@ -18,6 +18,7 @@ namespace eGYM.Models
         public string Description { get; set; }
         public DateTime RegisterDateTime { get; set; }
         public string Note { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual StudentRegistration SpecificToStudent { get; set; }
         public virtual ICollection<StudentRegistration> StudentRegistrations { get; set; }

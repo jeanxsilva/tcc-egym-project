@@ -1,0 +1,95 @@
+<app-base-card title="Detalhes do pagamento" [hideFooter]="true" [bodyClass]="'p-4'">
+    <div class="row" *ngIf="payment">
+        <div class="col-12">
+            <h6 class="heading-small text-muted mb-4">Dados do pagamento</h6>
+            <div class="row">
+                <div class="col-4">
+                    <h5>Pago por</h5>
+                    <p>{{payment.paidByUser?.name}}</p>
+                </div>
+                <div class="col-4">
+                    <h5>Data de pagamento</h5>
+                    <p>{{payment.paymentDateTime | date : 'shortDate' : '' : 'pt-BR'}}</p>
+                </div>
+                <div class="col-4">
+                    <h5>Valor total</h5>
+                    <p>{{payment.invoice?.totalValue | currency: 'BRL'}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <h5>Recebido por</h5>
+                    <p>{{payment.receivedByUser?.name}}</p>
+                </div>
+                <div class="col-3">
+                    <h5>Tipo de pagamento</h5>
+                    <p>{{payment.paymentType?.description}}</p>
+                </div>
+                <div class="col-2">
+                    <h5>É valido?</h5>
+                    <p>
+                        <span class="badge p-mr-2" [ngClass]="{
+                            'badge-success': payment.isValid,
+                            'badge-danger': !payment.isValid
+                        }">
+                            {{payment.isValid ? 'Sim' : 'Não'}}</span>
+                    </p>
+                </div>
+                <div class="col-4 my-auto">
+                    <button class="btn btn-link" (click)="seeInvoiceDetails()">Ver detalhes da fatura &nbsp;<i
+                            class="far fa-list-alt"></i></button>
+                </div>
+            </div>
+            <div class="row" *ngIf="payment.paymentReversals && canReversal">
+                <div class="col-4">
+                    <button class="btn btn-default btn-sm" (click)="openReversalModal()">Solicitar estorno</button>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="payment.paymentReversals?.length > 0">
+                <div class="col-12" *ngFor="let reversal of payment.paymentReversals">
+                    <hr>
+                    <h6 class="heading-small text-muted mb-4">Pedido de estorno</h6>
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-2 text-center border-right">
+                                    <h5>Status atual</h5>
+                                    <p class="m-0">
+                                        <span class="badge p-mr-2" [ngClass]="{
+                                                'badge-success':reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Deffered,
+                                                'badge-primary': reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Opened|| reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Movimented,
+                                                'badge-danger': reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Dismissed || reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Canceled
+                                            }">
+                                            {{reversal.paymentReversalStatus.description}}</span>
+                                    </p>
+                                </div>
+                                <div class="col-4 border-right" style="overflow:hidden;">
+                                    <h5>Justificativa</h5>
+                                    <p class="m-0 text-truncate">
+                                        {{reversal.reason}}</p>
+                                </div>
+                                <div class="col-3 border-right">
+                                    <h5>Data da ultima modificação</h5>
+                                    <p class="m-0">{{reversal.lastModifiedDateTime | date : 'shortDate' : '' :
+                                        'pt-BR'}}
+                                    </p>
+                                </div>
+                                <div class="col-3 my-auto text-center">
+                                    <button class="btn btn-link my-auto" (click)="seeReversalDetails()">Ver detalhes
+                                        &nbsp;<i class="fas fa-external-link-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="!payment">
+        <div class="col-8 text-center">
+            <h3 class="text-reset">Não foi possivel encontrar o pagamento informado.</h3>
+            <a class="btn btn-sm btn-default mt-2" [routerLink]="['/payments']">Voltar para listagem</a>
+        </div>
+    </div>
+</app-base-card>

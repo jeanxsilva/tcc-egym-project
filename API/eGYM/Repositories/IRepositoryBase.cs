@@ -9,7 +9,8 @@ namespace eGYM.Database.Repositories
     {
         IQueryable<TEntity> GetAll();
         Task<TEntity> GetById(long entityId);
-        Task<bool> Remove(TEntity entity);
+        bool Remove(TEntity entity);
+        Task<bool> RemoveAsync(TEntity entity);
         Task<bool> Remove(List<TEntity> entities);
         Task<TEntity> Create(TEntity entity);
         Task<TEntity> InsertOrUpdate(TEntity entity);

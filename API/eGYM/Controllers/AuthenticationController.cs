@@ -36,21 +36,23 @@ namespace eGYM.Controllers
                 returnBag.Token = token;
                 returnBag.ExpiresIn = 2;
 
-                userProfile.PasswordEncrypted = null;
-                userProfile.User.CompanyUnit = new CompanyUnit();
-                userProfile.User.ModalityClasses.Clear();
-                userProfile.User.PaymentPaidByUsers.Clear();
-                userProfile.User.PaymentReceivedByUsers.Clear();
-                userProfile.User.PaymentReversalCreatedByUsers.Clear();
-                userProfile.User.StudentRequests.Clear();
-                userProfile.User.CompanyUnits.Clear();
-                userProfile.User.LastNews.Clear();
-                userProfile.User.StudentRegistration = null;
-                userProfile.UserLevel.UserLevelRoles.Clear();
-                userProfile.UserLevel.UserLevelAccesses.Clear();
-                userProfile.UserState = new UserState();
+                UserProfile returnedUserProfile = new UserProfile();
+                returnedUserProfile.Id = userProfile.Id;
+                returnedUserProfile.Login = userProfile.Login;
 
-                returnBag.UserProfile = userProfile;
+                UserLevel userLevel = new UserLevel();
+                userLevel.Id = userProfile.UserLevel.Id;
+                userLevel.RoleCode = userProfile.UserLevel.RoleCode;
+
+                returnedUserProfile.UserLevel = userLevel;
+
+                User returnedUser = new User();
+                returnedUser.Id = userProfile.User.Id;
+                returnedUser.Name = userProfile.User.Name;
+
+                returnedUserProfile.User = returnedUser;
+
+                returnBag.UserProfile = returnedUserProfile;
             }
             else
             {

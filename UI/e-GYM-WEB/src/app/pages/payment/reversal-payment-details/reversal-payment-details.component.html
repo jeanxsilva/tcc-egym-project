@@ -1,0 +1,115 @@
+<app-base-card title="Detalhes do estorno" [hideFooter]="true" [bodyClass]="'p-4'">
+    <div class="row" *ngIf="reversal">
+        <div class="col-12">
+            <h6 class="heading-small text-muted mb-4">Dados do estorno</h6>
+            <div class="row">
+
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Pago por</h5>
+                            <p>{{reversal.payment.paidByUser.name}}</p>
+                        </div>
+                        <div class="col-6">
+                            <h5>Data de pagamento</h5>
+                            <p>{{reversal.payment.paymentDateTime | date : 'shortDate' : '' : 'pt-BR'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Justificativa</h5>
+                            <p>{{reversal.reason}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-link" (click)="seePaymentDetails()">Ver detalhes do
+                                pagamento</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4">
+                            <h5>Criado por</h5>
+                            <p>{{reversal.createdByUser.name}}</p>
+                        </div>
+                        <div class="col-4">
+                            <h5>Autorizado por</h5>
+                            <p>{{reversal.authorizedByUser.name}}</p>
+                        </div>
+                        <div class="col-4">
+                            <h5>Finalizado por</h5>
+                            <p>{{reversal.finishedByUser?.name || '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Data da ultima modificação</h5>
+                            <p>{{reversal.lastModifiedDateTime | date : 'shortDate' : '' : 'pt-BR'}}</p>
+                        </div>
+                        <div class="col-6">
+                            <h5>Status atual</h5>
+                            <p>
+                                <span class="badge p-mr-2" [ngClass]="{
+                                        'badge-success':reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Deffered,
+                                        'badge-primary': reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Opened || reversal.paymentReversalStatus.id ==  paymentReversalStatusEnum.Movimented,
+                                        'badge-danger': reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Dismissed || reversal.paymentReversalStatus.id == paymentReversalStatusEnum.Canceled
+                                    }">
+                                    {{reversal.paymentReversalStatus.description}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="reversal.paymentReversalStatus.id < 10">
+                        <div class="col-12">
+                            <button class="btn btn-block btn-default" (click)="openModal('update')">
+                                Atualizar situação do estorno
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="reversal && reversal.paymentMovements.length > 0">
+        <div class="col-12">
+            <hr>
+            <h6 class="heading-small text-muted mb-4">Movimentações</h6>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width:10%">Status</th>
+                        <th>Data de registro</th>
+                        <th style="width:40%">Observação</th>
+                        <th>Registrado por</th>
+                        <th>Atual?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let movement of reversal.paymentMovements">
+                        <td>
+                            <span class="badge p-mr-2" [ngClass]="{
+                                    'badge-success':movement.paymentReversalStatus.id == paymentReversalStatusEnum.Deffered,
+                                    'badge-primary': movement.paymentReversalStatus.id == paymentReversalStatusEnum.Opened || movement.paymentReversalStatus.id ==  paymentReversalStatusEnum.Movimented,
+                                    'badge-danger': movement.paymentReversalStatus.id == paymentReversalStatusEnum.Dismissed || movement.paymentReversalStatus.id == paymentReversalStatusEnum.Canceled
+                                }">
+                                {{movement.paymentReversalStatus.description}}</span>
+                        </td>
+                        <td>{{movement.registerDateTime | date : 'medium' : '' : 'pt-BR'}}</td>
+                        <td>{{movement.note}}</td>
+                        <td>{{movement.registeredByUser.name}}</td>
+                        <td class="text-center"><i class="fas "
+                                [ngClass]="{'fa-check text-success':movement.isCurrent,'fa-ban text-danger':!movement.isCurrent}"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="!reversal">
+        <div class="col-8 text-center">
+            <h3 class="text-reset">Não foi possivel encontrar o estorno informado.</h3>
+            <a class="btn btn-sm btn-default mt-2" [routerLink]="['/payment/reversals']">Voltar para listagem</a>
+        </div>
+    </div>
+</app-base-card>

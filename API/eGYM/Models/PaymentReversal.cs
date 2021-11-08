@@ -7,11 +7,16 @@ namespace eGYM.Models
 {
     public partial class PaymentReversal : IEntityBase
     {
+        public PaymentReversal()
+        {
+            PaymentMovements = new HashSet<PaymentMovement>();
+        }
+
         public int Id { get; set; }
         public string Reason { get; set; }
-        public int AuthorizedByUserId { get; set; }
+        public int? AuthorizedByUserId { get; set; }
         public int CreatedByUserId { get; set; }
-        public int FinishedByUserId { get; set; }
+        public int? FinishedByUserId { get; set; }
         public int PaymentId { get; set; }
         public int PaymentReversalStatusId { get; set; }
         public DateTime LastModifiedDateTime { get; set; }
@@ -21,5 +26,6 @@ namespace eGYM.Models
         public virtual User FinishedByUser { get; set; }
         public virtual Payment Payment { get; set; }
         public virtual PaymentReversalStatus PaymentReversalStatus { get; set; }
+        public virtual ICollection<PaymentMovement> PaymentMovements { get; set; }
     }
 }

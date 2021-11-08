@@ -66,7 +66,7 @@ namespace eGYM.Core
         public async Task<long?> ResolveCompanyUnitIdAsync()
         {
             List<Claim> claims = await this.GetClaimsAsync();
-            Claim companyUnitId = claims.FirstOrDefault(c => c.Type == "locality");
+            Claim companyUnitId = claims.FirstOrDefault(c => c.Type == "locality" || c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/locality");
 
             if (companyUnitId != null)
             {

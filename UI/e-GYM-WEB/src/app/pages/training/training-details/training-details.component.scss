@@ -1,0 +1,47 @@
+.scrolling-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    .card {
+        display: inline-flex;
+        width: 600px;
+        height: 500px;
+    }
+    .card-body {
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: rgba(204, 204, 204, 0.212);
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #acacac;
+            border-radius: 10px;
+        }
+    }
+    .btn-more {
+        display: inline-flex;
+    }
+    p {
+        margin: 0;
+    }
+}
+.scrolling-wrapper {
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: rgba(204, 204, 204, 0.212);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: #acacac;
+    }
+}

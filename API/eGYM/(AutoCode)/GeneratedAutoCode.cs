@@ -94,18 +94,18 @@ namespace eGYM
         //[Authorize(Roles = "ClassCheckInOut.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(ClassCheckInOut entity)
+        public async Task<dynamic> Delete(ClassCheckInOut entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "ClassCheckInOut.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(ClassCheckInOut entity)
+        public async Task<dynamic> Edit(ClassCheckInOut entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -216,18 +216,18 @@ namespace eGYM
         //[Authorize(Roles = "Company.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Company entity)
+        public async Task<dynamic> Delete(Company entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Company.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Company entity)
+        public async Task<dynamic> Edit(Company entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -338,18 +338,18 @@ namespace eGYM
         //[Authorize(Roles = "CompanyUnit.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(CompanyUnit entity)
+        public async Task<dynamic> Delete(CompanyUnit entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "CompanyUnit.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(CompanyUnit entity)
+        public async Task<dynamic> Edit(CompanyUnit entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -460,18 +460,18 @@ namespace eGYM
         //[Authorize(Roles = "Employee.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Employee entity)
+        public async Task<dynamic> Delete(Employee entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Employee.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Employee entity)
+        public async Task<dynamic> Edit(Employee entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -582,18 +582,18 @@ namespace eGYM
         //[Authorize(Roles = "Exercise.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Exercise entity)
+        public async Task<dynamic> Delete(Exercise entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Exercise.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Exercise entity)
+        public async Task<dynamic> Edit(Exercise entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -704,18 +704,18 @@ namespace eGYM
         //[Authorize(Roles = "ExerciseCategory.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(ExerciseCategory entity)
+        public async Task<dynamic> Delete(ExerciseCategory entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "ExerciseCategory.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(ExerciseCategory entity)
+        public async Task<dynamic> Edit(ExerciseCategory entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -826,18 +826,18 @@ namespace eGYM
         //[Authorize(Roles = "Invoice.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Invoice entity)
+        public async Task<dynamic> Delete(Invoice entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Invoice.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Invoice entity)
+        public async Task<dynamic> Edit(Invoice entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -948,18 +948,18 @@ namespace eGYM
         //[Authorize(Roles = "InvoiceDetail.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(InvoiceDetail entity)
+        public async Task<dynamic> Delete(InvoiceDetail entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "InvoiceDetail.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(InvoiceDetail entity)
+        public async Task<dynamic> Edit(InvoiceDetail entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1070,18 +1070,18 @@ namespace eGYM
         //[Authorize(Roles = "InvoiceStatus.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(InvoiceStatus entity)
+        public async Task<dynamic> Delete(InvoiceStatus entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "InvoiceStatus.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(InvoiceStatus entity)
+        public async Task<dynamic> Edit(InvoiceStatus entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1192,18 +1192,18 @@ namespace eGYM
         //[Authorize(Roles = "LastNews.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(LastNews entity)
+        public async Task<dynamic> Delete(LastNews entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "LastNews.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(LastNews entity)
+        public async Task<dynamic> Edit(LastNews entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1314,18 +1314,18 @@ namespace eGYM
         //[Authorize(Roles = "Modality.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Modality entity)
+        public async Task<dynamic> Delete(Modality entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Modality.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Modality entity)
+        public async Task<dynamic> Edit(Modality entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1436,18 +1436,18 @@ namespace eGYM
         //[Authorize(Roles = "ModalityClass.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(ModalityClass entity)
+        public async Task<dynamic> Delete(ModalityClass entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "ModalityClass.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(ModalityClass entity)
+        public async Task<dynamic> Edit(ModalityClass entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1558,18 +1558,18 @@ namespace eGYM
         //[Authorize(Roles = "ModalityPaymentType.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(ModalityPaymentType entity)
+        public async Task<dynamic> Delete(ModalityPaymentType entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "ModalityPaymentType.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(ModalityPaymentType entity)
+        public async Task<dynamic> Edit(ModalityPaymentType entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1680,18 +1680,18 @@ namespace eGYM
         //[Authorize(Roles = "Payment.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Payment entity)
+        public async Task<dynamic> Delete(Payment entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Payment.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Payment entity)
+        public async Task<dynamic> Edit(Payment entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1802,18 +1802,18 @@ namespace eGYM
         //[Authorize(Roles = "PaymentMovement.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(PaymentMovement entity)
+        public async Task<dynamic> Delete(PaymentMovement entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "PaymentMovement.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(PaymentMovement entity)
+        public async Task<dynamic> Edit(PaymentMovement entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -1924,18 +1924,18 @@ namespace eGYM
         //[Authorize(Roles = "PaymentReversal.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(PaymentReversal entity)
+        public async Task<dynamic> Delete(PaymentReversal entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "PaymentReversal.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(PaymentReversal entity)
+        public async Task<dynamic> Edit(PaymentReversal entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2046,18 +2046,18 @@ namespace eGYM
         //[Authorize(Roles = "PaymentReversalStatus.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(PaymentReversalStatus entity)
+        public async Task<dynamic> Delete(PaymentReversalStatus entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "PaymentReversalStatus.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(PaymentReversalStatus entity)
+        public async Task<dynamic> Edit(PaymentReversalStatus entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2168,18 +2168,18 @@ namespace eGYM
         //[Authorize(Roles = "PaymentType.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(PaymentType entity)
+        public async Task<dynamic> Delete(PaymentType entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "PaymentType.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(PaymentType entity)
+        public async Task<dynamic> Edit(PaymentType entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2290,18 +2290,18 @@ namespace eGYM
         //[Authorize(Roles = "PhysicalAssesment.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(PhysicalAssesment entity)
+        public async Task<dynamic> Delete(PhysicalAssesment entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "PhysicalAssesment.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(PhysicalAssesment entity)
+        public async Task<dynamic> Edit(PhysicalAssesment entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2412,18 +2412,18 @@ namespace eGYM
         //[Authorize(Roles = "PhysicalAssesmentScheduled.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(PhysicalAssesmentScheduled entity)
+        public async Task<dynamic> Delete(PhysicalAssesmentScheduled entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "PhysicalAssesmentScheduled.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(PhysicalAssesmentScheduled entity)
+        public async Task<dynamic> Edit(PhysicalAssesmentScheduled entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2534,18 +2534,18 @@ namespace eGYM
         //[Authorize(Roles = "RegistrationModalityClass.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(RegistrationModalityClass entity)
+        public async Task<dynamic> Delete(RegistrationModalityClass entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "RegistrationModalityClass.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(RegistrationModalityClass entity)
+        public async Task<dynamic> Edit(RegistrationModalityClass entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2656,18 +2656,18 @@ namespace eGYM
         //[Authorize(Roles = "RequestCategory.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(RequestCategory entity)
+        public async Task<dynamic> Delete(RequestCategory entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "RequestCategory.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(RequestCategory entity)
+        public async Task<dynamic> Edit(RequestCategory entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2680,6 +2680,128 @@ namespace eGYM
         
         [HttpGet]
         //[Authorize(Roles = "RequestCategory.R")]
+        [Authorize]
+        [Route("GetDataColumns")]
+        public new List<DataColumn> GetDataColumns()
+        {
+            List<DataColumn> dataColumns = new List<DataColumn>();
+            
+            dataColumns = this.Service.GetColumns();
+
+            return dataColumns;
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region RequestCategoryLevelService
+    
+    public partial class RequestCategoryLevelService : ServiceBase<RequestCategoryLevel, RequestCategoryLevelRepository>
+    {
+        public RequestCategoryLevelService(RequestCategoryLevelRepository repository)
+        {
+            this.Repository = repository;
+        }
+    }
+
+    #endregion
+
+    #region RequestCategoryLevelRepository
+
+    public partial class RequestCategoryLevelRepository : RepositoryBase<RequestCategoryLevel>
+    {
+        public RequestCategoryLevelRepository(EGymDbContext dbContext) : base(dbContext)
+        {
+        }
+
+        public RequestCategoryLevelRepository()
+        {
+        }
+    }
+
+    #endregion
+
+    #region RequestCategoryLevelController
+
+    [Route("api/RequestCategoryLevel")]
+    [ApiController]
+    public partial class RequestCategoryLevelController : CrudControllerBase<RequestCategoryLevel, RequestCategoryLevelService, RequestCategoryLevelRepository>
+    {
+    
+        #region Service
+        
+        protected override RequestCategoryLevelService Service { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public RequestCategoryLevelController(RequestCategoryLevelService service)
+        {
+            this.Service = service;
+        }
+
+        #endregion
+
+        #region CRUD :: List(), GetById(), Insert(), Edit(), Remove()
+            
+        [HttpGet]
+        //[Authorize(Roles = "RequestCategoryLevel.R")]
+        [Authorize]
+        [Route("List")]
+        public async Task<dynamic> List()
+        {
+            return await base.List(null);
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "RequestCategoryLevel.R")]
+        [Authorize]
+        [Route("GetById")]
+        public async Task<dynamic> GetById(int entityId)
+        {
+            return await base.List(entityId);
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "RequestCategoryLevel.C, RequestCategoryLevel.U")]
+        [Authorize]
+        [Route("Save")]
+        public async Task<dynamic> Save(RequestCategoryLevel entity)
+        {
+            return await base.SaveAsync(entity);
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "RequestCategoryLevel.D")]
+        [Authorize]
+        [Route("Delete")]
+        public async Task<dynamic> Delete(RequestCategoryLevel entity)
+        {
+            return await base.DeleteAsync(entity);
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "RequestCategoryLevel.U")]
+        [Authorize]
+        [Route("Edit")]
+        public async Task<dynamic> Edit(RequestCategoryLevel entity)
+        {
+            return await base.UpdateAsync(entity);
+        }
+
+        #endregion
+
+        #region Pre's and Post's routines
+
+        #endregion
+
+        #region GetDataColumns()
+        
+        [HttpGet]
+        //[Authorize(Roles = "RequestCategoryLevel.R")]
         [Authorize]
         [Route("GetDataColumns")]
         public new List<DataColumn> GetDataColumns()
@@ -2778,18 +2900,18 @@ namespace eGYM
         //[Authorize(Roles = "RequestStatus.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(RequestStatus entity)
+        public async Task<dynamic> Delete(RequestStatus entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "RequestStatus.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(RequestStatus entity)
+        public async Task<dynamic> Edit(RequestStatus entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -2900,18 +3022,18 @@ namespace eGYM
         //[Authorize(Roles = "Shift.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(Shift entity)
+        public async Task<dynamic> Delete(Shift entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "Shift.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(Shift entity)
+        public async Task<dynamic> Edit(Shift entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3022,18 +3144,18 @@ namespace eGYM
         //[Authorize(Roles = "ShiftBook.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(ShiftBook entity)
+        public async Task<dynamic> Delete(ShiftBook entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "ShiftBook.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(ShiftBook entity)
+        public async Task<dynamic> Edit(ShiftBook entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3144,18 +3266,18 @@ namespace eGYM
         //[Authorize(Roles = "StudentCaracteristic.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(StudentCaracteristic entity)
+        public async Task<dynamic> Delete(StudentCaracteristic entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "StudentCaracteristic.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(StudentCaracteristic entity)
+        public async Task<dynamic> Edit(StudentCaracteristic entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3266,18 +3388,18 @@ namespace eGYM
         //[Authorize(Roles = "StudentRegistration.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(StudentRegistration entity)
+        public async Task<dynamic> Delete(StudentRegistration entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "StudentRegistration.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(StudentRegistration entity)
+        public async Task<dynamic> Edit(StudentRegistration entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3388,18 +3510,18 @@ namespace eGYM
         //[Authorize(Roles = "StudentRequest.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(StudentRequest entity)
+        public async Task<dynamic> Delete(StudentRequest entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "StudentRequest.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(StudentRequest entity)
+        public async Task<dynamic> Edit(StudentRequest entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3510,18 +3632,18 @@ namespace eGYM
         //[Authorize(Roles = "TrainingPlan.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(TrainingPlan entity)
+        public async Task<dynamic> Delete(TrainingPlan entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "TrainingPlan.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(TrainingPlan entity)
+        public async Task<dynamic> Edit(TrainingPlan entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3632,18 +3754,18 @@ namespace eGYM
         //[Authorize(Roles = "TrainingPlanExercise.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(TrainingPlanExercise entity)
+        public async Task<dynamic> Delete(TrainingPlanExercise entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "TrainingPlanExercise.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(TrainingPlanExercise entity)
+        public async Task<dynamic> Edit(TrainingPlanExercise entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3754,18 +3876,18 @@ namespace eGYM
         //[Authorize(Roles = "User.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(User entity)
+        public async Task<dynamic> Delete(User entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "User.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(User entity)
+        public async Task<dynamic> Edit(User entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3876,18 +3998,18 @@ namespace eGYM
         //[Authorize(Roles = "UserLevel.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(UserLevel entity)
+        public async Task<dynamic> Delete(UserLevel entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "UserLevel.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(UserLevel entity)
+        public async Task<dynamic> Edit(UserLevel entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -3998,18 +4120,18 @@ namespace eGYM
         //[Authorize(Roles = "UserLevelAccess.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(UserLevelAccess entity)
+        public async Task<dynamic> Delete(UserLevelAccess entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "UserLevelAccess.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(UserLevelAccess entity)
+        public async Task<dynamic> Edit(UserLevelAccess entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -4120,18 +4242,18 @@ namespace eGYM
         //[Authorize(Roles = "UserLevelRole.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(UserLevelRole entity)
+        public async Task<dynamic> Delete(UserLevelRole entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "UserLevelRole.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(UserLevelRole entity)
+        public async Task<dynamic> Edit(UserLevelRole entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -4242,18 +4364,18 @@ namespace eGYM
         //[Authorize(Roles = "UserProfile.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(UserProfile entity)
+        public async Task<dynamic> Delete(UserProfile entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "UserProfile.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(UserProfile entity)
+        public async Task<dynamic> Edit(UserProfile entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion
@@ -4364,18 +4486,18 @@ namespace eGYM
         //[Authorize(Roles = "UserState.D")]
         [Authorize]
         [Route("Delete")]
-        public new dynamic Delete(UserState entity)
+        public async Task<dynamic> Delete(UserState entity)
         {
-            return base.DeleteAsync(entity);
+            return await base.DeleteAsync(entity);
         }
 
         [HttpPost]
         //[Authorize(Roles = "UserState.U")]
         [Authorize]
         [Route("Edit")]
-        public dynamic Edit(UserState entity)
+        public async Task<dynamic> Edit(UserState entity)
         {
-            return base.UpdateAsync(entity);
+            return await base.UpdateAsync(entity);
         }
 
         #endregion

@@ -42,17 +42,14 @@ namespace eGYM.Services
 
         public async Task<bool> DeleteAsync(TEntity entity)
         {
-            await this.Repository.Remove(entity);
-            return true;
+            return await this.Repository.RemoveAsync(entity);
         }
 
         public virtual async Task<bool> Delete(List<TEntity> entities)
         {
             if (!entities.Any()) return true;
 
-            await this.Repository.Remove(entities);
-
-            return true;
+            return await this.Repository.Remove(entities);
         }
 
         public virtual IQueryable<TEntity> GetQueryable()
@@ -90,6 +87,11 @@ namespace eGYM.Services
             List<DataColumn> dataColumns = new List<DataColumn>();
 
             return dataColumns;
+        }
+
+        public bool Delete(TEntity entity)
+        {
+            return this.Repository.Remove(entity);
         }
         #endregion
     }

@@ -1,0 +1,56 @@
+<div class="modal-header border-bottom align-items-center">
+    <h4 class="modal-title">Registrar estorno</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="col-12" *ngIf="paymentType">
+        <form [formGroup]="formReversal">
+            <h6 class="heading-small text-muted mb-2">Dados do estorno</h6>
+            <div class="pl-lg-4">
+                <div class="row align-items-center" *ngIf="paymentType.id != paymentTypeEnum.TICKET">
+                    <div class="col-lg-7 mt-2">
+                        <div class="form-group mb-0">
+                            <label class="form-check-label" for="authorizedByUser">
+                                Autorizado por <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control form-control-alternative" id="authorizedByUser"
+                                name="authorizedByUser" formControlName="authorizedByUserId">
+                                <option [value]="employee.user.id" *ngFor="let employee of employees">
+                                    {{employee.user.name}}
+                                </option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-12 mt-2">
+                        <div class="form-group mb-0">
+                            <label class="form-check-label" for="reason">
+                                Justificativa <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control form-control-alternative" id="reason" formControlName="reason" style="height: 165px;"
+                                name="reason"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer py-2 border-top">
+    <div class="col-12">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <a role="button" (click)="dismiss()"><i class="fas fa-undo"></i>&nbsp; Cancelar alterações e voltar</a>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary btn-block" [disabled]="formReversal.invalid"
+                    (click)="save()">Registrar pedido de estorno</button>
+            </div>
+        </div>
+    </div>
+</div>

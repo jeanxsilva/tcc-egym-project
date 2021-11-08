@@ -47,7 +47,7 @@ namespace eGYM
             services.AddDbContext<EGymDbContext>(options => options.UseLazyLoadingProxies().UseMySql(Configuration.GetConnectionString("DefaultConnection"), serverVersion)
                 .EnableSensitiveDataLogging() // <-- These two calls are optional but help
                 .EnableDetailedErrors()
-                .ConfigureWarnings(warning => 
+                .ConfigureWarnings(warning =>
                     warning.Default(WarningBehavior.Ignore)
                         .Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)
                         .Throw(RelationalEventId.BoolWithDefaultWarning)));
@@ -64,6 +64,7 @@ namespace eGYM
                 {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
                 });
 
             //services.AddScoped<EGymDbContext>();
@@ -76,6 +77,7 @@ namespace eGYM
                 .AddSorting().AddProjections()
                 .AddType<Company>();
 
+            services.AddHostedService<ManageInvoiceRoutine>();
             //.AddMutationType<Mutation>()
             //
             //.SetPagingOptions(new PagingOptions() { DefaultPageSize = 20, IncludeTotalCount = true, MaxPageSize = 1000 })

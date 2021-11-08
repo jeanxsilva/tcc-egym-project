@@ -15,9 +15,12 @@ namespace eGYM
         private readonly UserStateRepository userStateRepository;
         private readonly UserProfileService userProfileService;
         private readonly ClaimResolver claimResolver;
+        private readonly CompanyUnitRepository companyUnitRepository;
+
+        public CompanyUnitService CompanyUnitService { get; }
 
         public UserService(UserRepository repository, UserLevelRepository userLevelRepository,
-            UserStateRepository userStateRepository, UserProfileService userProfileService,
+            UserStateRepository userStateRepository, UserProfileService userProfileService, CompanyUnitRepository companyUnitRepository,
             ClaimResolver claimResolver
             ) : this(repository)
         {
@@ -25,6 +28,7 @@ namespace eGYM
             this.userLevelRepository = userLevelRepository;
             this.userStateRepository = userStateRepository;
             this.userProfileService = userProfileService;
+            this.companyUnitRepository = companyUnitRepository;
             this.claimResolver = claimResolver;
         }
 
@@ -36,6 +40,11 @@ namespace eGYM
             User user = queryable.FirstOrDefault(u => u.Id == userId);
 
             return user;
+        }
+
+        public override async Task PreSavingRoutine(User entity)
+        {
+            entity.CompanyUnit = await this.companyUnitRepository.GetById((int)entity.CompanyUnitId);
         }
     }
 }

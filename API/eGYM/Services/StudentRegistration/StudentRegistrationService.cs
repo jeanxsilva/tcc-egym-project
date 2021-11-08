@@ -19,6 +19,7 @@ namespace eGYM
         private readonly ModalityPaymentTypeService modalityPaymentTypeService;
         private readonly RegistrationModalityClassService registrationModalityClassService;
         private readonly InvoiceService invoiceService;
+        private readonly CompanyUnitService companyUnitService;
 
         public StudentRegistrationService(StudentRegistrationRepository repository, UserLevelRepository userLevelRepository,
             UserStateRepository userStateRepository, UserProfileService userProfileService,
@@ -26,6 +27,7 @@ namespace eGYM
             UserService userService,
             ModalityClassService modalityClassService,
             ModalityPaymentTypeService modalityPaymentTypeService,
+            CompanyUnitService companyUnitService,
             RegistrationModalityClassService registrationModalityClassService, InvoiceService invoiceService) : this(repository)
         {
             this.Repository = repository;
@@ -36,6 +38,7 @@ namespace eGYM
             this.userService = userService;
             this.modalityClassService = modalityClassService;
             this.modalityPaymentTypeService = modalityPaymentTypeService;
+            this.companyUnitService = companyUnitService;
             this.registrationModalityClassService = registrationModalityClassService;
             this.invoiceService = invoiceService;
         }
@@ -45,7 +48,7 @@ namespace eGYM
         public override List<DataColumn> GetColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            dataColumns.Add(new DataColumn("id", DataTypes.Int, "Id"));
+
             dataColumns.Add(new DataColumn("code", DataTypes.String, "Matricula"));
             dataColumns.Add(new DataColumn("user.name", DataTypes.String, "Nome"));
 
@@ -71,6 +74,7 @@ namespace eGYM
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
+                    user.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
                     User savedUser = await this.userService.SaveAsync(user);
 
                     if (savedUser != null)
@@ -184,7 +188,7 @@ namespace eGYM
                         }
                     }
 
-                    wasRemoved = await this.Repository.Remove(studentRegistration);
+                    wasRemoved = await this.Repository.RemoveAsync(studentRegistration);
 
                     if (!wasRemoved)
                     {
@@ -204,6 +208,31 @@ namespace eGYM
                     return true;
                 }
             }
+        }
+        public async Task<bool> ChangeRegistration(StudentRegistration student)
+        {
+            List<RegistrationModalityClass> registrations = student.RegistrationModalityClasses.ToList();
+            StudentRegistration studentRegistration = await this.Repository.GetById(student.Id);
+            foreach (RegistrationModalityClass registration in registrations)
+            {
+                registration.DueDay = DateTime.UtcNow.Day;
+                registration.ModalityClass = await this.modalityClassService.GetByIdAsync(registration.ModalityClassId);
+                registration.ModalityPaymentType = await this.modalityPaymentTypeService.GetByIdAsync(registration.ModalityPaymentTypeId);
+                registration.StudentRegistration = studentRegistration;
+
+                if (registration.Id == 0)
+                {
+                    registration.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
+                }
+            }
+
+            List<RegistrationModalityClass> toInsertRegistrations = registrations.Where(r => r.Id == 0).ToList();
+            if (toInsertRegistrations.Count != 0)
+            {
+                await this.invoiceService.GenerateInvoice(toInsertRegistrations, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura da modalidade");
+            }
+
+            return await this.registrationModalityClassService.SaveAsync(registrations);
         }
     }
 }

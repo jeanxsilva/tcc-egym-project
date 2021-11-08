@@ -13,19 +13,22 @@ namespace eGYM
         private readonly UserStateRepository userStateRepository;
         private readonly UserProfileService userProfileService;
         private readonly ShiftService shiftService;
+        private readonly CompanyUnitService companyUnitService;
 
         public EmployeeService(EmployeeRepository repository,
                 UserService userService,
                 UserLevelRepository userLevelRepository,
                 UserStateRepository userStateRepository,
                 UserProfileService userProfileService,
-                ShiftService shiftService) : this(repository)
+                ShiftService shiftService,
+                CompanyUnitService companyUnitService) : this(repository)
         {
             this.userService = userService;
             this.userLevelRepository = userLevelRepository;
             this.userStateRepository = userStateRepository;
             this.userProfileService = userProfileService;
             this.shiftService = shiftService;
+            this.companyUnitService = companyUnitService;
         }
 
 
@@ -34,9 +37,10 @@ namespace eGYM
         public override List<DataColumn> GetColumns()
         {
             List<DataColumn> dataColumns = new List<DataColumn>();
-            dataColumns.Add(new DataColumn("id", DataTypes.Int, "Id"));
-            dataColumns.Add(new DataColumn("user.name", DataTypes.String, "Nome do aluno"));
-            dataColumns.Add(new DataColumn("user.registerCode", DataTypes.String, "Código de registro"));
+
+            dataColumns.Add(new DataColumn("user.name", DataTypes.String, "Nome"));
+            dataColumns.Add(new DataColumn("user.registerCode", DataTypes.String, "Identificação"));
+            dataColumns.Add(new DataColumn("user.userProfile.userLevel.description", DataTypes.String, "Nível"));
             dataColumns.Add(new DataColumn("shift.description", DataTypes.String, "Turno"));
 
             return dataColumns;
@@ -51,15 +55,16 @@ namespace eGYM
             {
                 throw new Exception("Não foi possivel encontrar o usuário atual.");
             }
-            
+
             entity.Shift = await this.shiftService.GetByIdAsync(entity.ShiftId);
 
             User employeeUser = entity.User;
+            employeeUser.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
             UserProfile userProfile = this.userProfileService.GetUserProfileByUser(employeeUser);
 
             if (userProfile == null)
             {
-                UserLevel userLevel = await this.userLevelRepository.GetById(2);
+                UserLevel userLevel = await this.userLevelRepository.GetById(entity.User.UserProfile.UserLevelId);
                 UserState userState = await this.userStateRepository.GetById((long)UserStateEnum.Active);
 
                 userProfile = new UserProfile();
@@ -69,6 +74,7 @@ namespace eGYM
             }
 
             userProfile.Password = employeeUser.Birthday.ToString();
+            userProfile.PasswordEncrypted = this.userProfileService.EncryptPassword(userProfile.Password);
 
             employeeUser.UserProfile = userProfile;
             entity.User = employeeUser;

@@ -1,0 +1,14 @@
+.navbar-vertical .navbar-collapse:before{
+    margin: 0 !important;
+}
+@media (min-width: 768px){
+    .navbar-vertical.navbar-expand-md .navbar-nav .nav-link {
+        padding: 0.65rem 0.80rem;
+    }
+}
+
+
+.isLoading a {
+    pointer-events: none;
+    opacity: 0.7;
+}

@@ -20,19 +20,45 @@ namespace eGYM.Database.Repositories
             this.dbContext = dbContext;
         }
 
+        public async Task<TEntity> GetByIdAsNoTrackingAsync(long entityId)
+        {
+            return await this.dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == entityId);
+        }
+        public TEntity GetByIdAsNoTracking(long entityId)
+        {
+            return this.dbContext.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id == entityId);
+        }
+
         public async Task<TEntity> GetById(long entityId)
         {
             return await this.dbContext.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == entityId);
         }
 
-        public async Task<bool> Remove(TEntity entity)
+        public bool Remove(TEntity entity)
         {
-            var entityToRemove = await GetById(entity.Id);
+            var entityToRemove = this.GetByIdAsNoTracking(entity.Id);
 
             if (entityToRemove != null)
             {
-                this.dbContext.Set<TEntity>().Remove(entityToRemove);
-                await this.dbContext.SaveChangesAsync();
+                this.dbContext.Remove<TEntity>(entityToRemove);
+                //this.dbContext.DetachLocal<TEntity>(entityToRemove, entity.Id);
+                this.dbContext.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> RemoveAsync(TEntity entity)
+        {
+            var entityToRemove = await this.GetByIdAsNoTrackingAsync(entity.Id);
+
+            if (entityToRemove != null)
+            {
+                this.dbContext.Remove<TEntity>(entityToRemove);
+                //this.dbContext.DetachLocal<TEntity>(entityToRemove, entity.Id);
+                this.dbContext.SaveChanges();
 
                 return true;
             }
@@ -48,11 +74,12 @@ namespace eGYM.Database.Repositories
             {
                 foreach (TEntity entity in entities)
                 {
-                    var entityToRemove = await GetById(entity.Id);
+                    var entityToRemove = await this.GetByIdAsNoTrackingAsync(entity.Id);
 
                     if (entityToRemove != null)
                     {
                         this.dbContext.Set<TEntity>().Remove(entityToRemove);
+                        //this.dbContext.DetachLocal<TEntity>(entityToRemove, entity.Id);
                         await this.dbContext.SaveChangesAsync();
                     }
                 }
@@ -78,6 +105,7 @@ namespace eGYM.Database.Repositories
             var async = await this.dbContext.Set<TEntity>().AddAsync(entity);
             TEntity savedEntity = async.Entity;
 
+            //this.dbContext.DetachLocal<TEntity>(entity, entity.Id);
             await this.dbContext.SaveChangesAsync();
 
             return savedEntity;
@@ -86,6 +114,8 @@ namespace eGYM.Database.Repositories
         public async Task<TEntity> Update(TEntity entity)
         {
             this.dbContext.Update<TEntity>(entity);
+            //this.dbContext.DetachLocal<TEntity>(entity, entity.Id);
+
             await this.dbContext.SaveChangesAsync();
 
             return entity;
@@ -116,7 +146,13 @@ namespace eGYM.Database.Repositories
             using var transaction = await this.dbContext.Database.BeginTransactionAsync();
             try
             {
-                await this.dbContext.AddAsync(entities);
+                List<TEntity> insertEntities = entities.Where(e => e.Id == 0).ToList();
+                await this.dbContext.AddRangeAsync(insertEntities);
+
+                List<TEntity> updateEntities = entities.Where(e => e.Id != 0).ToList();
+                this.dbContext.UpdateRange(updateEntities);
+
+                await this.dbContext.SaveChangesAsync();
 
                 transaction.Commit();
 

@@ -15,13 +15,13 @@ namespace eGYM.Models
         public int Id { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }
-        public double Triceps { get; set; }
-        public double Chest { get; set; }
-        public double Subaxillary { get; set; }
-        public double Subscapular { get; set; }
-        public double Abdominal { get; set; }
-        public double Suprailiac { get; set; }
-        public double Thigh { get; set; }
+        public double? Triceps { get; set; }
+        public double? Chest { get; set; }
+        public double? Subaxillary { get; set; }
+        public double? Subscapular { get; set; }
+        public double? Abdominal { get; set; }
+        public double? Suprailiac { get; set; }
+        public double? Thigh { get; set; }
         public double? LeanMass { get; set; }
         public double? FatMass { get; set; }
         public double? FatPercentage { get; set; }

@@ -1,0 +1,14 @@
+<app-base-card title="Avaliações fisicas" [hideFooter]="true">
+    <div class="row">
+        <div class="col-12">
+            <app-custom-table [entity]="'PhysicalAssesment'" [title]="'Histórico de avaliações fisicas'"
+                [isCrud]="false">
+                <ng-template #column let-value>Detalhes</ng-template>
+                <ng-template #row let-value>
+                    <button pButton pRipple icon="pi pi-external-link" class="p-button-rounded p-button-warning p-mr-2"
+                        (click)="seeDetails(value.id)"></button>
+                </ng-template>
+            </app-custom-table>
+        </div>
+    </div>
+</app-base-card>

@@ -79,9 +79,9 @@ namespace eGYM
             //no qual utiliza sete dobras cutâneas, idade e perímetro do abdome e do antebraço(QUADRO 1).
             //Cálculo da Densidade Corporal para 7 dobras(Pollock 7 dobras):
             //Dc(g / cm3) = 1,112 - 0,00043499 * (soma 7 Dobras)+0,00000055 * (soma 7 Dobras)2 - 0,00028826 * (Idade)
-            double sevenSum = (studentCaracteristic.Thigh + studentCaracteristic.Suprailiac +
+            double sevenSum = ((double)(studentCaracteristic.Thigh + studentCaracteristic.Suprailiac +
                                 studentCaracteristic.Subscapular + studentCaracteristic.Subaxillary +
-                                studentCaracteristic.Chest + studentCaracteristic.Abdominal + studentCaracteristic.Triceps);
+                                studentCaracteristic.Chest + studentCaracteristic.Abdominal + studentCaracteristic.Triceps));
             studentCaracteristic.BodyDensity = 1.112 - (0.00043499 * sevenSum) + (0.00000055 * Math.Pow(sevenSum, 2)) - (0.00028826 * studentCaracteristic.AgeAtMoment);
 
             //E O percentual de gordura(% G) para a técnica antropométrica foi estimado através da equação de SIRI(1961) % G = (495 / D) - 450, onde % G = percentual de gordura; D = densidade(g / ml).
