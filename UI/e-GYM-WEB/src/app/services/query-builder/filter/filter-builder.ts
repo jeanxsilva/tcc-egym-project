@@ -13,7 +13,7 @@ export class Operator {
     }
 
     public type: OperatorEnum;
-    public filters: FilterField[] = [];
+    public filters: (FilterField | ComplexFilterField | FilterListField)[] = [];
     public children: Operator[] = [];
 }
 
@@ -106,7 +106,7 @@ export class OperatorBuilder {
     }
 
     /**
-     * Creates a new filter field in the query.
+     * Creates a new filter field in the operator.
      *
      * @param field - The field that corresponds to column in database
      * @param match - The match condition
@@ -115,24 +115,29 @@ export class OperatorBuilder {
      *
     */
     public AddCondition(field: string, match: MatchingTypes, value: any) {
-
         this.operator.filters.push(new FilterField(field, match, value));
-        // if (this.parent instanceof Operator) {
-
-        // } else 
-        // if (this.parent instanceof Filter) {
-        //     this.parent.Fields.push(new FilterField(field, match, value));
-        // }
 
         return this;
+    }
+
+    /**
+     * Creates a new filter field in the operator.
+     *
+     * @param name - The name that corresponds to column list in database
+     * @param match - The list match condition
+     * @returns New ComplexFieldBuilder
+     *
+    */
+    public AddEntityList(name: string, match: ListMatchTypeEnum) {
+        return new ComplexFieldBuilder(this.operator, name, match);
     }
 }
 
 export class ComplexFieldBuilder {
-    private parent: Filter | ComplexFilterField;
+    private parent: Filter | ComplexFilterField | Operator;
     private complexField: ComplexFilterField;
 
-    constructor(parent: Filter | ComplexFilterField, name: string, listMatchType?: ListMatchTypeEnum) {
+    constructor(parent: Filter | ComplexFilterField | Operator, name: string, listMatchType?: ListMatchTypeEnum) {
         this.parent = parent;
         this.complexField = new ComplexFilterField(name, listMatchType);
 
@@ -140,6 +145,8 @@ export class ComplexFieldBuilder {
             this.parent.ComplexChildren.push(this.complexField);
         } else if (this.parent instanceof Filter) {
             this.parent.Fields.push(this.complexField);
+        } else if (this.parent instanceof Operator) {
+            this.parent.filters.push(this.complexField);
         }
     }
 

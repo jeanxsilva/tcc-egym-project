@@ -82,17 +82,17 @@ namespace eGYM
                         UserProfile userProfile = this.userProfileService.GetUserProfileByUser(savedUser);
                         if (userProfile == null)
                         {
-                            UserLevel userLevel = await this.userLevelRepository.GetById(2);
-                            UserState userState = await this.userStateRepository.GetById((long)UserStateEnum.Active);
+                            UserLevel userLevel = await this.userLevelRepository.GetById((int)UserLevelEnum.Student);
+                            UserState userState = await this.userStateRepository.GetById((int)UserStateEnum.Active);
 
                             userProfile = new UserProfile();
-                            userProfile.Login = savedUser.RegisterCode;
+                            userProfile.Login = savedUser.Email;
                             userProfile.User = savedUser;
                             userProfile.UserLevel = userLevel;
                             userProfile.UserState = userState;
                         }
 
-                        userProfile.Password = savedUser.Birthday.ToString();
+                        userProfile.Password = savedUser.RegisterCode.ToString();
 
                         UserProfile savedUserProfile = await this.userProfileService.SaveUserProfileAsync(userProfile);
                         if (savedUserProfile == null)
@@ -213,17 +213,33 @@ namespace eGYM
         {
             List<RegistrationModalityClass> registrations = student.RegistrationModalityClasses.ToList();
             StudentRegistration studentRegistration = await this.Repository.GetById(student.Id);
+
+            List<Invoice> invoices = new List<Invoice>();
             foreach (RegistrationModalityClass registration in registrations)
             {
-                registration.DueDay = DateTime.UtcNow.Day;
                 registration.ModalityClass = await this.modalityClassService.GetByIdAsync(registration.ModalityClassId);
                 registration.ModalityPaymentType = await this.modalityPaymentTypeService.GetByIdAsync(registration.ModalityPaymentTypeId);
                 registration.StudentRegistration = studentRegistration;
 
                 if (registration.Id == 0)
                 {
+                    registration.DueDay = DateTime.UtcNow.Day;
                     registration.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
                 }
+                else
+                {
+                    RegistrationModalityClass registrationModalityClass = await this.registrationModalityClassService.GetByIdAsync(registration.Id);
+                    if (!registration.IsValid)
+                    {
+                        InvoiceDetail invoiceDetail = registrationModalityClass.InvoiceDetails.LastOrDefault();
+                        invoices.Add(invoiceDetail.Invoice);
+                    }
+                }
+            }
+
+            if (invoices.Count != 0)
+            {
+                await this.invoiceService.CancelInvoices(invoices);
             }
 
             List<RegistrationModalityClass> toInsertRegistrations = registrations.Where(r => r.Id == 0).ToList();

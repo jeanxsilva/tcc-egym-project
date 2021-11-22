@@ -20,16 +20,16 @@ namespace eGYM.Database.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<TEntity> GetByIdAsNoTrackingAsync(long entityId)
+        public async Task<TEntity> GetByIdAsNoTrackingAsync(int entityId)
         {
             return await this.dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == entityId);
         }
-        public TEntity GetByIdAsNoTracking(long entityId)
+        public TEntity GetByIdAsNoTracking(int entityId)
         {
             return this.dbContext.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id == entityId);
         }
 
-        public async Task<TEntity> GetById(long entityId)
+        public async Task<TEntity> GetById(int entityId)
         {
             return await this.dbContext.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == entityId);
         }

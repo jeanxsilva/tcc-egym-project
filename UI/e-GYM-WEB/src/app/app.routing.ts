@@ -1,5 +1,5 @@
-import { NotAuthGuard } from './not-auth.guard';
-import { IsAuthGuard } from './is-auth.guard';
+import { NotAuthGuard } from './guards/not-auth.guard';
+import { IsAuthGuard } from './guards/is-auth.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';

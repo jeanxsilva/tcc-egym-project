@@ -34,6 +34,39 @@ namespace eGYM
             return userProfile;
         }
 
+        public async Task<bool> ChangeUserPassword(int? userId, string newPassword)
+        {
+            UserProfile userProfile = null;
+            if (userId == null)
+            {
+                userProfile = await this.ResolveUserProfile();
+            }
+            else
+            {
+                User user = await this.userRepository.GetById((int)userId);
+                userProfile = user.UserProfile;
+            }
+
+            if (userProfile != null)
+            {
+                string encryptedPassword = this.securityHash.CryptoPassword(newPassword);
+                userProfile.PasswordEncrypted = encryptedPassword;
+
+                UserProfile savedUserProfile = await this.Repository.Update(userProfile);
+
+                if (savedUserProfile == null)
+                {
+                    throw new Exception("Não foi possível alterar a senha do usuário.");
+                }
+            }
+            else
+            {
+                throw new Exception("Não foi possível encontrar o usuário informado.");
+            }
+
+            return true;
+        }
+
         public async Task<UserProfile> AuthenticateAsync(UserLogin userLogin)
         {
             IQueryable<UserProfile> queryable = this.Repository.GetQuery();

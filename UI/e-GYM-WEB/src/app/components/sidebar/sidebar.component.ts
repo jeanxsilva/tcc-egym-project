@@ -3,6 +3,7 @@ import { ApiService } from './../../services/api-service/api.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service.ts/auth-service.service';
+import { MatchTypeEnum } from '../../services/query-builder/enums';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +18,9 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router, private apiService: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
+    let userProfile = this.authService.GetUserLogged();
     let queryBuilder: QueryBuilder = new QueryBuilder("listUserLevelAccess");
+    queryBuilder.CreateFilter().AddEntity("userLevel").AddCondition("id", MatchTypeEnum.EQUALS, userProfile.UserLevel.Id);
     queryBuilder.AddPagination(0, 1000);
     queryBuilder.AddColumn("id").AddColumn("hasChild").AddColumn("parentId")
       .AddColumn("description").AddColumn("path").AddColumn("iconKey");

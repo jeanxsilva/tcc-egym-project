@@ -1,4 +1,5 @@
-import { ListMatchTypeEnum } from './../../../services/query-builder/enums';
+import { InvoiceStatusEnum } from './../../../models/Enums';
+import { ListMatchTypeEnum, SortEnum } from './../../../services/query-builder/enums';
 import { Router } from '@angular/router';
 import { QueryBuilder } from 'src/app/services/query-builder/query-builder';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -44,7 +45,7 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
         this.selectedClasses.delete(addingClass);
       }
     }
-    
+
   }
 
   public isInRegistration(classe) {
@@ -89,29 +90,27 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
     });
   }
 
+  get InvoiceStatusEnum() {
+    return typeof InvoiceStatusEnum;
+  }
+
   private loadRegistrations() {
     let queryBuilder: QueryBuilder = new QueryBuilder("listRegistrationModalityClass");
     let queryFilter = queryBuilder.CreateFilter();
-
-    // or: [{
-    //   invoiceDetails: {
-    //     some: {
-    //       invoice: {
-    //         invoiceStatus:{
-    //           id: {
-    //             eq:0
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }},
-    //   {
-    //   isValid: {eq: true}
-    //   }]
-    queryFilter.AddOperator(OperatorEnum.OR).AddCondition("isValid", MatchTypeEnum.EQUALS, true) // OR have invoice generated;
+    queryFilter.AddOperator(OperatorEnum.OR)
+      .AddCondition("isValid", MatchTypeEnum.EQUALS, true)
+      .AddEntityList("invoiceDetails", ListMatchTypeEnum.SOME)
+      .AddEntity("invoice")
+      .AddEntity("invoiceStatus")
+      .AddCondition("id", MatchTypeEnum.EQUALS, InvoiceStatusEnum.Generated) // OR have invoice generated;
     queryFilter.AddEntity("studentRegistration").AddCondition("id", MatchTypeEnum.EQUALS, this.student.id)
     queryBuilder.AddColumn("id").AddColumn("registerDateTime").AddColumn("isValid");
     queryBuilder.AddEntity("modalityPaymentType").AddColumn("id");
+    queryBuilder.AddEntity("invoiceDetails")
+      .AddColumn("id")
+      .AddEntity("invoice")
+      .AddEntity("invoiceStatus")
+      .AddColumn("id")
     let classBuilder = queryBuilder.AddEntity("modalityClass").AddColumn("id");
     classBuilder.AddEntity("instructor")
       .AddEntity("user")
@@ -131,9 +130,12 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
     this.apiService.GetFromGraphQL(queryBuilder.GetQuery()).subscribe(result => {
       this.registrations = result.items;
       this.registrations.map(register => {
+        let lastInvoice = register.invoiceDetails.sort((a, b) => a.id - b.id);
+        register.invoiceDetails = [lastInvoice];
         register.modalityClass.startTime = formatTime(register.modalityClass.startTime);
         register.modalityClass.endTime = formatTime(register.modalityClass.endTime);
       });
+      console.log(this.registrations)
     });
   }
 
@@ -227,7 +229,7 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
 
       this.apiService.SendToAPI("StudentRegistration", "ChangeRegistration", entity).subscribe((result: any) => {
         this.formEntity.markAsPristine();
-        this.router.navigate(['dashboard']);
+        window.location.reload();
       }, err => { console.error(err); });
     }
   }

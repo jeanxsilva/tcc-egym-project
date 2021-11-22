@@ -65,7 +65,7 @@ namespace eGYM
             if (userProfile == null)
             {
                 UserLevel userLevel = await this.userLevelRepository.GetById(entity.User.UserProfile.UserLevelId);
-                UserState userState = await this.userStateRepository.GetById((long)UserStateEnum.Active);
+                UserState userState = await this.userStateRepository.GetById((int)UserStateEnum.Active);
 
                 userProfile = new UserProfile();
                 userProfile.Login = employeeUser.RegisterCode;

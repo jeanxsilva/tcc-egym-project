@@ -1,5 +1,5 @@
+import { ModalityStudentsComponent } from './../../pages/modality/modality-students/modality-students.component';
 import { TrainingDetailsComponent } from './../../pages/training/training-details/training-details.component';
-import { CancelGuard } from './../../cancel.guard';
 import { LastNewsScreenComponent } from './../../pages/last-news/last-news-screen/last-news-screen.component';
 import { RegistrationModalityFormComponent } from './../../pages/registration-modality/registration-modality-form/registration-modality-form.component';
 import { PaymentDetailsComponent } from './../../pages/payment/payment-details/payment-details.component';
@@ -32,6 +32,7 @@ import { InvoiceListComponent } from 'src/app/pages/invoice/invoice-list/invoice
 import { InvoiceDetailsComponent } from 'src/app/pages/invoice/invoice-details/invoice-details.component';
 import { PhysicalAssesmentListComponent } from 'src/app/pages/physical-assesment/physical-assesment-list/physical-assesment-list.component';
 import { LastNewsListComponent } from 'src/app/pages/last-news/last-news-list/last-news-list.component';
+import { CancelGuard } from 'src/app/guards/cancel.guard';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -63,6 +64,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'modality/classes', component: ModalityClassListComponent },
     { path: 'modality/class/create', component: ModalityClassFormComponent, canDeactivate: [CancelGuard] },
     { path: 'modality/class/edit/:id', component: ModalityClassFormComponent, canDeactivate: [CancelGuard] },
+    { path: 'modality/students', component: ModalityStudentsComponent, canDeactivate: [CancelGuard] },
 
     { path: 'registration', component: RegistrationModalityFormComponent, canDeactivate: [CancelGuard] },
 

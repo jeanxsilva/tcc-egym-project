@@ -23,6 +23,11 @@ namespace eGYM.Core
             try
             {
                 string token = await this.httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+                
+                if (string.IsNullOrEmpty(token))
+                {
+                    token = await this.httpContextAccessor.HttpContext.GetTokenAsync("id_token");
+                }
 
                 if (!string.IsNullOrEmpty(token) && token != "undefined")
                 {

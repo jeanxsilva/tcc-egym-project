@@ -108,6 +108,7 @@ namespace eGYM
 
             return await this.Repository.Update(invoice);
         }
+
         public async Task<bool> CancelInvoices(List<Invoice> invoices)
         {
             foreach (Invoice invoice in invoices)
@@ -124,5 +125,29 @@ namespace eGYM
 
             return await this.Repository.InsertOrUpdate(invoices);
         }
+
+        public async Task<Invoice> GenerateInvoiceByRequest(StudentRequest request, DateTime referentToDate, string note)
+        {
+            Invoice invoice = new Invoice();
+            invoice.ReferentToDate = referentToDate;
+            invoice.DueDate = referentToDate.AddDays(3);
+            invoice.Student = request.Student;
+            invoice.IsByRequest = true;
+            invoice.Note = note;
+            invoice.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
+            invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Generated);
+            invoice.TotalValue = (double)request.RequestCategory.Value;
+
+            InvoiceDetail invoiceDetail = new InvoiceDetail();
+            invoiceDetail.Description = request.RequestCategory.Description;
+            invoiceDetail.Price = (double)request.RequestCategory.Value;
+            invoiceDetail.Invoice = invoice;
+
+            invoice.InvoiceDetails = new List<InvoiceDetail>();
+            invoice.InvoiceDetails.Add(invoiceDetail);
+
+            return await this.Repository.Create(invoice);
+        }
+
     }
 }

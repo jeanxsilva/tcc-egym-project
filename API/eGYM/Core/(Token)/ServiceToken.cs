@@ -34,7 +34,7 @@ namespace eGYM.Services
             var descriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.AddHours(6),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Settings.SecretByte),
                     SecurityAlgorithms.HmacSha256Signature)

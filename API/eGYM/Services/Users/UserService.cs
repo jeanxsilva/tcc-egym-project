@@ -45,6 +45,24 @@ namespace eGYM
         public override async Task PreSavingRoutine(User entity)
         {
             entity.CompanyUnit = await this.companyUnitRepository.GetById((int)entity.CompanyUnitId);
+
+            UserProfile userProfile = this.userProfileService.GetUserProfileByUser(entity);
+            if (userProfile == null)
+            {
+                UserLevel userLevel = await this.userLevelRepository.GetById((int)UserLevelEnum.Student);
+                UserState userState = await this.userStateRepository.GetById((int)UserStateEnum.Active);
+
+                userProfile = new UserProfile();
+                userProfile.User = entity;
+                userProfile.UserLevel = userLevel;
+                userProfile.UserState = userState;
+            }
+
+            userProfile.Login = entity.Email;
+            userProfile.Password = entity.RegisterCode.ToString();
+            userProfile.PasswordEncrypted = this.userProfileService.EncryptPassword(userProfile.Password);
+
+            entity.UserProfile = userProfile;
         }
     }
 }

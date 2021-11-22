@@ -11,7 +11,6 @@ namespace eGYM
     public partial class PhysicalAssesmentScheduledController
     {
         [HttpPost]
-        //[Authorize(Roles = "PhysicalAssesmentScheduled.C, PhysicalAssesmentScheduled.U")]
         [Authorize]
         [Route("UpdateScheduleStatus")]
         public async Task<dynamic> UpdateScheduleStatus(PhysicalAssesmentScheduled entity)
@@ -27,6 +26,28 @@ namespace eGYM
                 PhysicalAssesmentScheduled saved = await this.Service.SaveAsync(physicalAssesmentScheduled);
 
                 this.ReturnBag.Result = saved != null;
+            }
+            catch (Exception exception)
+            {
+                this.ReturnBag.HasError = true;
+                this.ReturnBag.Message = exception.Message;
+            }
+
+            return this.ReturnBag;
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("CancelSchedule")]
+        public async Task<dynamic> CancelSchedule(int scheduleId)
+        {
+            try
+            {
+                this.ReturnBag.HasError = false;
+
+                PhysicalAssesmentScheduled physicalAssesmentScheduled = await this.Service.GetByIdAsync(scheduleId);
+
+                this.ReturnBag.Result = await this.Service.CancelSchedule(physicalAssesmentScheduled);
             }
             catch (Exception exception)
             {

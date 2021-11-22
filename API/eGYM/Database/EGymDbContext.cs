@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -7,22 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace eGYM.Models
 {
-    public static class EGymDbExtension
-    {
-        public static void DetachLocal<TEntity>(this EGymDbContext context, TEntity t, int entryId) where TEntity : class, IEntityBase
-        {
-            var local = context.Set<TEntity>()
-                .Local
-                .FirstOrDefault(entry => entry.Id.Equals(entryId));
-            if (local != null)
-            {
-                context.Entry(local).State = EntityState.Detached;
-            }
-
-            context.Entry(t).State = EntityState.Modified;
-        }
-    }
-
     public partial class EGymDbContext : DbContext
     {
         public EGymDbContext()
@@ -938,6 +921,8 @@ namespace eGYM.Models
 
                 entity.HasIndex(e => e.RequestCategoryId, "fk_StudentRequests_RequestCategory2_idx");
 
+                entity.HasIndex(e => e.PaymentReversalId, "fk_student_requests_payment_reversal1_idx");
+
                 entity.HasIndex(e => e.PhysicalAssesmentScheduledId, "fk_student_requests_physical_assesment_scheduled1_idx");
 
                 entity.HasIndex(e => e.InvoiceId, "fk_studentrequests_invoice1_idx");
@@ -951,6 +936,8 @@ namespace eGYM.Models
                 entity.Property(e => e.InvoiceId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Note).HasMaxLength(255);
+
+                entity.Property(e => e.PaymentReversalId).HasColumnType("int(11)");
 
                 entity.Property(e => e.PhysicalAssesmentScheduledId).HasColumnType("int(11)");
 
@@ -973,6 +960,11 @@ namespace eGYM.Models
                     .HasForeignKey(d => d.InvoiceId)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("fk_studentrequests_invoice1");
+
+                entity.HasOne(d => d.PaymentReversal)
+                    .WithMany(p => p.StudentRequests)
+                    .HasForeignKey(d => d.PaymentReversalId)
+                    .HasConstraintName("fk_student_requests_payment_reversal1");
 
                 entity.HasOne(d => d.PhysicalAssesmentScheduled)
                     .WithMany(p => p.StudentRequests)

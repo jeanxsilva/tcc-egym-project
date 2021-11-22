@@ -1,3 +1,4 @@
+import { OperatorEnum } from './../../services/query-builder/enums';
 import { ApiService } from '../../services/api-service/api.service';
 import { MatchingTypes, MatchTypeEnum, StringMatchTypeEnum, NumberMatchTypeEnum, SortEnum } from '../../services/query-builder/enums';
 import { QueryBuilder } from '../../services/query-builder/query-builder';
@@ -8,9 +9,9 @@ import { Apollo, gql } from 'apollo-angular';
 import { PageInfo } from 'src/app/models/PageInfo';
 import { DataColumn, DataTypes } from 'src/app/models/DataColumn';
 import { Filter, FilterInfo } from 'src/app/models/FilterInfo';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, PrimeNGConfig } from 'primeng/api';
 import { Query } from 'src/app/services/query-builder/query';
-import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe, formatDate } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
@@ -39,10 +40,33 @@ export class CustomTableComponent implements OnInit {
   @ContentChildren('row') additionalRows: TemplateRef<any>;
   @ContentChild('headerButton') additionalButton: TemplateRef<any>;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private primeConfig: PrimeNGConfig) {
     this.paginationInfo.Size = 5;
     this.paginationInfo.TotalElements = 0;
     this.columns = [];
+
+    this.primeConfig.filterMatchModeOptions.date = ['dateIs', 'dateBefore', 'dateAfter'];
+    this.primeConfig.setTranslation({
+      startsWith: 'Começa com ',
+      contains: 'Contém',
+      notContains: 'Não contém',
+      endsWith: 'Termina com',
+      equals: 'Igual a',
+      notEquals: 'Não é igual a',
+      noFilter: 'Limpar filtros',
+      lt: 'É menor',
+      lte: 'É menor ou igual',
+      gt: 'É maior',
+      gte: 'É maior ou igual',
+      is: 'É',
+      isNot: 'Não é',
+      before: 'Antes de ',
+      after: 'Depois de ',
+      dateIs: 'Igual a ',
+      dateBefore: 'Anterior a ',
+      dateAfter: 'Posterior a ',
+      dateFormat: 'dd/mm/yy'
+    })
   }
 
   ngOnInit(): void {
@@ -94,10 +118,30 @@ export class CustomTableComponent implements OnInit {
 
       keys.forEach(key => {
         if (event.filters[key].value != null) {
-          
+
           if (typeof event.filters[key].value === 'boolean') {
             event.filters[key].matchMode = "equals";
           }
+
+          if (event.filters[key].matchMode) {
+            let matchMode = event.filters[key].matchMode;
+
+            if (matchMode === 'dateIs') {
+              let newDate = new Date(event.filters[key].value);
+
+              queryFilter.AddOperator(OperatorEnum.AND)
+                .AddCondition(key, this.getMatchMode(event.filters[key].matchMode), formatDate(newDate, "yyyy-MM-ddT00:00:00.000-03:00", "pt-BR"))
+                .AddCondition(key, this.getDateReverseMatch(event.filters[key].matchMode), formatDate(newDate.setHours(24), "yyyy-MM-ddT00:00:00.000-03:00", "pt-BR"));
+
+              return;
+            } else if (matchMode === 'dateBefore' || matchMode === 'dateAfter') {
+              let newDate = new Date(event.filters[key].value);
+
+              event.filters[key].value = formatDate(newDate, "yyyy-MM-ddT00:00:ss.000-03:00", "pt-BR")
+            }
+          }
+
+          console.log(event, formatDate(event.filters[key].value, "yyyy-MM-ddT00:00:ss-03:00", "pt-BR"));
 
           queryFilter.AddCondition(key, this.getMatchMode(event.filters[key].matchMode), event.filters[key].value);
         }
@@ -107,6 +151,15 @@ export class CustomTableComponent implements OnInit {
     this.getData(queryBuilder.GetQuery());
   }
   //#endregion
+
+  public getDateReverseMatch(matchMode: string) {
+    switch (matchMode) {
+      case 'dateIs':
+        return NumberMatchTypeEnum.LESS_THAN_OR_EQUALS
+      case 'dateIsNot':
+        return NumberMatchTypeEnum.NOT_LESS_THAN_OR_EQUALS
+    }
+  }
 
   //#region -- Mount pipe
   public getPipeType(dateType: any) {
@@ -186,7 +239,8 @@ export class CustomTableComponent implements OnInit {
 
     console.log(query.ToString())
     this.apiService.GetFromGraphQL(query).subscribe((result) => {
-      if (result && result.items.length > 0) {
+      if (result && result.items) {
+        console.log(result)
         this.rows = result.items;
 
         this.paginationInfo.TotalElements = result.totalCount;
@@ -223,7 +277,7 @@ export class CustomTableComponent implements OnInit {
     if (typeof result === 'boolean') {
       return result ? "Sim" : "Não";
     }
-    
+
     return result;
   }
   //#endregion
@@ -288,6 +342,18 @@ export class CustomTableComponent implements OnInit {
         break;
       case "gte":
         convertedMatchMode = NumberMatchTypeEnum.GREATER_THAN_OR_EQUALS;
+        break;
+      case "dateIs":
+        convertedMatchMode = NumberMatchTypeEnum.GREATER_THAN_OR_EQUALS;
+        break;
+      case "dateIsNot":
+        convertedMatchMode = NumberMatchTypeEnum.NOT_GREATER_THAN_OR_EQUALS;
+        break;
+      case "dateBefore":
+        convertedMatchMode = NumberMatchTypeEnum.LESS_THAN;
+        break;
+      case "dateAfter":
+        convertedMatchMode = NumberMatchTypeEnum.GREATER_THAN;
         break;
     }
 

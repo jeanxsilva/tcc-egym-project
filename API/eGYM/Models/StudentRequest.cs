@@ -18,9 +18,11 @@ namespace eGYM.Models
         public int? ClosedByUserId { get; set; }
         public bool WasCanceled { get; set; }
         public int? PhysicalAssesmentScheduledId { get; set; }
+        public int? PaymentReversalId { get; set; }
 
         public virtual User ClosedByUser { get; set; }
         public virtual Invoice Invoice { get; set; }
+        public virtual PaymentReversal PaymentReversal { get; set; }
         public virtual PhysicalAssesmentScheduled PhysicalAssesmentScheduled { get; set; }
         public virtual RequestCategory RequestCategory { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }

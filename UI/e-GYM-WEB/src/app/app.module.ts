@@ -42,11 +42,11 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { PaymentListComponent } from './pages/payment/payment-list/payment-list.component';
 
 import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 import { registerLocaleData } from '@angular/common';
 import { InvoiceListComponent } from './pages/invoice/invoice-list/invoice-list.component';
 import { InvoiceDetailsComponent } from './pages/invoice/invoice-details/invoice-details.component';
 import { PaymentScreenComponent } from './pages/payment/payment-screen/payment-screen.component';
-registerLocaleData(localePt);
 import { ChipModule } from 'primeng/chip';
 import { PhysicalAssesmentListComponent } from './pages/physical-assesment/physical-assesment-list/physical-assesment-list.component';
 import { PhysicalAssesmentScreenComponent } from './pages/physical-assesment/physical-assesment-screen/physical-assesment-screen.component';
@@ -80,6 +80,7 @@ import { LastNewsListComponent } from './pages/last-news/last-news-list/last-new
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
 import { TrainingDetailsComponent } from './pages/training/training-details/training-details.component';
+import { ModalityStudentsComponent } from './pages/modality/modality-students/modality-students.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -158,7 +159,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PaymentMovementFormComponent,
     RegistrationModalityFormComponent,
     LastNewsListComponent,
-    TrainingDetailsComponent
+    TrainingDetailsComponent,
+    ModalityStudentsComponent
   ],
   providers: [
     {

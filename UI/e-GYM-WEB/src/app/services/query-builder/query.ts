@@ -1,5 +1,5 @@
 import { Column } from "./column/column";
-import { StringMatchTypeEnum } from "./enums";
+import { MatchTypeEnum, StringMatchTypeEnum } from "./enums";
 import { ComplexFilterField, Filter, FilterField, FilterListField } from "./filter/filter";
 import { Operator } from "./filter/filter-builder";
 
@@ -140,8 +140,8 @@ export class Query {
 
   private assembleComplexFields(complexField: ComplexFilterField): string {
     let assembledComplexFields = `${complexField.Name}: {`;
-    
-    if(complexField.ListMatchType){
+
+    if (complexField.ListMatchType) {
       assembledComplexFields += `${complexField.ListMatchType}: {`;
     }
 
@@ -157,11 +157,7 @@ export class Query {
       }
 
       complexField.Filters.forEach((filter, index) => {
-        if (filter instanceof FilterField) {
-          assembledComplexFields += `${filter.Field}: {${filter.Match}: ${typeof filter.Value === "string" ? `"${filter.Value}"` : filter.Value}}`;
-        } else if (filter instanceof FilterListField) {
-          assembledComplexFields += `${filter.ListField}: { ${filter.Match}: {${filter.FilterField.Field}: {${filter.FilterField.Match}: ${typeof filter.FilterField.Value === "string" ? `"${filter.FilterField.Value}"` : filter.FilterField.Value}}}}`;
-        }
+        assembledComplexFields += this.assembleField(filter);
 
         if (index < complexField.Filters.length - 1) {
           assembledComplexFields += ", ";
@@ -170,7 +166,7 @@ export class Query {
 
     }
 
-    if(complexField.ListMatchType){
+    if (complexField.ListMatchType) {
       assembledComplexFields += ` }`;
     }
 
@@ -186,16 +182,7 @@ export class Query {
 
       if (this.Filter.Fields.length > 0) {
         this.Filter.Fields.forEach((item, index) => {
-
-          if (item instanceof FilterField) {
-            queryParameters += `${item.Field}: { ${item.Match}: ${typeof item.Value === "string" ? `"${item.Value}"` : item.Value}}`;
-          } else if (item instanceof FilterListField) {
-            queryParameters += `${item.ListField}: { ${item.Match}: {${item.FilterField.Field}: {${item.FilterField.Match}: ${typeof item.FilterField.Value === "string" ? `"${item.FilterField.Value}"` : item.FilterField.Value}}}}`;
-          } else if (item instanceof ComplexFilterField) {
-            if (item) {
-              queryParameters += this.assembleComplexFields(item);
-            }
-          }
+          queryParameters += this.assembleField(item);
 
           if (index < this.Filter.Fields.length - 1) {
             queryParameters += ", ";
@@ -214,6 +201,72 @@ export class Query {
     return queryParameters;
   }
 
+  private assembleFilterMember(items, withBrackets = false) {
+    let filters = "";
+
+    items.forEach((element, index) => {
+      filters += withBrackets ? "{" : "";
+
+      filters += this.assembleField(element);
+
+      filters += withBrackets ? "}" : "";
+
+      if (index < items.length - 1) {
+        filters += ", ";
+      }
+    });
+
+    return filters;
+  }
+
+
+  private assembleField(field: FilterField | FilterListField | ComplexFilterField) {
+    if (field instanceof FilterField) {
+      let splitedString = [];
+      if (field.Field.includes(".")) {
+        splitedString = field.Field.split(".");
+
+        let assembledFilter = '';
+        splitedString.forEach((entity, index) => {
+          if (index < splitedString.length - 1) {
+            assembledFilter += `${entity}: { `;
+          } else {
+            assembledFilter += `
+              ${entity}: {
+                ${field.Match}: ${this.mountValue(field.Value, matchArray)}
+            }`;
+            assembledFilter += ` }`;
+          }
+        });
+
+        return assembledFilter;
+      }
+
+      let matchArray = field.Match === MatchTypeEnum.IN || field.Match === MatchTypeEnum.NOT_IN;
+      return `${field.Field}: { 
+        ${field.Match}: ${this.mountValue(field.Value, matchArray)}
+      }`;
+    } else if (field instanceof FilterListField) {
+      let matchArray = field.FilterField.Match === MatchTypeEnum.IN || field.FilterField.Match === MatchTypeEnum.NOT_IN;
+      return `
+        ${field.ListField}: { 
+          ${field.Match}: {
+            ${field.FilterField.Field}: {
+              ${field.FilterField.Match}: ${this.mountValue(field.FilterField.Value, matchArray)}
+            }
+          }
+        }`;
+    } else if (field instanceof ComplexFilterField) {
+      if (field) {
+        return this.assembleComplexFields(field);
+      }
+    }
+  }
+
+  private mountValue(value, isArray) {
+    return `${isArray ? '[' : ''}${typeof value === "string" ? `"${value}"` : value}${isArray ? ']' : ''}`;
+  }
+
   private assembleChild(children) {
     let assembled = "";
     children.forEach((child: Operator | Filter, index) => {
@@ -230,41 +283,8 @@ export class Query {
         assembled += ", ";
       }
     });
+    
     return assembled;
-  }
-
-  private assembleFilterMember(items, withBrackets = false) {
-    let filters = "";
-
-    items.forEach((element, index) => {
-      filters += withBrackets ? "{" : "";
-      
-      let splitedString = [];
-
-      if (element.Field.includes(".")) {
-        splitedString = element.Field.split(".");
-
-        splitedString.forEach((entity, index) => {
-          if (index < splitedString.length - 1) {
-            filters += `${entity}: { `;
-          } else {
-            filters += `${entity}: {${element.Match}: ${typeof element.Value === "string" ? `"${element.Value}"` : element.Value}}`;
-            filters += ` }`;
-          }
-        });
-        
-      } else {
-        filters += `${element.Field}: {${element.Match}: ${typeof element.Value === "string" ? `"${element.Value}"` : element.Value}}`;
-      }
-      
-      filters += withBrackets ? "}" : "";
-
-      if (index < items.length - 1) {
-        filters += ", ";
-      }
-    });
-
-    return filters;
   }
 
   private assembleOperator() {

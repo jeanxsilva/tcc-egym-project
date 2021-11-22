@@ -8,7 +8,7 @@ namespace eGYM.Database.Repositories
     public interface IRepositoryBase<TEntity>
     {
         IQueryable<TEntity> GetAll();
-        Task<TEntity> GetById(long entityId);
+        Task<TEntity> GetById(int entityId);
         bool Remove(TEntity entity);
         Task<bool> RemoveAsync(TEntity entity);
         Task<bool> Remove(List<TEntity> entities);

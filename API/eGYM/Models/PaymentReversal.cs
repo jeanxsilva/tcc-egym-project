@@ -10,6 +10,7 @@ namespace eGYM.Models
         public PaymentReversal()
         {
             PaymentMovements = new HashSet<PaymentMovement>();
+            StudentRequests = new HashSet<StudentRequest>();
         }
 
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace eGYM.Models
         public virtual Payment Payment { get; set; }
         public virtual PaymentReversalStatus PaymentReversalStatus { get; set; }
         public virtual ICollection<PaymentMovement> PaymentMovements { get; set; }
+        public virtual ICollection<StudentRequest> StudentRequests { get; set; }
     }
 }

@@ -65,4 +65,9 @@ namespace eGYM
         Weekly = 1,
         Yearly = 2
     }
+
+    public enum UserLevelEnum
+    {
+        Student = 55
+    }
 }
