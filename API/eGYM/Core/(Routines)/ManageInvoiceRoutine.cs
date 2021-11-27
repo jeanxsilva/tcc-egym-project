@@ -46,7 +46,7 @@ namespace eGYM
                 {
                     InvoiceService invoiceService = scope.ServiceProvider.GetRequiredService<InvoiceService>();
                     RegistrationModalityClassService registrationModalityClassService = scope.ServiceProvider.GetRequiredService<RegistrationModalityClassService>();
-                    
+
                     await registrationModalityClassService.AutoCancelRegistrations();
 
                     DateTime fiveDaysLater = DateTime.UtcNow.ToLocalTime().AddDays(5).Date;
@@ -58,7 +58,9 @@ namespace eGYM
                     foreach (RegistrationModalityClass registration in registrationModalityClasses)
                     {
                         DateTime dueDate = new DateTime(fiveDaysLater.Year, fiveDaysLater.Month, registration.DueDay);
-                        if (fiveDaysLater == dueDate)
+                        List<Invoice> invoices = registration.InvoiceDetails.Select(id => id.Invoice).Where(i => i.ReferentToDate.GetValueOrDefault().Month == fiveDaysLater.Month).ToList();
+
+                        if (fiveDaysLater == dueDate && invoices.Count == 0)
                         {
                             StudentRegistration student = registration.StudentRegistration;
 

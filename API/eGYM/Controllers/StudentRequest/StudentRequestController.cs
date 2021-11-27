@@ -12,6 +12,45 @@ namespace eGYM
     public partial class StudentRequestController
     {
         [HttpPost]
+        [Route("FinishRequest")]
+        public async Task<dynamic> FinishRequest([FromBody]int requestId, int requestStatusEnum)
+        {
+            try
+            {
+                this.ReturnBag.HasError = false;
+
+                StudentRequest studentRequest = await this.Service.GetByIdAsync(requestId);
+                bool wasFinished = await this.Service.FinishRequest(studentRequest, (RequestStatusEnum)requestStatusEnum);
+
+                this.ReturnBag.Result = wasFinished;
+            }
+            catch (DbUpdateException exception)
+            {
+                this.ReturnBag.HasError = true;
+                this.ReturnBag.Message = exception.Message;
+
+                MySqlException sqlException = exception.GetBaseException() as MySqlException;
+
+                if (sqlException != null)
+                {
+                    int number = sqlException.Number;
+
+                    if (number == 1062)
+                    {
+                        this.ReturnBag.Message = "Registro duplicado em chave unica! Possivelmente existe outro registro com o mesmo valor.";
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                this.ReturnBag.HasError = true;
+                this.ReturnBag.Message = exception.Message;
+            }
+
+            return this.ReturnBag;
+        }
+
+        [HttpPost]
         [Route("CancelRequest")]
         public async Task<dynamic> CancelRequest(int requestId)
         {

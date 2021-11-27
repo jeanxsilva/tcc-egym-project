@@ -26,7 +26,8 @@
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="{{column.PropertyName}}" *ngFor="let column of columns">
+                        <th pSortableColumn="{{column.PropertyName}}" *ngFor="let column of columns"
+                            style="white-space: nowrap;">
                             {{column.LabelDescription}}<p-sortIcon field="{{column.PropertyName}}"></p-sortIcon>
                         </th>
                         <th *ngFor="let additional of additionalColumns" class="text-center">
@@ -37,7 +38,8 @@
                     </tr>
                     <tr>
                         <th *ngFor="let column of columns">
-                            <p-columnFilter type="{{convertDataType(column.DataType)}}" field="{{column.PropertyName}}">
+                            <p-columnFilter type="{{convertDataType(column.DataType)}}" *ngIf="column.IsFiltered"
+                                field="{{column.PropertyName}}">
                             </p-columnFilter>
                         </th>
                         <th *ngFor="let additional of additionalColumns">
@@ -49,7 +51,8 @@
 
                 <ng-template pTemplate="body" let-value>
                     <tr>
-                        <td *ngFor="let column of columns">{{getContentOfColumn(column, value) | dynamic: getPipeType(column.DataType):  getPipeArguments(column.DataType)}}</td>
+                        <td *ngFor="let column of columns">{{getContentOfColumn(column, value) | dynamic:
+                            getPipeType(column.DataType): getPipeArguments(column.DataType)}}</td>
                         <td style="max-width: 150px" *ngFor="let additional of additionalRows" class="text-center">
                             <ng-container [ngTemplateOutlet]="additional"
                                 [ngTemplateOutletContext]="{$implicit: value}"></ng-container>

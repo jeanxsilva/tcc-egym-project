@@ -40,7 +40,7 @@ export class ApiService {
     });
 
     if (params) {
-      url += params;
+      url += '?' + params;
     }
 
     return this.httpClient.post(url, data, { headers }).pipe(

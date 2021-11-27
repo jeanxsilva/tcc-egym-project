@@ -16,7 +16,19 @@ namespace eGYM
             this.invoiceRepository = invoiceRepository;
             this.invoiceStatusRepository = invoiceStatusRepository;
         }
+        public async Task<Invoice> GetLastInvoiceByRegistration(RegistrationModalityClass registration)
+        {
+            IQueryable<RegistrationModalityClass> queryable = this.Repository.GetQuery();
+            List<InvoiceDetail> invoiceDetails = queryable.SelectMany(r => r.InvoiceDetails).ToList();
+            InvoiceDetail invoiceDetail = invoiceDetails.OrderByDescending(d => d.Id).FirstOrDefault();
 
+            if (invoiceDetail != null)
+            {
+                return invoiceDetail.Invoice;
+            }
+
+            return null;
+        }
         public async Task<bool> AutoCancelRegistrations()
         {
             IQueryable<Invoice> invoiceQueryable = this.invoiceRepository.GetQuery();

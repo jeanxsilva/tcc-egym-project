@@ -32,11 +32,11 @@
                     <div class="row">
                         <div class="col-4">
                             <h5>Criado por</h5>
-                            <p>{{reversal.createdByUser.name}}</p>
+                            <p>{{reversal.createdByUser?.name || '-'}}</p>
                         </div>
                         <div class="col-4">
                             <h5>Autorizado por</h5>
-                            <p>{{reversal.authorizedByUser.name}}</p>
+                            <p>{{reversal.authorizedByUser?.name || '-'}}</p>
                         </div>
                         <div class="col-4">
                             <h5>Finalizado por</h5>

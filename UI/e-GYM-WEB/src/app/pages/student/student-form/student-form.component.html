@@ -5,7 +5,7 @@
                 <h6 class="heading-small text-muted mb-4">Dados do usuário</h6>
                 <div class="pl-lg-4">
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label class="form-control-label" for="name">Nome <span
                                         class="text-danger">*</span></label>
@@ -13,14 +13,14 @@
                                     placeholder="Nome do aluno" formControlName="name">
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label class="form-control-label" for="lastName">Sobrenome</label>
                                 <input type="text" id="lastName" class="form-control form-control-alternative"
                                     placeholder="Sobrenome" formControlName="lastName">
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label class="form-control-label" for="birthday">Data de nascimento
                                     <span class="text-danger">*</span></label>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="email">Endereço de e-mail <span
                                         class="text-danger">*</span></label>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="registerCode">CPF <span
                                         class="text-danger">*</span></label>
@@ -107,14 +107,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="addressCity">Cidade</label>
                                 <input type="text" id="addressCity" class="form-control form-control-alternative"
                                     placeholder="Cidade de residência do aluno" formControlName="addressCity">
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label" for="street">Logradouro</label>
                                 <input id="street" class="form-control form-control-alternative"
@@ -122,7 +122,7 @@
                                     [ngModelOptions]="{'standalone': true}" name="street">
                             </div>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label class="form-control-label" for="addressNumber">Número</label>
                                 <input type="text" id="addressNumber" class="form-control form-control-alternative"
@@ -198,7 +198,7 @@
                                             {{registration.get('modalityClass').value['modality'].description}}
                                         </h4>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <!-- <div class="col-4">
                                         <div class="form-group">
                                             <label class="form-control-label" for="street">Dia do vencimento</label>
                                             <select id="street" name="street"
@@ -206,9 +206,22 @@
                                                 <option value="1">{{dateNow}}</option>
                                             </select>
                                         </div>
+                                    </div> -->
+                                    <div class="col-4">
+                                        <div class="form-group mb-0">
+                                            <label class="form-control-label" for="dueDay">Dia de vencimento<span
+                                                    class="text-danger">*</span></label>
+                                            <select id="dueDay" class="form-control form-control-alternative"
+                                                formControlName="dueDay">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
+                                    <div class="col-4">
+                                        <div class="form-group mb-0">
                                             <label class="form-control-label" for="street">Tipo de pagamento <span
                                                     class="text-danger">*</span></label>
                                             <select id="street" formControlName="modalityPaymentTypeId" name="street"
@@ -219,7 +232,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-4">
                                         <button class="btn btn-danger btn-sm" (click)="removeRegistrationModality(i)">
                                             <i class="fas fa-times"></i></button>
                                     </div>

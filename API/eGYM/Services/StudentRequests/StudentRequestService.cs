@@ -44,7 +44,15 @@ namespace eGYM
 
         public override List<DataColumn> GetColumns()
         {
-            return base.GetColumns();
+            List<DataColumn> dataColumns = new List<DataColumn>();
+
+            dataColumns.Add(new DataColumn("requestCategory.description", DataTypes.String, "Categoria", false));
+            dataColumns.Add(new DataColumn("student.user.name", DataTypes.String, "Aluno"));
+            dataColumns.Add(new DataColumn("requestStatus.description", DataTypes.String, "Status"));
+            dataColumns.Add(new DataColumn("registerDateTime", DataTypes.Date, "Registro"));
+            dataColumns.Add(new DataColumn("isPaid", DataTypes.Boolean, "Pago"));
+
+            return dataColumns;
         }
 
         public override Task PreSavingRoutine(StudentRequest entity)
@@ -77,6 +85,15 @@ namespace eGYM
             return base.PostUpdateRoutine(entity);
         }
 
+        public async Task<bool> FinishRequest(StudentRequest studentRequest, RequestStatusEnum requestStatusEnum)
+        {
+            studentRequest.ClosedByUser = await this.userService.ResolveUser();
+            studentRequest.RequestStatus = await this.requestStatusRepository.GetById((int)requestStatusEnum);
+            
+            await this.Repository.Update(studentRequest);
+
+            return true;
+        }
         public async Task<bool> RequestPhysicalAssesment(StudentRequest studentRequest)
         {
             PhysicalAssesmentScheduled physicalAssesmentScheduled = studentRequest.PhysicalAssesmentScheduled;
@@ -91,7 +108,7 @@ namespace eGYM
             studentRequest.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
             studentRequest.Student = savedScheduled.StudentRegistration;
             studentRequest.RequestStatus = await this.requestStatusRepository.GetById((int)RequestStatusEnum.Opened);
-            studentRequest.RequestCategory = await this.requestCategoryRepository.GetById(1);
+            studentRequest.RequestCategory = await this.requestCategoryRepository.GetById((int)RequestCategoryEnum.Physical);
 
             StudentRequest savedRequest = await this.Repository.InsertOrUpdate(studentRequest);
 
@@ -110,7 +127,7 @@ namespace eGYM
             studentRequest.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
             studentRequest.RequestStatus = await this.requestStatusRepository.GetById((int)RequestStatusEnum.Opened);
             studentRequest.Student = await this.studentRegistrationRepository.GetById(studentRequest.StudentId);
-            studentRequest.RequestCategory = await this.requestCategoryRepository.GetById(2);
+            studentRequest.RequestCategory = await this.requestCategoryRepository.GetById((int)RequestCategoryEnum.Training);
 
             StudentRequest savedRequest = await this.Repository.InsertOrUpdate(studentRequest);
 
@@ -133,7 +150,7 @@ namespace eGYM
 
             User user = await this.userService.GetByIdAsync(paymentReversal.CreatedByUser.Id);
             studentRequest.Student = user.StudentRegistration;
-            studentRequest.RequestCategory = await this.requestCategoryRepository.GetById(2);
+            studentRequest.RequestCategory = await this.requestCategoryRepository.GetById((int)RequestCategoryEnum.Reversal);
             studentRequest.PaymentReversal = paymentReversal;
 
             StudentRequest savedRequest = await this.Repository.InsertOrUpdate(studentRequest);

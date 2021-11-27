@@ -182,7 +182,7 @@ export class StudentFormComponent implements OnInit, IFormBase {
         modalityClass: modalityClass,
         modalityClassId: modalityClass.id,
         isValid: false,
-        dueDay: 1,
+        dueDay: 5,
         groupEnumerator: 0,
         modalityPaymentTypeId: 1
       })

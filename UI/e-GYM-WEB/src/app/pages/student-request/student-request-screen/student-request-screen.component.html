@@ -1,1 +1,70 @@
-<p>student-request-screen works!</p>
+<app-base-card title="Detalhes da requisição" [hideFooter]="true">
+    <div class="col-12">
+        <h6 class="heading-small text-muted mb-4">Detalhes da requisição</h6>
+        <div class="pl-lg-4">
+            <div class="row" *ngIf="request">
+                <div class="col-8">
+                    <div class="row">
+
+                        <div class="col-4">
+                            <h4>Solicitado pelo aluno</h4>
+                            <p>{{request?.student.user.name}} {{request?.student.user.lastName}}</p>
+                        </div>
+                        <div class="col-2">
+                            <h4>Status</h4>
+                            <span class="badge p-mr-2" [ngClass]="{
+                                    'badge-warning':request?.requestStatus?.id < RequestStatusEnum.Deffered, 
+                                    'badge-success': request?.requestStatus?.id == RequestStatusEnum.Deffered,
+                                    'badge-danger': request?.requestStatus?.id >= RequestStatusEnum.Dismissed
+                                }">
+                                {{request?.requestStatus?.description}}
+                            </span>
+                        </div>
+                        <div class="col-2">
+                            <h4>Categoria</h4>
+                            <p>{{request?.requestCategory?.description}}</p>
+                        </div>
+                        <div class="col-3">
+                            <h4>Data de registro</h4>
+                            <p>{{request?.registerDateTime | date: 'short' : '' : 'pt-BR'}}</p>
+                        </div>
+                        <div class="col-3">
+                            <h4>Finalizado por </h4>
+                            <p>{{request?.closedByUser?.name|| '-'}}</p>
+                        </div>
+                        <div class="col-3">
+                            <h4>Observação</h4>
+                            <p>{{request?.note || '-'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-center my-2" *ngIf="request?.invoice">
+                            <button class="btn btn-default btn-block" (click)="seeInvoice(request.invoice?.id)">Ver
+                                detalhes
+                                da
+                                fatura</button>
+                        </div>
+                        <div class="col-12 text-center my-2">
+                            <button class="btn btn-default btn-block"
+                                (click)="seeReversal(request.paymentReversal?.id)">Ver
+                                detalhes do
+                                estorno</button>
+                        </div>
+                        <div class="col-12 text-center my-2"
+                            *ngIf="request.requestCategory?.id === RequestCategoryEnum.Training">
+                            <button class="btn btn-success btn-block" (click)="finishRequest(request.id)">Atender
+                                requisição</button>
+                        </div>
+                        <div class="col-12 text-center"
+                            *ngIf="request.requestCategory?.id === RequestCategoryEnum.Training"
+                            (click)="refuseRequest(request.id)">
+                            <button class="btn btn-outline-danger btn-block">Recusar requisição</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-base-card>

@@ -46,6 +46,13 @@ namespace eGYM
         Canceled = 15
     }
 
+    public enum RequestCategoryEnum
+    {
+        Training = 1,
+        Reversal = 2,
+        Physical = 3
+    }
+
     public enum UserStateEnum
     {
         Inactive = 0,

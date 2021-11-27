@@ -22,8 +22,9 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
   public registrations: any = null;
   public classes: any[];
   public formEntity: FormGroup;
-  public selectedClasses = new Set();
+  public selectedRegistrations = new Set();
   public canceledRegistrations = new Set();
+  public paymentTypes: any[] = [];
 
   constructor(private apiService: ApiService, private formBuilder: FormBuilder, private router: Router) {
     this.formEntity = this.formBuilder.group({
@@ -35,17 +36,42 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
   ngOnInit(): void {
     this.loadStudents();
     this.loadClasses();
+    this.loadPaymentType();
+  }
+
+  public isAdded(classe) {
+    let addeds = Array.from(this.selectedRegistrations);
+    return addeds.length > 0 && addeds.filter((o: any) => o.modalityClassId == classe.id) != null;
+  }
+
+  public undoRegistration(registration) {
+    this.selectedRegistrations.delete(registration);
   }
 
   public setRegistration(addingClass: any) {
+    let registration = {
+      id: 0,
+      studentRegistrationId: this.student.id,
+      modalityClassId: addingClass.id,
+      modalityClass: addingClass,
+      isValid: false,
+      dueDay: new Date().getDate(),
+      modalityPaymentTypeId: 1
+    };
+
     if (this.student) {
-      if (!this.selectedClasses.has(addingClass)) {
-        this.selectedClasses.add(addingClass);
-      } else {
-        this.selectedClasses.delete(addingClass);
+      if (!this.selectedRegistrations.has(registration)) {
+        this.selectedRegistrations.add(registration);
       }
     }
+  }
 
+  public loadPaymentType() {
+    let queryBuilder: QueryBuilder = new QueryBuilder("listModalityPaymentType");
+    queryBuilder.AddColumn("id").AddColumn("description");
+    this.apiService.GetFromGraphQL(queryBuilder.GetQuery()).subscribe(result => {
+      this.paymentTypes = result.items;
+    })
   }
 
   public isInRegistration(classe) {
@@ -76,7 +102,7 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
   }
 
   public onChangeStudent() {
-    this.selectedClasses = new Set();
+    this.selectedRegistrations = new Set();
     this.loadRegistrations();
   }
 
@@ -191,7 +217,7 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
   }
 
   public save() {
-    if (this.student && (this.canceledRegistrations.size != 0 || this.selectedClasses.size != 0)) {
+    if (this.student && (this.canceledRegistrations.size != 0 || this.selectedRegistrations.size != 0)) {
 
       let entity = this.formEntity.value;
       entity.id = this.student.id;
@@ -203,34 +229,28 @@ export class RegistrationModalityFormComponent implements OnInit, IFormBase {
       });
 
       arrayCanceleds.forEach((item: any) => {
-        item.isValid = false;
-        item.modalityPaymentTypeId = item.modalityPaymentType.id;
-        item.studentRegistrationId = this.student.id;
-        item.modalityClassId = item.modalityClass.id;
+        let registration: any = {};
+        registration.id = item.id
+        registration.isValid = false;
+        registration.modalityPaymentTypeId = item.modalityPaymentType.id;
+        registration.studentRegistrationId = this.student.id;
+        registration.modalityClassId = item.modalityClass.id;
 
-        entity.registrationModalityClasses.push(item);
+        entity.registrationModalityClasses.push(registration);
       });
 
-      Array.from(this.selectedClasses).forEach((classe: any) => {
-        let newRegistration = {
-          id: 0,
-          studentRegistrationId: this.student.id,
-          modalityClassId: classe.id,
-          modalityClass: classe,
-          isValid: false,
-          dueDay: new Date().getDate(),
-          modalityPaymentTypeId: 1
-        }
+      Array.from(this.selectedRegistrations).forEach((classe: any) => {
+        let newRegistration = classe
 
         entity.registrationModalityClasses.push(newRegistration);
       });
 
       console.log(entity);
 
-      this.apiService.SendToAPI("StudentRegistration", "ChangeRegistration", entity).subscribe((result: any) => {
-        this.formEntity.markAsPristine();
-        window.location.reload();
-      }, err => { console.error(err); });
+      // this.apiService.SendToAPI("StudentRegistration", "ChangeRegistration", entity).subscribe((result: any) => {
+      //   this.formEntity.markAsPristine();
+      //   window.location.reload();
+      // }, err => { console.error(err); });
     }
   }
 }

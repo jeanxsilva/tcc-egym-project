@@ -17,6 +17,7 @@ namespace eGYM
         private readonly UserService userService;
         private readonly ModalityClassService modalityClassService;
         private readonly ModalityPaymentTypeService modalityPaymentTypeService;
+        private readonly RegistrationModalityClassRepository registrationModalityClassRepository;
         private readonly RegistrationModalityClassService registrationModalityClassService;
         private readonly InvoiceService invoiceService;
         private readonly CompanyUnitService companyUnitService;
@@ -27,6 +28,7 @@ namespace eGYM
             UserService userService,
             ModalityClassService modalityClassService,
             ModalityPaymentTypeService modalityPaymentTypeService,
+            RegistrationModalityClassRepository registrationModalityClassRepository,
             CompanyUnitService companyUnitService,
             RegistrationModalityClassService registrationModalityClassService, InvoiceService invoiceService) : this(repository)
         {
@@ -38,6 +40,7 @@ namespace eGYM
             this.userService = userService;
             this.modalityClassService = modalityClassService;
             this.modalityPaymentTypeService = modalityPaymentTypeService;
+            this.registrationModalityClassRepository = registrationModalityClassRepository;
             this.companyUnitService = companyUnitService;
             this.registrationModalityClassService = registrationModalityClassService;
             this.invoiceService = invoiceService;
@@ -228,11 +231,10 @@ namespace eGYM
                 }
                 else
                 {
-                    RegistrationModalityClass registrationModalityClass = await this.registrationModalityClassService.GetByIdAsync(registration.Id);
                     if (!registration.IsValid)
                     {
-                        InvoiceDetail invoiceDetail = registrationModalityClass.InvoiceDetails.LastOrDefault();
-                        invoices.Add(invoiceDetail.Invoice);
+                        Invoice invoice = await this.registrationModalityClassService.GetLastInvoiceByRegistration(registration);
+                        invoices.Add(invoice);
                     }
                 }
             }

@@ -10,12 +10,14 @@ namespace eGYM
         public string PropertyName { get; set; }
         public string LabelDescription { get; set; }
         public DataTypes DataType { get; set; }
+        public bool IsFiltered { get; set; }
 
-        public DataColumn(string name, DataTypes type, string description)
+        public DataColumn(string name, DataTypes type, string description, bool isFiltered = true)
         {
             this.PropertyName = name;
             this.DataType = type;
             this.LabelDescription = description;
+            this.IsFiltered = isFiltered;
         }
     }
 }

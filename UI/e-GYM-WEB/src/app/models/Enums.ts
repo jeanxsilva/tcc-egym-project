@@ -20,8 +20,16 @@ export enum RequestStatusEnum {
 }
 
 export enum PaymentTypeEnum {
-  MONEY = 1,
-  TICKET = 0,
-  CREDIT_CARD = 2,
-  CARD = 3,
+    MONEY = 1,
+    TICKET = 0,
+    CREDIT_CARD = 2,
+    CARD = 3,
+}
+
+
+
+export enum RequestCategoryEnum {
+    Training = 1,
+    Reversal = 2,
+    Physical = 3
 }

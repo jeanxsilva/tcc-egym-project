@@ -1,3 +1,5 @@
+import { StudentRequestListComponent } from './../../pages/student-request/student-request-list/student-request-list.component';
+import { StudentRequestScreenComponent } from './../../pages/student-request/student-request-screen/student-request-screen.component';
 import { ModalityStudentsComponent } from './../../pages/modality/modality-students/modality-students.component';
 import { TrainingDetailsComponent } from './../../pages/training/training-details/training-details.component';
 import { LastNewsScreenComponent } from './../../pages/last-news/last-news-screen/last-news-screen.component';
@@ -45,6 +47,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'students', component: StudentListComponent },
     { path: 'student/create', component: StudentFormComponent, canDeactivate: [CancelGuard] },
     { path: 'student/edit/:id', component: StudentFormComponent, canDeactivate: [CancelGuard] },
+
+    { path: 'student-requests', component: StudentRequestListComponent },
+    { path: 'student-request/:id', component: StudentRequestScreenComponent },
 
     { path: 'trainings', component: TrainingPlanListComponent },
     { path: 'training/create', component: TrainingPlanFormComponent, canDeactivate: [CancelGuard] },

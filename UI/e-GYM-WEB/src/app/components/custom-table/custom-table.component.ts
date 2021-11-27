@@ -35,6 +35,8 @@ export class CustomTableComponent implements OnInit {
   @Input() isCrud: boolean = true;
   @Input() entity: string;
   @Input() title: string;
+  @Input() injectFilter: Function;
+  @Input() injectQuery: Function;
   @Input() refresh: Subject<boolean> = new Subject<boolean>();
   @ContentChildren('column') additionalColumns: TemplateRef<any>;
   @ContentChildren('row') additionalRows: TemplateRef<any>;
@@ -112,40 +114,45 @@ export class CustomTableComponent implements OnInit {
       queryBuilder.AddSort(event.sortField, order);
     }
 
-    if (event.filters) {
-      let keys = Object.keys(event.filters);
+    if (event.filters || this.injectFilter) {
       let queryFilter = queryBuilder.CreateFilter();
 
-      keys.forEach(key => {
-        if (event.filters[key].value != null) {
+      if (this.injectFilter) {
+        this.injectFilter(queryFilter);
+      }
 
-          if (typeof event.filters[key].value === 'boolean') {
-            event.filters[key].matchMode = "equals";
-          }
+      if (event.filters) {
+        let keys = Object.keys(event.filters);
 
-          if (event.filters[key].matchMode) {
-            let matchMode = event.filters[key].matchMode;
+        keys.forEach(key => {
+          if (event.filters[key].value != null) {
 
-            if (matchMode === 'dateIs') {
-              let newDate = new Date(event.filters[key].value);
-
-              queryFilter.AddOperator(OperatorEnum.AND)
-                .AddCondition(key, this.getMatchMode(event.filters[key].matchMode), formatDate(newDate, "yyyy-MM-ddT00:00:00.000-03:00", "pt-BR"))
-                .AddCondition(key, this.getDateReverseMatch(event.filters[key].matchMode), formatDate(newDate.setHours(24), "yyyy-MM-ddT00:00:00.000-03:00", "pt-BR"));
-
-              return;
-            } else if (matchMode === 'dateBefore' || matchMode === 'dateAfter') {
-              let newDate = new Date(event.filters[key].value);
-
-              event.filters[key].value = formatDate(newDate, "yyyy-MM-ddT00:00:ss.000-03:00", "pt-BR")
+            if (typeof event.filters[key].value === 'boolean') {
+              event.filters[key].matchMode = "equals";
             }
+
+            if (event.filters[key].matchMode) {
+              let matchMode = event.filters[key].matchMode;
+
+              if (matchMode === 'dateIs') {
+                let newDate = new Date(event.filters[key].value);
+
+                queryFilter.AddOperator(OperatorEnum.AND)
+                  .AddCondition(key, this.getMatchMode(event.filters[key].matchMode), formatDate(newDate, "yyyy-MM-ddT00:00:00.000-03:00", "pt-BR"))
+                  .AddCondition(key, this.getDateReverseMatch(event.filters[key].matchMode), formatDate(newDate.setHours(24), "yyyy-MM-ddT00:00:00.000-03:00", "pt-BR"));
+
+                return;
+              } else if (matchMode === 'dateBefore' || matchMode === 'dateAfter') {
+                let newDate = new Date(event.filters[key].value);
+
+                event.filters[key].value = formatDate(newDate, "yyyy-MM-ddT00:00:ss.000-03:00", "pt-BR")
+              }
+            }
+
+            queryFilter.AddCondition(key, this.getMatchMode(event.filters[key].matchMode), event.filters[key].value);
           }
-
-          console.log(event, formatDate(event.filters[key].value, "yyyy-MM-ddT00:00:ss-03:00", "pt-BR"));
-
-          queryFilter.AddCondition(key, this.getMatchMode(event.filters[key].matchMode), event.filters[key].value);
-        }
-      });
+        });
+      }
     }
 
     this.getData(queryBuilder.GetQuery());
@@ -190,6 +197,11 @@ export class CustomTableComponent implements OnInit {
   //#region -- Mount data
   getColumnsToFetch(queryBuilder: QueryBuilder): QueryBuilder {
     let hasIdentifier: boolean = false;
+
+    if (this.injectQuery) {
+      this.injectQuery(queryBuilder);
+    }
+
     this.columns.forEach((column) => {
       if (column.PropertyName.includes(".")) {
         let splittedColumn = column.PropertyName.split(".");

@@ -12,4 +12,5 @@ export class DataColumn {
     public PropertyName: string;
     public LabelDescription: string;
     public DataType: DataTypes;
+    public IsFiltered: boolean;
 }
