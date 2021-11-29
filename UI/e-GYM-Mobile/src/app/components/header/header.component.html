@@ -1,0 +1,16 @@
+<ion-header no-shadow>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" *ngIf="!additional">
+      <ion-back-button *ngIf="redirectToLast" icon="chevron-back-outline"></ion-back-button>
+      <ion-back-button defaultHref="{{defaultBack}}" *ngIf="defaultBack && !redirectToLast"
+        icon="chevron-back-outline"></ion-back-button>
+      <ion-menu-button *ngIf="!defaultBack && !redirectToLast"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="font-weight: 600; padding: 10px;">{{title}}</ion-title>
+    <ng-container [ngTemplateOutlet]="additional"></ng-container>
+  </ion-toolbar>
+  <ion-row style="margin: -5px; height: 50px;" *ngIf="withOverflow">
+    <ion-col size="12" style="background-color: var(--ion-color-primary)">
+    </ion-col>
+  </ion-row>
+</ion-header>

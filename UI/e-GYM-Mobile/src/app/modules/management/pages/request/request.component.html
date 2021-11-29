@@ -1,0 +1,89 @@
+<app-header [title]="'Requisições'"></app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12">
+      <h6 class="heading-small">Requisições em aberto</h6>
+      <ion-list>
+        <ng-container *ngFor="let request of openedRequests">
+          <ion-card class="list-card">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="4">
+                  <div style="font-weight: 600">
+                    <ion-label>Categoria</ion-label>
+                  </div>
+                  <ion-label>{{request?.requestCategory.description}}</ion-label>
+                </ion-col>
+                <ion-col size="5">
+                  <div style="font-weight: 600">
+                    <ion-label>Registro</ion-label>
+                  </div>
+                  <ion-label>{{request?.registerDateTime | date: 'short':'':'pt-BR'}}</ion-label>
+                </ion-col>
+                <ion-col size="3" class="ion-text-center">
+                  <div style="font-weight: 600">
+                    <ion-label>Cancelar</ion-label>
+                  </div>
+                  <h1>
+                    <a (click)="presentAlertConfirm(request)">
+                      <ion-icon name="close-outline" color="danger"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        <ion-text *ngIf="!openedRequests || openedRequests.length == 0">
+          <h6 style="padding-left: 26px;">Não há nenhuma requisição em aberto.</h6>
+        </ion-text>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12" *ngIf="requests && requests.length > 0">
+      <h6 class="heading-small">Histórico de requisições</h6>
+      <ion-list>
+        <ng-container *ngFor="let request of requests">
+          <ion-card class="list-card" *ngIf="request.requestStatus.id != RequestStatusEnum.Opened">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="5">
+                  <div style="font-weight: 600">
+                    <ion-label>Categoria</ion-label>
+                  </div>
+                  <ion-label>{{request?.requestCategory.description}}</ion-label>
+                </ion-col>
+                <ion-col size="5">
+                  <div style="font-weight: 600">
+                    <ion-label>Registro</ion-label>
+                  </div>
+                  <ion-label>{{request?.registerDateTime | date: 'short':'':'pt-BR'}}</ion-label>
+                </ion-col>
+                <ion-col size="2" class="ion-align-self-center ion-text-center">
+                  <h1>
+                    <a (click)="seeDetails(request.id)">
+                      <ion-icon name="chevron-forward-outline" color="primary"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin: 0px -5px -10px -5px;" class="" [ngClass]="{
+                'bg-translucent-primary':request.requestStatus.id == RequestStatusEnum.Opened,
+                'bg-translucent-success':request.requestStatus.id == RequestStatusEnum.Deffered,
+                'bg-translucent-danger': request.requestStatus.id >= RequestStatusEnum.Dismissed
+              }">
+                <ion-col size="12" style="padding: 0;" class="ion-text-center">
+                  <small>{{request.requestStatus.description}}</small>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        <ion-text *ngIf="!requests || requests.length == 0">
+          <h6 style="padding-left: 26px;">Não há requisições no histórico.</h6>
+        </ion-text>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

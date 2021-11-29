@@ -1,0 +1,123 @@
+<app-header [title]="'Perfil do usuário'"></app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="padding: 5px;">
+    <ion-col size="12">
+      <ion-button (click)="save()" color="success" *ngIf="isEditing" [disabled]="formEntity.invalid" size="small">Salvar
+        edição</ion-button>
+      <ion-button (click)="edit()" color="danger" *ngIf="isEditing" size="small">Cancelar edição</ion-button>
+      <ion-button (click)="edit()" color="primary" *ngIf="!isEditing" size="small">Editar perfil</ion-button>
+    </ion-col>
+    <ion-col size="12">
+      <form [formGroup]="formEntity">
+        <fieldset>
+          <legend class="heading-small text-muted mb-4">Informações do usuário</legend>
+          <div class="pl-lg-4">
+            <ion-row>
+              <ion-col size="5">
+
+                <ion-item>
+                  <ion-label position="stacked" for="name">Nome</ion-label>
+                  <ion-input [disabled]="!isEditing" type="text" id="name" formControlName="name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="7">
+
+                <ion-item>
+                  <ion-label position="stacked" for="last-name">Sobrenome</ion-label>
+                  <ion-input [disabled]="!isEditing" type="text" id="last-name" formControlName="lastName"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="8">
+
+                <ion-item>
+                  <ion-label position="stacked" for="birthday">Data de nascimento</ion-label>
+                  <ion-input [disabled]="!isEditing" type="date" id="birthday" formControlName="birthday"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="8">
+
+                <ion-item>
+                  <ion-label position="stacked" for="registerCode">Código de registro</ion-label>
+                  <ion-input [disabled]="true" type="text" id="registerCode" [value]="user?.registerCode">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+
+                <ion-item>
+                  <ion-label position="stacked" for="email">Endereço de e-mail</ion-label>
+                  <ion-input [disabled]="!isEditing" type="email" id="email" formControlName="email"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </fieldset>
+        <hr class="my-4" />
+        <fieldset>
+          <!-- Address -->
+          <legend class="heading-small text-muted mb-4">Informações de contato</legend>
+          <div class="pl-lg-4">
+            <ion-row>
+              <ion-col size="4">
+
+                <ion-item>
+                  <ion-label position="stacked" for="phone">Telefone</ion-label>
+                  <ion-input [disabled]="!isEditing" id="phone" formControlName="phone" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="8">
+
+                <ion-item>
+                  <ion-label position="stacked" for="contactPhone">Telefone para contato</ion-label>
+                  <ion-input [disabled]="!isEditing" id="contactPhone" formControlName="contactPhone" type="text">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="5">
+                <ion-item>
+                  <ion-label position="stacked" for="postal-code">Código postal</ion-label>
+                  <ion-input [disabled]="!isEditing" type="text" id="postal-code" formControlName="addressCode">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="1" style="padding-left: 0;">
+                <h2 (click)="getAddress()">
+                  <ion-icon name="search-outline" color="primary"></ion-icon>
+                </h2>
+              </ion-col>
+              <ion-col size="6">
+
+                <ion-item>
+                  <ion-label position="stacked" for="city">Cidade</ion-label>
+                  <ion-input [disabled]="!isEditing" type="text" id="city" formControlName="addressCity"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked" for="address">Endereço</ion-label>
+                  <ion-input [disabled]="true" type="text" id="address" name="address" [value]="address"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked" for="addressNumber">Número</ion-label>
+                  <ion-input [disabled]="!isEditing" type="text" id="addressNumber" formControlName="addressNumber">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+        </fieldset>
+      </form>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <!-- <a (click)="changePassword()">Alterar senha</a> -->
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -52,7 +52,7 @@ namespace eGYM
 
         [HttpPost]
         [Route("CancelRequest")]
-        public async Task<dynamic> CancelRequest(int requestId)
+        public async Task<dynamic> CancelRequest([FromBody] int requestId)
         {
             try
             {

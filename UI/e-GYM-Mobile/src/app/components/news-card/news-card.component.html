@@ -1,0 +1,16 @@
+<ion-card style="margin-top: 10px; background: #fff;">
+  <ion-card-header style="border-bottom:1px solid #e3e3e380; padding: 10px;">
+    <ion-card-title>{{news.title}}</ion-card-title>
+    <ion-card-subtitle style="margin:2px;">Publicado por {{news.publishedByUser?.name}}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content style="padding: 10px; min-height: 80px;">
+    {{news.content}}
+  </ion-card-content>
+
+  <div style="border-top:1px solid #e3e3e380; padding: 10px;">
+    <ion-text slot="end">
+      <span>Registrado em {{news.registerDateTime | date: 'shortDate' : '' : 'pt-BR'}}</span>
+    </ion-text>
+  </div>
+</ion-card>

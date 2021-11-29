@@ -1,0 +1,7 @@
+{
+  "name": "e-gym-mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

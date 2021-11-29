@@ -53,79 +53,102 @@ INSERT INTO `egym_db`.`user_level_access`(`Id`,`Description`,`Path`,`IconKey`,`U
 	(21, "Listar treinos", "/trainings", "fas fa-list", 10, false, 20),
 	(22, "Registrar novo treino", "/training/create", "fas fa-plus text-success", 10, false, 20),
     
-	(23, "Gerenciar exercicios", "", "fas fa-dumbbell", 10, true, null),
-	(24, "Listar exercicios", "/exercises", "fas fa-list", 10, false, 23),
-	(25, "Registrar novo exercicio", "/exercise/create", "fas fa-plus text-success", 10, false, 23),
+	(23, "Gerenciar requisições", "", "fas fa-list", 10, true, null),
     
-	(26, "Gerenciar modalidades", "", "fas fa-tasks", 10, true, null),
-	(27, "Listar modalidades", "/modalities", "fas fa-list", 10, false, 26),
-	(28, "Registrar nova modalidade", "/modality/create", "fas fa-plus text-success", 10, false, 26),
+	(24, "Gerenciar exercicios", "", "fas fa-dumbbell", 10, true, null),
+	(25, "Listar exercicios", "/exercises", "fas fa-list", 10, false, 24),
+	(26, "Registrar novo exercicio", "/exercise/create", "fas fa-plus text-success", 10, false, 24),
     
-	(29, "Gerenciar turmas", "", "fas fa-users", 10, true, null),
-	(30, "Listar turmas", "/modality/classes", "fas fa-list", 10, false, 29),
-	(31, "Registrar nova turma", "/modality/class/create", "fas fa-plus text-success", 10, false,29),
+	(27, "Gerenciar modalidades", "", "fas fa-tasks", 10, true, null),
+	(28, "Listar modalidades", "/modalities", "fas fa-list", 10, false, 27),
+	(29, "Registrar nova modalidade", "/modality/create", "fas fa-plus text-success", 10, false, 27),
+    
+	(30, "Gerenciar turmas", "", "fas fa-users", 10, true, null),
+	(31, "Listar turmas", "/modality/classes", "fas fa-list", 10, false, 30),
+	(32, "Registrar nova turma", "/modality/class/create", "fas fa-plus text-success", 10, false,30),
 		
-	('32', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '1', '0', NULL),
-	('33', 'Matriculas', '/registration', 'fas fa-list', '1', '0', NULL),
-	('34', 'Ultimos avisos', '/last-news', 'fas fa-list', '1', '0', NULL),
-	('35', 'Avaliação fisica', '', 'fas fa-user-md', '1', '1', NULL),
-	('36', 'Avaliações agendadas', '/assessment/scheduleds', 'far fa-calendar-alt', '1', '0', '35'),
-	('37', 'Histórico de avaliações', '/assessments', 'fas fa-list', '1', '0', '35'),
-	('38', 'Registrar novo agendamento', '/assessment/schedule/register', 'fas fa-plus text-success', '1', '0', '35'),
-	('39', 'Pagamentos', '', 'fas fa-file-invoice-dollar', '1', '1', NULL),
-	('40', 'Histórico de pagamentos', '/payments', 'fas fa-list', '1', '0', '39'),
-	('41', 'Histórico de estornos', '/payment/reversals', 'fas fa-list', '1', '0', '39'),
-	('42', 'Listar faturas', '/payment/invoices', 'fas fa-list', '1', '0', '39'),
-	('43', 'Gerenciar alunos', '', 'far fa-address-book', '1', '1', NULL),
-	('44', 'Listar alunos', '/students', 'fas fa-list', '1', '0', '43'),
-	('45', 'Registrar novo aluno', '/student/create', 'fas fa-plus text-success', '1', '0', '43'),
-	('46', 'Gerenciar treinos', '', 'fas fa-dumbbell', '1', '1', NULL),
-	('47', 'Listar treinos', '/trainings', 'fas fa-list', '1', '0', '46'),
-	('48', 'Registrar novo treino', '/training/create', 'fas fa-plus text-success', '1', '0', '46'),
-	('49', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '2', '0', NULL),
-	('50', 'Matriculas', '/registration', 'fas fa-list', '2', '0', NULL),
-	('51', 'Ultimos avisos', '/last-news', 'fas fa-list', '2', '0',  NULL),
-	('52', 'Pagamentos', '', 'fas fa-file-invoice-dollar', '2', '1', NULL),
-	('53', 'Histórico de pagamentos', '/payments', 'fas fa-list', '2', '0', '52'),
-	('54', 'Histórico de estornos', '/payment/reversals', 'fas fa-list', '2', '0', '52'),
-	('55', 'Listar faturas', '/payment/invoices', 'fas fa-list', '2', '0', '52'),
-	('56', 'Gerenciar alunos', '', 'far fa-address-book', '2', '1', NULL),
-	('57', 'Listar alunos', '/students', 'fas fa-list', '2', '0', '57'),
-	('58', 'Registrar novo aluno', '/student/create', 'fas fa-plus text-success', '2', '0', '57'),
+	('33', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '1', '0', NULL),
+	('34', 'Matriculas', '/registration', 'fas fa-list', '1', '0', NULL),
+	('35', 'Ultimos avisos', '/last-news', 'fas fa-list', '1', '0', NULL),
+	
+    ('36', 'Avaliação fisica', '', 'fas fa-user-md', '1', '1', NULL),
+	('37', 'Avaliações agendadas', '/assessment/scheduleds', 'far fa-calendar-alt', '1', '0', '36'),
+	('38', 'Histórico de avaliações', '/assessments', 'fas fa-list', '1', '0', '36'),
+	('39', 'Registrar novo agendamento', '/assessment/schedule/register', 'fas fa-plus text-success', '1', '0', '36'),
+	
+    ('40', 'Pagamentos', '', 'fas fa-file-invoice-dollar', '1', '1', NULL),
+	('41', 'Histórico de pagamentos', '/payments', 'fas fa-list', '1', '0', '40'),
+	('42', 'Histórico de estornos', '/payment/reversals', 'fas fa-list', '1', '0', '40'),
+	('43', 'Listar faturas', '/payment/invoices', 'fas fa-list', '1', '0', '40'),
+	
+    ('44', 'Gerenciar alunos', '', 'far fa-address-book', '1', '1', NULL),
+	('45', 'Listar alunos', '/students', 'fas fa-list', '1', '0', '44'),
+	('46', 'Registrar novo aluno', '/student/create', 'fas fa-plus text-success', '1', '0', '44'),
+	
+    ('47', 'Gerenciar treinos', '', 'fas fa-dumbbell', '1', '1', NULL),
+	('48', 'Listar treinos', '/trainings', 'fas fa-list', '1', '0', '47'),
+	('49', 'Registrar novo treino', '/training/create', 'fas fa-plus text-success', '1', '0', '47'),
+	(50, "Gerenciar requisições", "", "fas fa-list", 1, true, null),
+	
+    ('51', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '2', '0', NULL),
+	('52', 'Matriculas', '/registration', 'fas fa-list', '2', '0', NULL),
+	('53', 'Ultimos avisos', '/last-news', 'fas fa-list', '2', '0',  NULL),
+	
+    ('54', 'Pagamentos', '', 'fas fa-file-invoice-dollar', '2', '1', NULL),
+	('55', 'Histórico de pagamentos', '/payments', 'fas fa-list', '2', '0', '54'),
+	('56', 'Histórico de estornos', '/payment/reversals', 'fas fa-list', '2', '0', '54'),
+	('57', 'Listar faturas', '/payment/invoices', 'fas fa-list', '2', '0', '54'),
+	('58', 'Gerenciar alunos', '', 'far fa-address-book', '2', '1', NULL),
+	('59', 'Listar alunos', '/students', 'fas fa-list', '2', '0', '58'),
+	('60', 'Registrar novo aluno', '/student/create', 'fas fa-plus text-success', '2', '0', '58'),
 		
-	('59', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '99', '0', NULL),
-	('60', 'Matriculas', '/registration', 'fas fa-list', '99', '0', NULL),
-	('61', 'Gerenciar avisos', '', 'fas fa-newspaper', '99', '1', NULL),
-	('62', 'Ultimos avisos', '/last-news', 'fas fa-list', '99', '0', '61'),
-	('63', 'Registrar novo aviso', '/news/register', 'fas fa-plus text-success', '99', '0', '61'),
-	('64', 'Avaliação fisica', '', 'fas fa-user-md', '99', '1', NULL),
-	('65', 'Avaliações agendadas', '/assessment/scheduleds', 'far fa-calendar-alt', '99', '0', '64'),
-	('66', 'Histórico de avaliações', '/assessments', 'fas fa-list', '99', '0', '64'),
-	('67', 'Registrar novo agendamento', '/assessment/schedule/register', 'fas fa-plus text-success', '99', '0', '64'),
-	('68', 'Pagamentos', '', 'fas fa-file-invoice-dollar', '99', '1', NULL),
-	('69', 'Histórico de pagamentos', '/payments', 'fas fa-list', '99', '0', '68'),
-	('70', 'Histórico de estornos', '/payment/reversals', 'fas fa-list', '99', '0', '68'),
-	('71', 'Listar faturas', '/payment/invoices', 'fas fa-list', '99', '0', '68'),
-	('72', 'Gerenciar funcionários', '', 'fas fa-id-card-alt', '99', '1', NULL),
-	('73', 'Listar funcionários', '/employees', 'fas fa-list', '99', '0', '72'),
-	('74', 'Registrar novo funcionário', '/employee/create', 'fas fa-plus text-success', '99', '0', '72'),
-	('75', 'Gerenciar alunos', '', 'far fa-address-book', '99', '1', NULL),
-	('76', 'Listar alunos', '/students', 'fas fa-list', '99', '0', '75'),
-	('77', 'Registrar novo aluno', '/student/create', 'fas fa-plus text-success', '99', '0', '75'),
-	('78', 'Gerenciar treinos', '', 'fas fa-dumbbell', '99', '1', NULL),
-	('79', 'Listar treinos', '/trainings', 'fas fa-list', '99', '0', '78'),
-	('80', 'Registrar novo treino', '/training/create', 'fas fa-plus text-success', '99', '0', '78'),
-	('81', 'Gerenciar exercicios', '', 'fas fa-dumbbell', '99', '1', NULL),
-	('82', 'Listar exercicios', '/exercises', 'fas fa-list', '99', '0', '81'),
-	('83', 'Registrar novo exercicio', '/exercise/create', 'fas fa-plus text-success', '99', '0', '81'),
-	('84', 'Gerenciar modalidades', '', 'fas fa-tasks', '99', '1', NULL),
-	('85', 'Listar modalidades', '/modalities', 'fas fa-list', '99', '0', '84'),
-	('86', 'Registrar nova modalidade', '/modality/create', 'fas fa-plus text-success', '99', '0', '84'),
-	('87', 'Gerenciar turmas', '', 'fas fa-users', '99', '1', NULL),
-	('88', 'Listar turmas', '/modality/classes', 'fas fa-list', '99', '0', '87'),
-	('89', 'Registrar nova turma', '/modality/class/create', 'fas fa-plus text-success', '99', '0', '87'),
-	(90, "Listar alunos por modalidade", "/modality/create", "fas fa-plus text-success", 10, false, 26),
-	(91, "Listar alunos por modalidade", "/modality/students", "fas fa-list", 99, false, 84);
+	('61', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '99', '0', NULL),
+	('62', 'Matriculas', '/registration', 'fas fa-list', '99', '0', NULL),
+	
+    ('63', 'Gerenciar avisos', '', 'fas fa-newspaper', '99', '1', NULL),
+	('64', 'Ultimos avisos', '/last-news', 'fas fa-list', '99', '0', '63'),
+	('65', 'Registrar novo aviso', '/news/register', 'fas fa-plus text-success', '99', '0', '63'),
+	
+    ('66', 'Avaliação fisica', '', 'fas fa-user-md', '99', '1', NULL),
+	('67', 'Avaliações agendadas', '/assessment/scheduleds', 'far fa-calendar-alt', '99', '0', '66'),
+	('68', 'Histórico de avaliações', '/assessments', 'fas fa-list', '99', '0', '66'),
+	('69', 'Registrar novo agendamento', '/assessment/schedule/register', 'fas fa-plus text-success', '99', '0', '66'),
+	
+    ('70', 'Pagamentos', '', 'fas fa-file-invoice-dollar', '99', '1', NULL),
+	('71', 'Histórico de pagamentos', '/payments', 'fas fa-list', '99', '0', '70'),
+	('72', 'Histórico de estornos', '/payment/reversals', 'fas fa-list', '99', '0', '70'),
+    ('73', 'Listar faturas', '/payment/invoices', 'fas fa-list', '99', '0', '70'),
+	
+    ('74', 'Gerenciar funcionários', '', 'fas fa-id-card-alt', '99', '1', NULL),
+	('75', 'Listar funcionários', '/employees', 'fas fa-list', '99', '0', '74'),
+	('76', 'Registrar novo funcionário', '/employee/create', 'fas fa-plus text-success', '99', '0', '74'),
+	
+    ('77', 'Gerenciar alunos', '', 'far fa-address-book', '99', '1', NULL),
+	('78', 'Listar alunos', '/students', 'fas fa-list', '99', '0', '77'),
+	('79', 'Registrar novo aluno', '/student/create', 'fas fa-plus text-success', '99', '0', '77'),
+	
+    ('80', 'Gerenciar treinos', '', 'fas fa-dumbbell', '99', '1', NULL),
+	('81', 'Listar treinos', '/trainings', 'fas fa-list', '99', '0', '80'),
+	('82', 'Registrar novo treino', '/training/create', 'fas fa-plus text-success', '99', '0', '80'),
+	
+	(83, "Gerenciar requisições", "", "fas fa-list", 99, true, null),
+    ('84', 'Gerenciar exercicios', '', 'fas fa-dumbbell', '99', '1', NULL),
+	('85', 'Listar exercicios', '/exercises', 'fas fa-list', '99', '0', '84'),
+	('86', 'Registrar novo exercicio', '/exercise/create', 'fas fa-plus text-success', '99', '0', '84'),
+	
+    ('87', 'Gerenciar modalidades', '', 'fas fa-tasks', '99', '1', NULL),
+	('88', 'Listar modalidades', '/modalities', 'fas fa-list', '99', '0', '87'),
+	('89', 'Registrar nova modalidade', '/modality/create', 'fas fa-plus text-success', '99', '0', '87'),
+	
+    ('90', 'Gerenciar turmas', '', 'fas fa-users', '99', '1', NULL),
+	('91', 'Listar turmas', '/modality/classes', 'fas fa-list', '99', '0', '90'),
+	('92', 'Registrar nova turma', '/modality/class/create', 'fas fa-plus text-success', '99', '0', '90'),
+	
+    (95, "Listar alunos por modalidade", "/modality/create", "fas fa-plus text-success", 10, false, 27),
+	(96, "Listar alunos por modalidade", "/modality/students", "fas fa-list", 99, false, 87),
+	(97, "Listar requisições", "student-requests", "fas fa-list", 99, false, 83),
+	(98, "Listar requisições", "student-requests", "fas fa-list", 10, false, 23),
+	(99, "Listar requisições", "student-requests", "fas fa-list", 1, false, 50);
     
 INSERT INTO `egym_db`.`user_level_roles`(`Role`,`UserLevelId`)
 	VALUES
@@ -382,6 +405,13 @@ INSERT INTO `egym_db`.`request_status`(`Id`, `Description`)
 	(5, "Deferido"),
 	(10, "Recusado"),
 	(15, "Cancelado");
+    
+INSERT INTO `egym_db`.`request_category` (`Id`, `Description`,`Value`)
+	VALUES 
+    (1, "Troca de treino", null),
+    (2, "Estorno", null),
+    (3, "Agendar avaliação fisica", 25);
+    
 INSERT INTO `egym_db`.`request_category_level` (`UserLevelId`, `RequestCategoryId`)
 VALUES 
 	('99', '1'), 

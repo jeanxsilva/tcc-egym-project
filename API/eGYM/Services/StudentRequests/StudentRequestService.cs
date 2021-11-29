@@ -89,7 +89,7 @@ namespace eGYM
         {
             studentRequest.ClosedByUser = await this.userService.ResolveUser();
             studentRequest.RequestStatus = await this.requestStatusRepository.GetById((int)requestStatusEnum);
-            
+
             await this.Repository.Update(studentRequest);
 
             return true;
@@ -191,6 +191,7 @@ namespace eGYM
                 await paymentReversalRepository.InsertOrUpdate(paymentReversal);
             }
 
+            await this.Repository.Update(studentRequest);
             return true;
         }
     }

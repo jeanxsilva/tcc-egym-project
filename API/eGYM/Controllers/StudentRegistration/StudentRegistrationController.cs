@@ -99,8 +99,9 @@ namespace eGYM
         }
 
         [HttpPost]
-        [Authorize(Roles = "StudentRegistration.U")]
-        [Authorize(Roles = "RegistrationModalityClass.U")]
+        //[Authorize(Roles = "StudentRegistration.U")]
+        //[Authorize(Roles = "RegistrationModalityClass.U")]
+        [Authorize]
         [Route("ChangeRegistration")]
         public async Task<dynamic> ChangeRegistration(StudentRegistration studentRegistration)
         {

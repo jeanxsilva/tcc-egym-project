@@ -233,7 +233,7 @@ namespace eGYM
                 {
                     if (!registration.IsValid)
                     {
-                        Invoice invoice = await this.registrationModalityClassService.GetLastInvoiceByRegistration(registration);
+                        Invoice invoice = await this.registrationModalityClassService.GetLastInvoiceGenerated(registration);
                         invoices.Add(invoice);
                     }
                 }
@@ -245,12 +245,14 @@ namespace eGYM
             }
 
             List<RegistrationModalityClass> toInsertRegistrations = registrations.Where(r => r.Id == 0).ToList();
+            List<RegistrationModalityClass> toCancelRegistrations = registrations.Where(r => r.Id != 0).ToList();
             if (toInsertRegistrations.Count != 0)
             {
-                await this.invoiceService.GenerateInvoice(toInsertRegistrations, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura da modalidade");
+                await this.invoiceService.GenerateInvoices(toInsertRegistrations, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura da modalidade");
             }
 
-            return await this.registrationModalityClassService.SaveAsync(registrations);
+            //return await this.registrationModalityClassService.SaveAsync(toCancelRegistrations);
+            return true;
         }
     }
 }

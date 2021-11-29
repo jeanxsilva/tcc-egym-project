@@ -69,6 +69,36 @@ namespace eGYM
             return await this.Repository.Create(invoice);
         }
 
+        public async Task<bool> GenerateInvoices(List<RegistrationModalityClass> registrationModalityClasses, StudentRegistration student, DateTime referentToDate, bool isByRequest, string note)
+        {
+            List<Invoice> invoices = new List<Invoice>();
+            foreach (RegistrationModalityClass registrationModalityClass in registrationModalityClasses)
+            {
+                Invoice invoice = new Invoice();
+                invoice.ReferentToDate = referentToDate;
+                invoice.DueDate = referentToDate.AddDays(15);
+                invoice.Student = student;
+                invoice.IsByRequest = isByRequest;
+                invoice.Note = note;
+                invoice.CompanyUnit = await this.companyUnitService.ResolveCompanyUnit();
+                invoice.InvoiceStatus = await this.invoiceStatusService.GetByIdAsync((int)InvoiceStatusEnum.Generated);
+
+                InvoiceDetail invoiceDetail = new InvoiceDetail();
+                Modality modality = registrationModalityClass.ModalityClass.Modality;
+
+                invoiceDetail.Description = modality.Description;
+                invoiceDetail.Price = modality.Price;
+                invoiceDetail.Invoice = invoice;
+                invoiceDetail.RegistrationModalityClass = registrationModalityClass;
+                invoice.InvoiceDetails.Add(invoiceDetail);
+                invoice.TotalValue += modality.Price;
+
+                invoices.Add(invoice);
+            }
+
+            return await this.Repository.InsertOrUpdate(invoices);
+        }
+
         public async Task<bool> SavePaymentInvoice(Invoice invoice)
         {
             List<InvoiceDetail> invoiceDetails = invoice.InvoiceDetails.ToList();

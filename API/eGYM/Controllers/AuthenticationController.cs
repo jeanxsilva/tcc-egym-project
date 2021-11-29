@@ -99,6 +99,7 @@ namespace eGYM.Controllers
                 User returnedUser = new User();
                 returnedUser.Id = userProfile.User.Id;
                 returnedUser.Name = userProfile.User.Name;
+                returnedUser.LastName = userProfile.User.LastName;
                 returnedUser.CompanyUnit = new CompanyUnit();
 
                 if (userProfile.User.CompanyUnit != null)

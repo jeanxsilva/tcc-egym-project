@@ -16,6 +16,21 @@ namespace eGYM
             this.invoiceRepository = invoiceRepository;
             this.invoiceStatusRepository = invoiceStatusRepository;
         }
+
+        public async Task<Invoice> GetLastInvoiceGenerated(RegistrationModalityClass registration)
+        {
+            IQueryable<RegistrationModalityClass> queryable = this.Repository.GetQuery();
+            List<InvoiceDetail> invoiceDetails = queryable.SelectMany(r => r.InvoiceDetails).ToList();
+            InvoiceDetail invoiceDetail = invoiceDetails.OrderByDescending(d => d.Id).Where(id => id.Invoice.InvoiceStatus.Id == (int)InvoiceStatusEnum.Generated).FirstOrDefault();
+
+            if (invoiceDetail != null)
+            {
+                return invoiceDetail.Invoice;
+            }
+
+            return null;
+        }
+
         public async Task<Invoice> GetLastInvoiceByRegistration(RegistrationModalityClass registration)
         {
             IQueryable<RegistrationModalityClass> queryable = this.Repository.GetQuery();

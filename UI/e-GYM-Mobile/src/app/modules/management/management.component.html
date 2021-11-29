@@ -1,0 +1,51 @@
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content">
+    <ion-content>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col size="12">
+          <app-user-profile-chip></app-user-profile-chip>
+        </ion-col>
+      </ion-row>
+      <ion-list id="inbox-list" style="border-top: 1px solid #ccc;">
+
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+            routerLinkActive="selected">
+            <ion-icon slot="start" [md]="p.icon"></ion-icon>
+            <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerDirection="root" lines="none" detail="false" routerLinkActive="selected" (click)="logout()">
+          <ion-icon slot="start" name="log-out-outline" color="danger"></ion-icon>
+          <ion-label>Sair</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content" main></ion-router-outlet>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="assesment">
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        <ion-label>Desempenho</ion-label>
+        <ion-badge>6</ion-badge>
+      </ion-tab-button>
+
+      <ion-tab-button tab="home">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="training">
+        <ion-icon name="barbell-outline"></ion-icon>
+        <ion-label>Treino</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-split-pane>

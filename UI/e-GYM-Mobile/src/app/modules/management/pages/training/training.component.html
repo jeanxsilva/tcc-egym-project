@@ -1,0 +1,52 @@
+<app-header [title]="'Gerenciar treino'"></app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="padding: 5px;">
+    <ion-col size="6">
+      <ion-button color="primary" class="d-block" (click)="listTraining()">Listar treinos</ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button color="primary" class="d-block" [disabled]="trainingRequests && trainingRequests.length > 0" (click)="presentAlertConfirm()">Solicitar troca</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" *ngIf="training" style="margin-top: 5px;">
+      <fieldset>
+        <legend>Treino atual</legend>
+        <table class="table alternative" *ngFor="let day of days; let i = index">
+          <thead>
+            <tr class="bg-translucent-primary border-none">
+              <th colspan="2" style="text-align: center;">
+                Dia {{day.number}}
+              </th>
+            </tr>
+            <tr class="bg-translucent-medium border-none">
+              <th style="width: 75%; text-align: center;">
+                Exercício
+              </th>
+              <th>
+                Repetição
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trainingPlanExercise of day.trainingPlanExercises">
+              <td>
+                {{trainingPlanExercise.exercise.description}}
+                <span *ngIf="trainingPlanExercise.isCombined">+
+                  {{trainingPlanExercise.combinedExercise.description}}</span>
+              </td>
+              <td style="text-align: center;">
+                {{trainingPlanExercise.repetition}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ion-text-center" *ngIf="!days || days.length == 0">
+          <ion-text>
+            <h6>Não há um plano de treino registrado ainda</h6>
+          </ion-text>
+        </div>
+      </fieldset>
+    </ion-col>
+  </ion-row>
+</ion-grid>

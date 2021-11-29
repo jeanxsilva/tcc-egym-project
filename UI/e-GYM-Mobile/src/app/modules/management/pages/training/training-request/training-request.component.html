@@ -1,0 +1,44 @@
+<app-header [title]="'Requisição de troca de treino'">
+  <ng-template #additional>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ng-template>
+</app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12">
+      <form [formGroup]="formEntity">
+        <h6 class="heading-small" style="margin-bottom: 4px;">Dados da requisição</h6>
+        <div class="pl-4">
+          <ion-row>
+            <ion-col size="6">
+              <div class="form-group">
+                <label class="form-control-label" for="description">Agendar para <span
+                    class="text-danger">*</span></label>
+              </div>
+
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <div class="form-group">
+                <label class="form-control-label" for="description">Observação <span
+                    class="text-danger">*</span></label>
+                <textarea type="text" id="description" class="form-control form-control-textarea"
+                  placeholder="Descrição da requisição" formControlName="note"></textarea>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-button color="success" (click)="save()">
+                Enviar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>

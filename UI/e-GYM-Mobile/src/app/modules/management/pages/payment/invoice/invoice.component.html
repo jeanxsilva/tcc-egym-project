@@ -1,0 +1,97 @@
+<app-header [title]="'Faturas'"></app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12">
+      <h6 class="heading-small">Faturas em aberto</h6>
+      <ion-list>
+        <ng-container *ngFor="let invoice of openedInvoices">
+          <ion-card class="list-card">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="3">
+                  <div style="font-weight: 600">
+                    <ion-label>Valor total</ion-label>
+                  </div>
+                  <ion-label style="color: #005cab; font-weight: 600;">{{invoice?.totalValue | currency: 'BRL'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="4" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Referência</ion-label>
+                  </div>
+                  <ion-label>{{invoice?.referentToDate | date: 'shortDate' : '' : 'pt-BR'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="4" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Vencimento</ion-label>
+                  </div>
+                  <ion-label>{{invoice?.dueDate | date: 'shortDate' : '' : 'pt-BR'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="1" class="ion-align-self-center ion-text-center" style="padding:0px;">
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        <ion-text *ngIf="!openedInvoices || openedInvoices.length == 0">
+          <h6 style="padding-left: 26px;">Não há nenhuma fatura em aberto.</h6>
+        </ion-text>
+      </ion-list>
+    </ion-col>
+    <ion-col size="12">
+      <h6 class="heading-small">Histórico de faturas</h6>
+      <ion-list>
+        <ng-container *ngFor="let invoice of invoices">
+          <ion-card class="list-card">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="3">
+                  <div style="font-weight: 600">
+                    <ion-label>Valor total</ion-label>
+                  </div>
+                  <ion-label style="color: #005cab; font-weight: 600;">{{invoice?.totalValue | currency: 'BRL'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="4" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Referência</ion-label>
+                  </div>
+                  <ion-label>{{invoice?.referentToDate | date: 'shortDate' : '' : 'pt-BR'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="4" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Vencimento</ion-label>
+                  </div>
+                  <ion-label>{{invoice?.dueDate | date: 'shortDate' : '' : 'pt-BR'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="1" class="ion-align-self-center ion-text-center" style="padding:0px;">
+                  <h1>
+                    <a (click)="seeDetails(invoice.id)">
+                      <ion-icon name="chevron-forward-outline" color="primary"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin: 0px -5px -10px -5px;" class="" [ngClass]="{
+                'bg-translucent-primary':invoice.invoiceStatus.id < InvoiceStatusEnum.Paid,
+                'bg-translucent-success': invoice.invoiceStatus.id == InvoiceStatusEnum.Paid,
+                'bg-translucent-danger': invoice.invoiceStatus.id == InvoiceStatusEnum.Canceled
+              }">
+                <ion-col size="12" style="padding: 0;" class="ion-text-center">
+                  <small>{{invoice.invoiceStatus.description}}</small>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        <ion-text *ngIf="!invoices || invoices.length == 0">
+          <h6 style="padding-left: 26px;">Não há nenhuma fatura no seu histórico.</h6>
+        </ion-text>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,31 @@
+<app-header></app-header>
+<ion-content style="z-index: 1000;">
+  <ion-row
+    style="background-image: linear-gradient(rgba(var(--ion-color-primary-rgb), 1), rgba(var(--ion-color-primary-rgb), 0.8)); margin: -5px; min-height: 120px;"
+    class="ion-align-items-center">
+    <ion-col size="12" style="padding-left: 10px;">
+      <ion-row>
+        <ion-col size="12" style="margin-top: -23px; padding: 10px;">
+          <h3 style="margin: 0;">Dashboard</h3>
+          <h6 style="margin-top: 5px;">Olá {{user?.Name}}, seja bem vindo de volta!</h6>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  
+  <ion-grid style="width: 100%; height: 100%; margin-top: -20px; border-radius: 20px; background: #F4F5F7;"
+    class="wrapper">
+    <ion-row>
+      <ion-col size="12">
+        <h6 class="heading-small">Ultimos avisos</h6>
+        <ion-list>
+          <app-news-card *ngFor="let notice of news" [news]="notice"></app-news-card>
+        </ion-list>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

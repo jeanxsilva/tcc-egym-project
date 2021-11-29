@@ -1,0 +1,169 @@
+<app-header [title]="'Detalhes da requisição'" defaultBack="requests" [withOverflow]="true"></app-header>
+<ion-grid style="width: 100%; margin-top: -50px; z-index: 1000; background: transparent" class="wrapper" scrollY="true">
+  <ion-row>
+    <ion-col size="12">
+      <ion-row *ngIf="request" class="col-overflow">
+        <ion-col size="6">
+          <div style="font-weight: 600">
+            <ion-label>Categoria</ion-label>
+          </div>
+          {{request.requestCategory.description}}
+        </ion-col>
+        <ion-col size="6">
+          <div style="font-weight: 600;">
+            <ion-label>Registrado em</ion-label>
+          </div>
+          <span style="color: #005cab; font-weight: 800;">
+            {{request.registerDateTime | date: 'short':'':'pt-BR'}}
+          </span>
+        </ion-col>
+        <ion-col size="3">
+          <div style="font-weight: 600">
+            <ion-label>Status</ion-label>
+          </div>
+          <span class="badge p-mr-2" [ngClass]="{
+                  'badge-warning':request.requestStatus.id < RequestStatusEnum.Deffered,
+                  'badge-success': request.requestStatus.id == RequestStatusEnum.Deffered,
+                  'badge-danger': request.requestStatus.id >= RequestStatusEnum.Dismissed
+              }">
+            {{request.requestStatus.description}}</span>
+        </ion-col>
+        <ion-col size="8">
+          <div style="font-weight: 600">
+            <ion-label>Observação</ion-label>
+          </div>
+          {{request.note || '-'}}
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="12" *ngIf="request && request.invoice">
+      <button class="btn btn-default btn-block" (click)="seeInvoice(request.invoice?.id)">Ver
+        detalhes
+        da
+        fatura</button>
+    </ion-col>
+  </ion-row>
+  <ion-row style="background-color: #f4f5f7;">
+    <ion-col size="12" *ngIf="request && request.paymentReversal">
+      <h6 class="heading-small text-muted mb-4">Detalhes do estorno</h6>
+      <ion-card class="list-card">
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="12">
+              <ion-row>
+                <ion-col size="4">
+                  <div style="font-weight: 600;">
+                    <ion-label>Criado por</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.createdByUser?.name || '-'}}</p>
+                </ion-col>
+                <ion-col size="4">
+                  <div style="font-weight: 600;">
+                    <ion-label>Autorizado por</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.authorizedByUser?.name || '-'}}</p>
+                </ion-col>
+                <ion-col size="4">
+                  <div style="font-weight: 600;">
+                    <ion-label>Finalizado por</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.finishedByUser?.name || '-'}}</p>
+                </ion-col>
+                <ion-col size="3">
+                  <div style="font-weight: 600;">
+                    <ion-label>Pago por</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.payment.paidByUser.name}}</p>
+                </ion-col>
+                <ion-col size="5">
+                  <div style="font-weight: 600;">
+                    <ion-label>Data de pagamento</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.payment.paymentDateTime | date : 'shortDate' : '' : 'pt-BR'}}</p>
+                </ion-col>
+                <ion-col size="3">
+
+                  <div style="font-weight: 600;">
+                    <ion-label>Status atual</ion-label>
+                  </div>
+                  <p>
+                    <span class="badge" [ngClass]="{
+                          'badge-success':request.paymentReversal.paymentReversalStatus.id == paymentReversalStatusEnum.Deffered,
+                          'badge-warning': request.paymentReversal.paymentReversalStatus.id == paymentReversalStatusEnum.Opened || request.paymentReversal.paymentReversalStatus.id ==  paymentReversalStatusEnum.Movimented,
+                          'badge-danger': request.paymentReversal.paymentReversalStatus.id == paymentReversalStatusEnum.Dismissed || request.paymentReversal.paymentReversalStatus.id == paymentReversalStatusEnum.Canceled
+                      }">
+                      {{request.paymentReversal.paymentReversalStatus.description}}</span>
+                  </p>
+                </ion-col>
+
+              </ion-row>
+              <ion-row>
+                <ion-col size="5">
+                  <div style="font-weight: 600;">
+                    <ion-label>Ultima modificação</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.lastModifiedDateTime | date : 'shortDate' : '' : 'pt-BR'}}</p>
+                </ion-col>
+                <ion-col size="7">
+                  <div style="font-weight: 600;">
+                    <ion-label>Justificativa</ion-label>
+                  </div>
+                  <p>{{request.paymentReversal.reason}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col size="12">
+              <ion-row>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <ion-list>
+        <ng-container *ngIf="request.paymentReversal && request.paymentReversal?.paymentMovements.length > 0">
+          <h6 class="heading-small text-muted mb-4" style="margin-top: 10px;">Histórico de movimentações</h6>
+          <ion-card *ngFor="let movement of request.paymentReversal?.paymentMovements" class="list-card">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="4">
+                  <div style="font-weight: 600">
+                    <ion-label>Data de registro</ion-label>
+                  </div>
+                  <ion-label>{{movement.registerDateTime | date: 'shortDate' : '' : 'pt-BR'}}</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                  <div style="font-weight: 600">
+                    <ion-label>Status</ion-label>
+                  </div>
+                  <p>
+                    <span class="badge" [ngClass]="{
+                              'badge-success':movement.paymentReversalStatus.id == paymentReversalStatusEnum.Deffered,
+                              'badge-warning': movement.paymentReversalStatus.id == paymentReversalStatusEnum.Opened || movement.paymentReversalStatus.id ==  paymentReversalStatusEnum.Movimented,
+                              'badge-danger': movement.paymentReversalStatus.id == paymentReversalStatusEnum.Dismissed || movement.paymentReversalStatus.id == paymentReversalStatusEnum.Canceled
+                          }">
+                      {{movement.paymentReversalStatus.description}}</span>
+                  </p>
+                </ion-col>
+                <ion-col size="4">
+                  <div style="font-weight: 600">
+                    <ion-label>Registrado por</ion-label>
+                  </div>
+                  <ion-label>{{movement.registeredByUser.name}}</ion-label>
+                </ion-col>
+                <ion-col size="2" class="ion-text-center">
+                  <div style="font-weight: 600">
+                    <ion-label>Atual</ion-label>
+                  </div>
+                  <h1>
+                    <ion-icon *ngIf="movement.isCurrent" name="checkmark-outline" color="success"></ion-icon>
+                    <ion-icon *ngIf="!movement.isCurrent" name="ban-outline" color="danger"></ion-icon>
+                  </h1>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,72 @@
+<app-header [title]="'Matrículas'"></app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12">
+      <ion-button (click)="registerClass()">Inscrever-se em nova modalidade</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12">
+      <h6 class="heading-small">Modalidades inscritas</h6>
+      <ion-list>
+        <ng-container *ngFor="let registration of registrations">
+          <ion-card class="list-card">
+            <ion-card-header style="padding: 0px; color:  #f5f5f5" color="danger" class="bg-danger ion-text-center ion-align-items-center" (click)="presentAlertConfirm(registration)"
+              *ngIf="!registration.isValid">
+                  Cancelar inscrição
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="6">
+                  <div style="font-weight: 600;">
+                    <ion-label>Modalidade</ion-label>
+                  </div>
+                  <ion-label>{{registration?.modalityClass?.modality?.description}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="4" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Data registro</ion-label>
+                  </div>
+                  <ion-label>{{registration?.registerDateTime | date: 'shortDate' : '' : 'pt-BR'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="2" *ngIf="!registration.isValid" class="ion-text-center"
+                  style="padding-left:0px; padding-right:0px;">
+                  <div style="font-weight: 600">
+                    <ion-label>Fatura</ion-label>
+                  </div>
+                  <h1>
+                    <a (click)="seeInvoice(registration)">
+                      <ion-icon name="reader-outline" color="primary"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+                <ion-col size="2" class="ion-text-center" style="padding-left:0px; padding-right:0px;"
+                  *ngIf="registration.isValid">
+                  <div style="font-weight: 600">
+                    <ion-label>Cancelar</ion-label>
+                  </div>
+                  <h1>
+                    <a (click)="presentAlertConfirm(registration)">
+                      <ion-icon name="close-outline" color="danger"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin: 0px -5px -10px -5px;" class="bg-translucent-primary"
+                *ngIf="!registration.isValid">
+                <ion-col size="12" style="padding: 0;" class="ion-text-center">
+                  <small>Aguardando pagamento</small>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        <ion-text *ngIf="!registrations || registrations.length == 0">
+          <h6 style="padding-left: 26px;">Não há nenhuma matricula registrada.</h6>
+        </ion-text>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

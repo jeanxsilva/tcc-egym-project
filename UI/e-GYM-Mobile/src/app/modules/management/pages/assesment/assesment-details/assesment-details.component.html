@@ -1,0 +1,143 @@
+<app-header [title]="'Detalhes da avaliação'" [withOverflow]="true" defaultBack="assesment"></app-header>
+<ion-grid style="width: 100%; z-index: 1000;margin-top: -50px;" class="wrapper" scrollY="true">
+    <ion-row *ngIf="assesment">
+        <ion-col size="12">
+            <ion-card>
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col size="5">
+                            <div style="font-weight: 600">
+                                <ion-label>Idade no momento</ion-label>
+                            </div>
+                            {{assesment.studentCaracteristics.ageAtMoment}} anos
+                        </ion-col>
+                        <ion-col size="7">
+                            <div style="font-weight: 600">
+                                <ion-label>Objetivo</ion-label>
+                            </div>
+                            {{assesment.studentGoal}}
+                        </ion-col>
+                    </ion-row>
+
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 8px;" *ngIf="assesment">
+        <ion-col size="12">
+            <fieldset>
+                <legend>Medidas do aluno</legend>
+                <ion-row>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Peso</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.weight}}kg
+                    </ion-col>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Altura</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.height}}cm
+                    </ion-col>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Abdominal</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.abdominal}}mm
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Tríceps</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.triceps}}mm
+                    </ion-col>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Peito</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.chest}}mm
+                    </ion-col>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Coxa</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.thigh}}mm
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="3">
+                        <div style="font-weight: 600">
+                            <ion-label>Subaxilar</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.subaxillary}}mm
+                    </ion-col>
+                    <ion-col size="5">
+                        <div style="font-weight: 600">
+                            <ion-label>Subescapular</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.subscapular}}mm
+                    </ion-col>
+                    <ion-col size="4">
+                        <div style="font-weight: 600">
+                            <ion-label>Suprailíaco</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.suprailiac}}mm
+                    </ion-col>
+                </ion-row>
+            </fieldset>
+        </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 8px;" *ngIf="assesment">
+        <ion-col size="12">
+            <fieldset>
+                <legend>Resultados obtidos</legend>
+                <ion-row>
+                    <ion-col size="6">
+                        <div style="font-weight: 600">
+                            <ion-label>Massa magra</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.leanMass | number: '1.3-3'}} kg
+                    </ion-col>
+                    <ion-col size="6">
+                        <div style="font-weight: 600">
+                            <ion-label>Massa gorda</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.fatMass | number: '1.3-3'}} kg
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <div style="font-weight: 600">
+                            <ion-label>Percentual de gordura</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.fatPercentage | number: '1.3-3'}} %
+                    </ion-col>
+                    <ion-col size="6">
+                        <div style="font-weight: 600">
+                            <ion-label>Densidade corporal</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.bodyDensity | number: '1.3-3'}} kg/m²
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <div style="font-weight: 600">
+                            <ion-label>Taxa metabólica basal</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.basalMetabolicRate | number: '1.3-3'}} cal/dia
+                    </ion-col>
+                    <ion-col size="12">
+                        <div style="font-weight: 600">
+                            <ion-label>Indice de massa corporal</ion-label>
+                        </div>
+                        {{assesment.studentCaracteristics.bodyMassIndex | number: '1.3-3'}} g/ml
+                    </ion-col>
+
+                </ion-row>
+            </fieldset>
+        </ion-col>
+    </ion-row>
+</ion-grid>

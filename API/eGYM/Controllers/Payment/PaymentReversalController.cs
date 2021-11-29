@@ -13,7 +13,7 @@ namespace eGYM
         [HttpPost]
         [Authorize]
         [Route("CancelReversal")]
-        public async Task<dynamic> CancelReversal(int reversalId)
+        public async Task<dynamic> CancelReversal([FromBody] int reversalId)
         {
             try
             {

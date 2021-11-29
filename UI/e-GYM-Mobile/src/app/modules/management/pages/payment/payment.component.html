@@ -1,0 +1,100 @@
+<app-header [title]="'Pagamentos'"></app-header>
+<ion-grid style="width: 100%;" class="wrapper" scrollY="true">
+  <ion-row style="margin-top: 8px;">
+    <ion-col size="12">
+      <h6 class="heading-small">Estornos em aberto</h6>
+      <ion-list *ngIf="paymentReversals && paymentReversals.length > 0">
+        <ng-container *ngFor="let paymentReversal of paymentReversals">
+          <ion-card class="list-card">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="3">
+                  <div style="font-weight: 600">
+                    <ion-label>Razão</ion-label>
+                  </div>
+                  <ion-label>{{paymentReversal?.reason}}</ion-label>
+                </ion-col>
+                <ion-col size="5" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Ultima atualização</ion-label>
+                  </div>
+                  <ion-label>{{paymentReversal?.lastModifiedDateTime | date: 'shortDate' : '' : 'pt-BR'}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="2" class="ion-text-center" style="padding-left:0px; padding-right:0px;">
+                  <div style="font-weight: 600">
+                    <ion-label>Cancelar</ion-label>
+                  </div>
+                  <h1>
+                    <a (click)="presentAlertConfirm(paymentReversal)">
+                      <ion-icon name="close-outline" color="danger"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <!-- <ion-row style="margin: 0px -5px -10px -5px;" class="" [ngClass]="{
+                'bg-translucent-success':!payment.paymentReversals || payment.paymentReversals.length == 0,
+                'bg-translucent-danger': payment.paymentReversals && payment.paymentReversals.length > 0
+              }">
+                <ion-col size="12" style="padding: 0;" class="ion-text-center">
+                  <small
+                    *ngIf="payment.paymentReversals && payment.paymentReversals.length > 0">Estorno: {{payment.paymentReversals[0].paymentReversalStatus.description}}</small>
+                    <small *ngIf="!payment.paymentReversals || payment.paymentReversals.length == 0">Pago</small>
+                </ion-col>
+              </ion-row> -->
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+      </ion-list>
+      <ion-text *ngIf="!paymentReversals || paymentReversals.length == 0">
+        <h6 style="padding-left: 26px;">Não há nenhum estorno em aberto.</h6>
+      </ion-text>
+    </ion-col>
+    <ion-col size="12">
+      <h6 class="heading-small">Histórico de pagamentos</h6>
+      <ion-list>
+        <ng-container *ngFor="let payment of payments">
+          <ion-card class="list-card">
+            <ion-card-content>
+              <ion-row class="list-card-row">
+                <ion-col size="5">
+                  <div style="font-weight: 600">
+                    <ion-label>Data de pagamento</ion-label>
+                  </div>
+                  <ion-label>{{payment?.paymentDateTime | date: 'shortDate' : '' : 'pt-BR'}}</ion-label>
+                </ion-col>
+                <ion-col size="5" class="ion-text-center">
+                  <div style="font-weight: 600; text-align: center;">
+                    <ion-label>Tipo de pagamento</ion-label>
+                  </div>
+                  <ion-label>{{payment?.paymentType?.description}}
+                  </ion-label>
+                </ion-col>
+                <ion-col size="2" class="ion-align-self-center ion-text-center" style="padding:0px;">
+                  <h1>
+                    <a (click)="seeDetails(payment?.invoice?.id)">
+                      <ion-icon name="reader-outline" color="primary"></ion-icon>
+                    </a>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row style="margin: 0px -5px -10px -5px;" class="" [ngClass]="{
+                'bg-translucent-success':!payment.paymentReversals || payment.paymentReversals.length == 0,
+                'bg-translucent-danger': payment.paymentReversals && payment.paymentReversals.length > 0
+              }">
+                <ion-col size="12" style="padding: 0;" class="ion-text-center">
+                  <small *ngIf="payment.paymentReversals && payment.paymentReversals.length > 0">Estorno:
+                    {{payment.paymentReversals[0].paymentReversalStatus.description}}</small>
+                  <small *ngIf="!payment.paymentReversals || payment.paymentReversals.length == 0">Pago</small>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        <ion-text *ngIf="!payments || payments.length == 0">
+          <h6 style="padding-left: 26px;">Não há nenhum pagamento registrado.</h6>
+        </ion-text>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
