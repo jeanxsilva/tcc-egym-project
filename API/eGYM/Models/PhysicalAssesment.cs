@@ -14,7 +14,9 @@ namespace eGYM.Models
         public DateTime RegisterDateTime { get; set; }
         public int? ScheduledPhysicalAssesmentId { get; set; }
         public int StudentCaracteristicsId { get; set; }
+        public int? CompanyUnitId { get; set; }
 
+        public virtual CompanyUnit CompanyUnit { get; set; }
         public virtual Employee RegisteredByEmployee { get; set; }
         public virtual PhysicalAssesmentScheduled ScheduledPhysicalAssesment { get; set; }
         public virtual StudentRegistration Student { get; set; }

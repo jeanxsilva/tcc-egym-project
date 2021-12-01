@@ -119,7 +119,7 @@ namespace eGYM
 
                         studentRegistration.User = savedUser;
                         studentRegistration.RegisterDateTime = DateTime.UtcNow.ToLocalTime();
-                        studentRegistration.Code = DateTime.UtcNow.Year.ToString() + DateTime.UtcNow.Month.ToString() + savedUser.RegisterCode;
+                        studentRegistration.Code = savedUser.RegisterCode;
 
                         StudentRegistration savedStudentRegistration = await this.Repository.InsertOrUpdate(studentRegistration);
                         if (savedStudentRegistration == null)
@@ -130,8 +130,8 @@ namespace eGYM
 
                         if (isNew && registrationModalityClasses.Count > 0)
                         {
-                            Invoice invoice = await this.invoiceService.GenerateInvoice(registrationModalityClasses, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura do aluno");
-                            if (invoice == null)
+                            bool generatedInvoices = await this.invoiceService.GenerateInvoices(registrationModalityClasses, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura do aluno");
+                            if (!generatedInvoices)
                             {
                                 dbContextTransaction.Rollback();
                                 throw new Exception("Não foi possivel gerar a fatura do aluno.");
@@ -234,7 +234,11 @@ namespace eGYM
                     if (!registration.IsValid)
                     {
                         Invoice invoice = await this.registrationModalityClassService.GetLastInvoiceGenerated(registration);
-                        invoices.Add(invoice);
+
+                        if (invoice != null)
+                        {
+                            invoices.Add(invoice);
+                        }
                     }
                 }
             }
@@ -245,10 +249,14 @@ namespace eGYM
             }
 
             List<RegistrationModalityClass> toInsertRegistrations = registrations.Where(r => r.Id == 0).ToList();
-            List<RegistrationModalityClass> toCancelRegistrations = registrations.Where(r => r.Id != 0).ToList();
             if (toInsertRegistrations.Count != 0)
             {
                 await this.invoiceService.GenerateInvoices(toInsertRegistrations, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura da modalidade");
+            }
+
+            if ((toInsertRegistrations.Count == 0 && invoices.Count == 0) && registrations.Count > 0)
+            {
+                await this.registrationModalityClassService.SaveAsync(registrations);
             }
 
             //return await this.registrationModalityClassService.SaveAsync(toCancelRegistrations);

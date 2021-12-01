@@ -126,7 +126,7 @@ namespace eGYM
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", policyBuilder => policyBuilder
-                    .WithOrigins("http://localhost:4200", "http://localhost:5000", "http://localhost:8100", "http://192.168.1.10:8100")
+                    .WithOrigins("http://localhost:4200", "http://localhost:5000", "http://localhost:8100", "http://192.168.1.10:8100", "https://tcc-egym-project.vercel.app/")
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyMethod()
                     .AllowAnyHeader()

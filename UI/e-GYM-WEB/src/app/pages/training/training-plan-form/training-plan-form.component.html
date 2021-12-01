@@ -4,10 +4,12 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label class="form-control-label" for="student">Escolha um aluno</label>
+                        <label class="form-control-label" for="student">Escolha um aluno <span
+                                class="text-danger">*</span></label>
                         <select id="student" name="student" class="form-control form-control-alternative"
                             [(ngModel)]="student" (change)="onChangeStudent()">
-                            <option *ngFor="let student of studentList" [ngValue]="student">{{student.user.name}}
+                            <option *ngFor="let student of studentList" [ngValue]="student">{{student.code + ' / ' +
+                                student.user.name}}
                             </option>
                         </select>
                         <span class="text-muted" style="font-size: 12px;">Somente alunos com avaliação fisica
@@ -198,7 +200,7 @@
                                             <div class="col-3">
                                                 <label class="form-control-label" for="exercise">
                                                     Exercicio <span class="text-danger">*</span></label>
-                                                <p class="text-break">{{trainingPlanExercise.get('exercise') ?
+                                                <p class="text-break text-truncate">{{trainingPlanExercise.get('exercise') ?
                                                     trainingPlanExercise.get('exercise').value['description']
                                                     : ''}}</p>
                                             </div>

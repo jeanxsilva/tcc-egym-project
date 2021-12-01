@@ -15,7 +15,9 @@ namespace eGYM.Models
         public DateTime ExpireDateTime { get; set; }
         public DateTime RegisterDateTime { get; set; }
         public int PublishedByUserId { get; set; }
+        public int? CompanyUnitId { get; set; }
 
+        public virtual CompanyUnit CompanyUnit { get; set; }
         public virtual User PublishedByUser { get; set; }
     }
 }

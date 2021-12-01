@@ -187,7 +187,7 @@ namespace eGYM
             PaymentReversal paymentReversal = studentRequest.PaymentReversal;
             if (paymentReversal != null)
             {
-                paymentReversal.PaymentReversalStatus = await this.paymentReversalStatusRepository.GetById(paymentReversal.PaymentReversalStatusId);
+                paymentReversal.PaymentReversalStatus = await this.paymentReversalStatusRepository.GetById((int)PaymentReversalStatusEnum.Canceled);
                 await paymentReversalRepository.InsertOrUpdate(paymentReversal);
             }
 

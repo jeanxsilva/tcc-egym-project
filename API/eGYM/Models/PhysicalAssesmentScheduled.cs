@@ -20,7 +20,9 @@ namespace eGYM.Models
         public bool WasCanceled { get; set; }
         public string Note { get; set; }
         public DateTime ScheduledToDate { get; set; }
+        public int? CompanyUnitId { get; set; }
 
+        public virtual CompanyUnit CompanyUnit { get; set; }
         public virtual StudentRegistration StudentRegistration { get; set; }
         public virtual ICollection<PhysicalAssesment> PhysicalAssesments { get; set; }
         public virtual ICollection<StudentRequest> StudentRequests { get; set; }

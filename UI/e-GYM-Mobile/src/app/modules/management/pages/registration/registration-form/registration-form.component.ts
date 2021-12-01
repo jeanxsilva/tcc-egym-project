@@ -118,7 +118,7 @@ export class RegistrationFormComponent implements OnInit {
       .AddEntity("user")
       .AddColumn("name");
     queryBuilder.AddEntity("modality")
-      .AddColumn("id")
+      .AddColumn("id").AddColumn("price")
       .AddColumn("description");
 
     console.log(queryBuilder.GetQuery().ToString());

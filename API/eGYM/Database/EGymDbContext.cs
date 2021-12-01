@@ -252,6 +252,8 @@ namespace eGYM.Models
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
+                entity.Property(e => e.Code).HasMaxLength(20);
+
                 entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
 
                 entity.Property(e => e.DueDate).HasColumnType("date");
@@ -335,7 +337,11 @@ namespace eGYM.Models
 
                 entity.HasIndex(e => e.PublishedByUserId, "fk_LastNews_user1_idx");
 
+                entity.HasIndex(e => e.CompanyUnitId, "fk_Last_News_company_unit1_idx");
+
                 entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Content)
                     .IsRequired()
@@ -354,6 +360,11 @@ namespace eGYM.Models
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(45);
+
+                entity.HasOne(d => d.CompanyUnit)
+                    .WithMany(p => p.LastNews)
+                    .HasForeignKey(d => d.CompanyUnitId)
+                    .HasConstraintName("fk_Last_News_company_unit1");
 
                 entity.HasOne(d => d.PublishedByUser)
                     .WithMany(p => p.LastNews)
@@ -647,7 +658,11 @@ namespace eGYM.Models
 
                 entity.HasIndex(e => e.StudentCaracteristicsId, "fk_physical_assesment_StudentCaracteristics1_idx");
 
+                entity.HasIndex(e => e.CompanyUnitId, "fk_physical_assesment_company_unit1_idx");
+
                 entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
 
                 entity.Property(e => e.RegisterDateTime).HasColumnType("datetime");
 
@@ -660,6 +675,11 @@ namespace eGYM.Models
                 entity.Property(e => e.StudentGoal).HasMaxLength(45);
 
                 entity.Property(e => e.StudentId).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.CompanyUnit)
+                    .WithMany(p => p.PhysicalAssesments)
+                    .HasForeignKey(d => d.CompanyUnitId)
+                    .HasConstraintName("fk_physical_assesment_company_unit1");
 
                 entity.HasOne(d => d.RegisteredByEmployee)
                     .WithMany(p => p.PhysicalAssesments)
@@ -694,7 +714,11 @@ namespace eGYM.Models
 
                 entity.HasIndex(e => e.StudentRegistrationId, "fk_PhysicalAssesmentScheduled_StudentRegistration1_idx");
 
+                entity.HasIndex(e => e.CompanyUnitId, "fk_physical_assesment_scheduled_company_unit1_idx");
+
                 entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.CompanyUnitId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Note).HasMaxLength(255);
 
@@ -703,6 +727,11 @@ namespace eGYM.Models
                 entity.Property(e => e.ScheduledToDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StudentRegistrationId).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.CompanyUnit)
+                    .WithMany(p => p.PhysicalAssesmentScheduleds)
+                    .HasForeignKey(d => d.CompanyUnitId)
+                    .HasConstraintName("fk_physical_assesment_scheduled_company_unit1");
 
                 entity.HasOne(d => d.StudentRegistration)
                     .WithMany(p => p.PhysicalAssesmentScheduleds)
@@ -1083,7 +1112,7 @@ namespace eGYM.Models
 
                 entity.Property(e => e.AddressCode)
                     .IsRequired()
-                    .HasMaxLength(8);
+                    .HasMaxLength(12);
 
                 entity.Property(e => e.AddressNumber).HasColumnType("int(11)");
 

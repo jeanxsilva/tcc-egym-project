@@ -10,7 +10,6 @@ namespace eGYM.Models
     {
         public int Id { get; set; }
         public string Login { get; set; }
-
         [NotMapped]
         public string Password { get; set; }
         public string PasswordEncrypted { get; set; }

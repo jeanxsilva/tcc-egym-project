@@ -53,7 +53,7 @@ INSERT INTO `egym_db`.`user_level_access`(`Id`,`Description`,`Path`,`IconKey`,`U
 	(21, "Listar treinos", "/trainings", "fas fa-list", 10, false, 20),
 	(22, "Registrar novo treino", "/training/create", "fas fa-plus text-success", 10, false, 20),
     
-	(23, "Gerenciar requisições", "", "fas fa-list", 10, true, null),
+	(23, "Gerenciar requisições", "", "fas fa-stream", 10, true, null),
     
 	(24, "Gerenciar exercicios", "", "fas fa-dumbbell", 10, true, null),
 	(25, "Listar exercicios", "/exercises", "fas fa-list", 10, false, 24),
@@ -88,7 +88,7 @@ INSERT INTO `egym_db`.`user_level_access`(`Id`,`Description`,`Path`,`IconKey`,`U
     ('47', 'Gerenciar treinos', '', 'fas fa-dumbbell', '1', '1', NULL),
 	('48', 'Listar treinos', '/trainings', 'fas fa-list', '1', '0', '47'),
 	('49', 'Registrar novo treino', '/training/create', 'fas fa-plus text-success', '1', '0', '47'),
-	(50, "Gerenciar requisições", "", "fas fa-list", 1, true, null),
+	(50, "Gerenciar requisições", "", "fas fa-stream", 1, true, null),
 	
     ('51', 'Dashboard', '/dashboard', 'fas fa-tachometer-alt', '2', '0', NULL),
 	('52', 'Matriculas', '/registration', 'fas fa-list', '2', '0', NULL),
@@ -131,7 +131,7 @@ INSERT INTO `egym_db`.`user_level_access`(`Id`,`Description`,`Path`,`IconKey`,`U
 	('81', 'Listar treinos', '/trainings', 'fas fa-list', '99', '0', '80'),
 	('82', 'Registrar novo treino', '/training/create', 'fas fa-plus text-success', '99', '0', '80'),
 	
-	(83, "Gerenciar requisições", "", "fas fa-list", 99, true, null),
+	(83, "Gerenciar requisições", "", "fas fa-stream", 99, true, null),
     ('84', 'Gerenciar exercicios', '', 'fas fa-dumbbell', '99', '1', NULL),
 	('85', 'Listar exercicios', '/exercises', 'fas fa-list', '99', '0', '84'),
 	('86', 'Registrar novo exercicio', '/exercise/create', 'fas fa-plus text-success', '99', '0', '84'),
@@ -383,8 +383,8 @@ INSERT INTO `egym_db`.`modality_payment_type`(`Id`,`Description`)
 	(3, "Anual");
 INSERT INTO `egym_db`.`modality_class` (`ModalityId`,`StartTime`,`EndTime`,`InstructorId`,`TotalVacancies`,`TotalActiveMembers`,`CompanyUnitId`)
 	VALUES
-	(1,"19:00:00","20:00:00",1, 30, 0, 1),
-	(2,"06:00:00","23:00:00",1, 999, 0, 1);
+	(1,"06:00:00","23:00:00",1, 999, 0, 1),
+	(2,"19:00:00","20:00:00",1, 30, 0, 1);
 
 INSERT INTO `egym_db`.`payment_reversal_status`(`Id`, `Description`)
 	VALUES

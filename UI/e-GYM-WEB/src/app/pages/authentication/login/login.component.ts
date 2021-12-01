@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
     console.log(this.formLogin);
 
     this.authService.AuthenticateUser(this.formLogin.value).subscribe((response: any) => {
-      if (response.isAuthenticated) {
+      console.log(response);
+      if (response && response.isAuthenticated) {
         this.router.navigate(['dashboard']);
       } else {
         this.message = response.message;

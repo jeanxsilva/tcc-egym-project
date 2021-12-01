@@ -1,7 +1,7 @@
 <app-base-card title="Avaliações fisicas agendadas" [hideFooter]="true">
     <div class="row">
         <div class="col-12">
-            <label class="form-control-label" for="name">Selecione um horário <span class="text-danger">*</span></label>
+            <label class="form-control-label" for="name">Selecione um agendamento <span class="text-danger">*</span></label>
             <app-fullcalendar (onClickEvent)="handleEvent($event)" [events]="events" [options]="options">
             </app-fullcalendar>
         </div>

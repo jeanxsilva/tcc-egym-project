@@ -23,6 +23,7 @@ namespace eGYM.Models
         public int StudentId { get; set; }
         public string Note { get; set; }
         public bool IsByRequest { get; set; }
+        public string Code { get; set; }
 
         public virtual CompanyUnit CompanyUnit { get; set; }
         public virtual InvoiceStatus InvoiceStatus { get; set; }
