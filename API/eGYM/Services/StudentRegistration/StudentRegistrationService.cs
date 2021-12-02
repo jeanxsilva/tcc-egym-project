@@ -130,8 +130,8 @@ namespace eGYM
 
                         if (isNew && registrationModalityClasses.Count > 0)
                         {
-                            bool generatedInvoices = await this.invoiceService.GenerateInvoices(registrationModalityClasses, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura do aluno");
-                            if (!generatedInvoices)
+                            Invoice generatedInvoice = await this.invoiceService.GenerateInvoice(registrationModalityClasses, studentRegistration, DateTime.UtcNow.ToLocalTime(), false, "Primeira fatura do aluno");
+                            if (generatedInvoice == null)
                             {
                                 dbContextTransaction.Rollback();
                                 throw new Exception("Não foi possivel gerar a fatura do aluno.");
