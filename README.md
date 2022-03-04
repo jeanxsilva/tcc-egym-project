@@ -15,3 +15,9 @@ Para os clientes/usuários da academia, foi desenvolvido um aplicativo mobile pa
 
 Devido ao prazo, o presente projeto não se encontra nos níveis ideais com relação a estrutura de código e boas práticas.
 Com o tempo pretendo refatorar o código.
+
+## Login WEB
+![Captura de Tela (46)](https://user-images.githubusercontent.com/60391387/156677733-cb37c8c8-dc3a-47d2-9f18-302dc9c71a20.png)
+
+## Login mobile
+![Captura de Tela (45)](https://user-images.githubusercontent.com/60391387/156677636-83021b35-763f-41c8-aaa0-742ceb9cb980.png)
