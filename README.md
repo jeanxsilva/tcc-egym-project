@@ -1,4 +1,4 @@
-# Trabalho conclusão de curso - EGYM Sistema para Academia
+# Trabalho conclusão de curso - EGYM Sistema para Academias
 
 ## Breve descrição
 
