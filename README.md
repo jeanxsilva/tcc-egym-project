@@ -8,5 +8,5 @@ Para o gestor foi disponibilizado um sistema web de gestão macro da organizaç�
 - visualização do fluxo de usuários,
 - avaliação física e
 - controle de pagamentos;
-- 
+
 Para os clientes/usuários da academia, será disponibilizado um aplicativo mobile para que possam gerenciar suas rotinas na academia, além do acompanhamento de progresso, gestão de matrícula e solicitações referentes a processos da academia.
